@@ -231,11 +231,36 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   .kpi{padding:10px 12px}
 }
 
+/* ---------- themes (admin): light / dark / off-white ---------- */
+body,.card,.kpi,.tscroll,.box,header,.field input,.field select,.field textarea,.setrow input,.search input,select.sel,.addrsub,.pcell,.fsection,.btn,.hbtn{transition:background .25s ease,color .25s ease,border-color .25s ease}
+body.theme-offwhite{--bg:#f5f0e6;--card:#fffdf7;--line:#e6dcc8}
+body.theme-dark{--bg:#0b1220;--card:#131d33;--tx:#e4eaf5;--mut:#8fa0b8;--line:#28375a;--p:#6ea3e8;--pd:#9cc3f2;--shadow:0 1px 3px rgba(0,0,0,.45),0 4px 14px rgba(0,0,0,.35)}
+body.theme-dark header{background:#0f1a30;border-bottom-color:var(--line)}
+body.theme-dark .card,body.theme-dark .kpi,body.theme-dark .tscroll,body.theme-dark .box,body.theme-dark .addrsub,body.theme-dark .pcell,body.theme-dark .fsection{background:var(--card)}
+body.theme-dark .field input,body.theme-dark .field select,body.theme-dark .field textarea,body.theme-dark .setrow input,body.theme-dark .search input,body.theme-dark select.sel,body.theme-dark .pbtns button,body.theme-dark .mini,body.theme-dark select option{background:#0d1730;color:var(--tx);border-color:var(--line)}
+body.theme-dark .field label,body.theme-dark .setrow label,body.theme-dark .blabel,body.theme-dark .bval,body.theme-dark .yval{color:#c9d4e8}
+body.theme-dark .tbl th{background:#0f1930}
+body.theme-dark .tbl td{border-bottom-color:#1d2a47}
+body.theme-dark .tbl tbody tr:hover{background:#182447}
+body.theme-dark .btrack{background:#1d2a47}
+body.theme-dark .tag,body.theme-dark .pcode,body.theme-dark #syncBadge,body.theme-dark #userChip,body.theme-dark .hbtn,body.theme-dark code.k,body.theme-dark .rb.viewer{background:#1a2640;border-color:var(--line);color:var(--tx)}
+body.theme-dark .hbtn:hover,body.theme-dark .mini:hover{background:#22304f}
+body.theme-dark .btn:not(.g):not(.r){background:#182447;border-color:var(--line);color:var(--tx)}
+body.theme-dark .note{background:#122544;border-color:#274b82;color:#b7d3f8}
+body.theme-dark .note.warn{background:#332307;border-color:#6b5216;color:#fbd38d}
+body.theme-dark .resignbox{background:#2b1212;border-color:#5f1d1d;color:#fcb4b4}
+body.theme-dark .tokstat.y{background:#0d3320;color:#6ee7a0}
+body.theme-dark .tokstat.n{background:#3a1212;color:#f8a5a5}
+body.theme-dark .kpi .ki{background:color-mix(in srgb,var(--kc,var(--p)) 25%,#0d1730)}
+body.theme-dark .photoprev{background:#0d1730;border-color:var(--line);color:var(--mut)}
+body.theme-dark .mini.d{color:#f87171}
+body.theme-dark .mini.d:hover{background:#3a1212}
+
 /* ---------- print ---------- */
 #printArea{display:none}
 @media print{
-  body{zoom:1 !important}
-  body>*{display:none !important}
+  body{zoom:1 !important;background:#fff !important}
+  body>*:not(#printArea){display:none !important}
   #printArea{display:block !important;font-size:13px}
   .pcell{break-inside:avoid}
 }
@@ -243,7 +268,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 
 /* ---------- responsive: identical desktop layout at every screen size ---------- */
 @media (max-width:620px){
-  body{zoom:.65}
+  body{zoom:.7}
   nav#side{width:128px;flex:0 0 128px}
   .navbtn{font-size:11px;padding:8px 6px}
   .bname{font-size:12.5px}
@@ -253,7 +278,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   #btnLang,#btnLogout{padding:7px 9px}
 }
 @media (max-width:430px){
-  body{zoom:.55}
+  body{zoom:.6}
 }
 </style>
 </head>
@@ -281,6 +306,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   <span id="syncBadge"><span class="dot"></span><span id="syncTxt"></span></span>
   <span id="userChip">👤 <span class="un" id="ucName"></span><span class="urole" id="ucRole"></span></span>
   <button class="hbtn" id="btnLogout" title="Logout">⏻</button>
+  <button class="hbtn ad-only" id="btnTheme" title="Theme / থিম">☀️</button>
   <button class="hbtn" id="btnLang" title="Language / ভাষা">বাংলা</button>
 </header>
 
@@ -674,10 +700,10 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   </div>
 </div></div>
 
-<div id="printArea"></div>
 <div id="toast"></div>
 <div><datalist id="dlDept"></datalist><datalist id="dlSec"></datalist><datalist id="dlLoc"></datalist><datalist id="dlDesig"></datalist><datalist id="dlCodes"></datalist></div>
 </div><!-- /appShell -->
+<div id="printArea"></div>
 <script>
 'use strict';
 /* ================= SAFE STORAGE ================= */
@@ -689,7 +715,7 @@ const I18N={
 en:{
   menuMain:'Main',menuAdmin:'Administration',navDash:'Dashboard',navList:'Employees',navAdd:'Add Employee',navSettings:'Settings',navUsers:'User Accounts',
   dashTitle:'Dashboard',listTitle:'Employees',formAdd:'Add New Employee',formEdit:'Edit Employee',setTitle:'Settings',
-  byDept:'Employees by Department',byLoc:'Employees by Job Location',byYear:'New Joining by Year',bdayTitle:'🎂 Birthdays this month',
+  byDept:'Employees by Department',byLoc:'Employees by Job Location',byYear:'New Joining by Year',bdayTitle:'🎂 Birthdays this week',
   kTotal:'Total Employees',kActive:'Active',kResigned:'Resigned',kNew:'Joined this year',
   allDept:'All departments',allLoc:'All locations',allSt:'All status',stActive:'Active',stResigned:'Resigned',
   sortCode:'Sort: Emp Code',sortName:'Sort: Name',sortJoin:'Sort: Newest joined',sortJoinA:'Sort: Longest service',
@@ -727,7 +753,7 @@ en:{
   tenure:'Service',age:'Age',y:'y',m:'m',lastWork:'Last working day',
   printTitle:'Employee Record — Abid Enterprise',printGen:'Generated',
   thPrint:'Print',editBt:'Edit',resignBt:'Resign',reinstateBt:'Reinstate',fsJob:'Job Information',fsPersonal:'Personal Information',fsFamilyL:'Family',
-  bdayNone:'No birthdays this month.',bdayDay:'day',
+  bdayNone:'No birthdays this week.',bdayDay:'day',bdayToday:'Today',bdayTmrw:'Tomorrow',
   setGitNote:'All data is stored ENCRYPTED (AES-GCM) in your repository. Visitors see only the login screen. Only users you create can open the records. Writes use the encrypted GitHub token stored here.',
   setBackupNote:'Excel: File → Save As → "CSV UTF-8" or upload the .xlsx directly. Columns are auto-matched (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…). Same Emp Code = update, new code = add. Keep a JSON backup at least monthly — if the admin password is ever lost, the backup is the only way to recover data!',
   resetDone:'Local device data cleared.',localStat:'records cached on this device',
@@ -768,7 +794,7 @@ en:{
 bn:{
   menuMain:'মূল মেনু',menuAdmin:'প্রশাসন',navDash:'ড্যাশবোর্ড',navList:'কর্মী তালিকা',navAdd:'নতুন কর্মী',navSettings:'সেটিংস',navUsers:'ইউজার একাউন্ট',
   dashTitle:'ড্যাশবোর্ড',listTitle:'কর্মী তালিকা',formAdd:'নতুন কর্মী যোগ করুন',formEdit:'কর্মীর তথ্য সম্পাদনা',setTitle:'সেটিংস',
-  byDept:'বিভাগ অনুযায়ী কর্মী',byLoc:'কর্মস্থল অনুযায়ী কর্মী',byYear:'বছর অনুযায়ী নতুন যোগদান',bdayTitle:'🎂 এই মাসের জন্মদিন',
+  byDept:'বিভাগ অনুযায়ী কর্মী',byLoc:'কর্মস্থল অনুযায়ী কর্মী',byYear:'বছর অনুযায়ী নতুন যোগদান',bdayTitle:'🎂 এই সপ্তাহের জন্মদিন',
   kTotal:'মোট কর্মী',kActive:'কর্মরত',kResigned:'ইস্তেফাপ্রাপ্ত',kNew:'এ বছর যোগ দিয়েছেন',
   allDept:'সব বিভাগ',allLoc:'সব কর্মস্থল',allSt:'সব অবস্থা',stActive:'কর্মরত',stResigned:'ইস্তেফাপ্রাপ্ত',
   sortCode:'সাজান: কর্মী কোড',sortName:'সাজান: নাম',sortJoin:'সাজান: নতুন যোগদান আগে',sortJoinA:'সাজান: দীর্ঘ চাকরি আগে',
@@ -806,7 +832,7 @@ bn:{
   tenure:'চাকরির মেয়াদ',age:'বয়স',y:'বছর',m:'মাস',lastWork:'শেষ কর্মদিবস',
   printTitle:'কর্মী রেকর্ড — আবিদ এন্টারপ্রাইজ',printGen:'তৈরি',
   thPrint:'প্রিন্ট',editBt:'সম্পাদনা',resignBt:'ইস্তেফা',reinstateBt:'পুনরায় কর্মরত',fsJob:'চাকরির তথ্য',fsPersonal:'ব্যক্তিগত তথ্য',fsFamilyL:'পরিবার',
-  bdayNone:'এই মাসে কোনো জন্মদিন নেই।',bdayDay:'তারিখ',
+  bdayNone:'এই সপ্তাহে কোনো জন্মদিন নেই।',bdayDay:'তারিখ',bdayToday:'আজ',bdayTmrw:'আগামীকাল',
   setGitNote:'সব ডেটা আপনার রিপোজিটরিতে এনক্রিপ্টেড (AES-GCM) অবস্থায় থাকে। বাইরের কেউ শুধু লগইন স্ক্রিন দেখতে পায়। শুধু আপনার তৈরি ইউজাররাই রেকর্ড খুলতে পারবে। সংরক্ষণের জন্য এখানে এনক্রিপ্টেড গিটহাব টোকেন ব্যবহৃত হয়।',
   setBackupNote:'এক্সেল: File → Save As → "CSV UTF-8" অথবা সরাসরি .xlsx ফাইল আপলোড করুন। কলাম নিজে থেকেই মিলে যায় (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…)। একই Emp Code হলে আপডেট হবে, নতুন হলে যোগ হবে। অন্তত মাসে একবার JSON ব্যাকআপ নিন — অ্যাডমিন পাসওয়ার্ড হারালে ব্যাকআপই একমাত্র উপায়!',
   resetDone:'এই ডিভাইসের ডেটা মুছে ফেলা হয়েছে।',localStat:'রেকর্ড এই ডিভাইসে ক্যাশে আছে',
@@ -865,7 +891,7 @@ let EMP=[];
 let MODE='local';           // 'gh' | 'local'
 let GHSEC=null;             // security file content (users, wrapped keys, enc token)
 let SESSION=null;           // {user,role,keyObj(CryptoKey),tok}
-let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',branch:'main',dataPath:'data/employees.json',secPath:'data/security.json',photosDir:'photos'},
+let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',branch:'main',dataPath:'data/employees.json',secPath:'data/security.json',photosDir:'photos',theme:'light'},
   JSON.parse(store.getItem('hr_cfg')||'{}'));
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
@@ -1295,8 +1321,8 @@ function genReport(kind){
   const mName=monthName(+$('#repMonth').value),y=$('#repYear').value;
   const isJoin=kind==='join',dk=isJoin?'join':'resignDate';
   $('#repOut').innerHTML='<div style="font-weight:800;margin-bottom:8px">'+(isJoin?'🟢 '+t('repJoinTitle'):'📤 '+t('repResignTitle'))+' — '+esc(mName+' '+y)+' ('+t('repTotal')+': '+list.length+')</div>'+
-   (list.length?'<div class="tscroll"><table class="tbl" style="min-width:640px"><thead><tr><th>'+t('thCode')+'</th><th>'+t('thEmp')+'</th><th>'+t('thDesig')+'</th><th>'+t('fDeptEn')+'</th><th>'+t('fLocEn')+'</th><th>'+(isJoin?t('repDJoin'):t('repDResign'))+'</th><th>'+(isJoin?t('fRecType'):t('resignReason'))+'</th></tr></thead><tbody>'+
-   list.map(e=>'<tr><td>'+esc(e.code)+'</td><td>'+esc(displayName(e))+'</td><td>'+esc(displayDesig(e))+'</td><td>'+esc(e.deptEn||'')+'</td><td>'+esc(e.locEn||'')+'</td><td>'+fmtDate(e[dk])+'</td><td>'+(isJoin?recLabel(e):esc(e.resignReason||'—'))+'</td></tr>').join('')+'</tbody></table></div>'+
+   (list.length?'<div class="tscroll"><table class="tbl" style="min-width:640px"><thead><tr><th>'+t('thCode')+'</th><th>'+t('thEmp')+'</th><th>'+t('thDesig')+'</th><th>'+t('fDeptEn')+'</th><th>'+t('fLocEn')+'</th><th>'+(isJoin?t('repDJoin'):t('repDResign'))+'</th><th>'+(isJoin?t('fRecType'):t('resignReason'))+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>'+
+   list.map(e=>'<tr><td>'+esc(e.code)+'</td><td>'+esc(displayName(e))+'</td><td>'+esc(displayDesig(e))+'</td><td>'+esc(e.deptEn||'')+'</td><td>'+esc(e.locEn||'')+'</td><td>'+fmtDate(e[dk])+'</td><td>'+(isJoin?recLabel(e):esc(e.resignReason||'—'))+'</td><td>'+esc(e.status==='resigned'?t('stResigned'):t('stActive'))+'</td></tr>').join('')+'</tbody></table></div>'+
    '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" id="btnRepPrint">🖨 '+t('thPrint')+'</button><button class="btn sm o" id="btnRepCsv">⬇ CSV</button></div>'
    :'<div class="empty">'+t('repEmpty')+'</div>');
   if(list.length){
@@ -1310,16 +1336,22 @@ function genReport(kind){
   }
 }
 function printReport(isJoin,list,period){
-  const H=['#',t('thCode'),t('thEmp'),t('thDesig'),t('fDeptEn'),t('fLocEn'),isJoin?t('repDJoin'):t('repDResign'),isJoin?t('fRecType'):t('resignReason')];
+  const H=['#',t('thCode'),t('thEmp'),t('thDesig'),t('fDeptEn'),t('fLocEn'),isJoin?t('repDJoin'):t('repDResign'),isJoin?t('fRecType'):t('resignReason'),t('thStatus')];
   const cell=v=>'<td style="padding:6px 8px;border:1px solid #cbd5e1">'+v+'</td>';
   const th=h=>'<th style="padding:6px 8px;border:1px solid #cbd5e1;background:#eff6ff">'+h+'</th>';
-  const rows=list.map((e,i)=>'<tr>'+cell(i+1)+cell(esc(e.code))+cell(esc(displayName(e))+(e.nameBn?'<div style="font-size:11px;color:#475569">'+esc(e.nameBn)+'</div>':''))+cell(esc(displayDesig(e)))+cell(esc(e.deptEn||''))+cell(esc(e.locEn||''))+cell(fmtDate(isJoin?e.join:e.resignDate))+cell(isJoin?esc(recLabel(e)):esc(e.resignReason||'—'))+'</tr>').join('');
+  const rows=list.map((e,i)=>'<tr>'+cell(i+1)+cell(esc(e.code))+cell(esc(displayName(e))+(e.nameBn?'<div style="font-size:11px;color:#475569">'+esc(e.nameBn)+'</div>':''))+cell(esc(displayDesig(e)))+cell(esc(e.deptEn||''))+cell(esc(e.locEn||''))+cell(fmtDate(isJoin?e.join:e.resignDate))+cell(isJoin?esc(recLabel(e)):esc(e.resignReason||'—'))+cell(esc(e.status==='resigned'?t('stResigned'):t('stActive')))+'</tr>').join('');
   $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;padding:8px">'+
    '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+esc(brandName())+' — '+(isJoin?t('repJoinTitle'):t('repResignTitle'))+'</h2>'+
    '<div style="font-weight:700;margin:8px 0">'+esc(period)+' · '+t('repTotal')+': '+list.length+'</div>'+
    '<table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>'+H.map(th).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'+
    '<div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
   window.print();
+}
+function applyTheme(){
+  document.body.classList.remove('theme-dark','theme-offwhite');
+  if(CFG.theme==='dark')document.body.classList.add('theme-dark');
+  else if(CFG.theme==='offwhite')document.body.classList.add('theme-offwhite');
+  const b=$('#btnTheme');if(b)b.textContent=CFG.theme==='dark'?'🌙':(CFG.theme==='offwhite'?'📄':'☀️');
 }
 function renderDash(){
   fillRepMonth();
@@ -1346,8 +1378,12 @@ function renderDash(){
   const yMax=Math.max(1,...yEntries.map(d=>d[1]));
   $('#chartYear').innerHTML=yEntries.length?'<div class="ywrap">'+yEntries.map(d=>'<div class="ycol"><span class="yval">'+d[1]+'</span><div class="ybar" style="height:'+Math.max(4,Math.round(d[1]/yMax*100))+'%"></div><span class="ylab">'+d[0].slice(2)+'</span></div>').join('')+'</div>':'<div class="empty">—</div>';
   const mn=new Date().getMonth()+1;
-  const bd=act.filter(e=>+String(e.dob||'').slice(5,7)===mn).sort((a,b)=>(+String(a.dob).slice(8,10))-(+String(b.dob).slice(8,10)));
-  $('#bdayList').innerHTML=bd.length?bd.map(e=>'<div class="brow" style="cursor:pointer" data-act="profile" data-code="'+esc(e.code)+'">'+photoHTML(e,'s')+'<div style="flex:1;min-width:0"><div class="ellip" style="font-weight:700;font-size:14px">'+esc(displayName(e))+'</div><div class="sub">'+fmtDate(e.dob)+' · '+esc(displayDesig(e))+'</div></div><span class="bg" style="background:#fef3c7;color:#92400e">'+(+String(e.dob).slice(8,10))+' '+t('bdayDay')+'</span></div>').join(''):'<div class="empty">'+t('bdayNone')+'</div>';
+  const now0=new Date(),bd=[];
+  for(let off=0;off<7;off++){const dd=new Date(now0.getFullYear(),now0.getMonth(),now0.getDate()+off);
+    const mm=pad(dd.getMonth()+1),dy=pad(dd.getDate());
+    EMP.forEach(e=>{if(e.status!=='resigned'&&String(e.dob).slice(5,7)===mm&&String(e.dob).slice(8,10)===dy)bd.push({e:e,off:off,d:dd});});}
+  $('#bdayList').innerHTML=bd.length?bd.map(x=>{const e=x.e;const lbl=x.off===0?t('bdayToday'):x.off===1?t('bdayTmrw'):x.d.toLocaleDateString(LANG==='bn'?'bn-BD':'en-GB',{weekday:'long'});
+    return '<div class="brow" style="cursor:pointer" data-act="profile" data-code="'+esc(e.code)+'">'+photoHTML(e,'s')+'<div style="flex:1;min-width:0"><div class="ellip" style="font-weight:700;font-size:14px">'+esc(displayName(e))+'</div><div class="sub">'+fmtDate(e.dob)+' · '+esc(displayDesig(e))+'</div></div><span class="bg" style="background:#fef3c7;color:#92400e">🎂 '+lbl+'</span></div>';}).join(''):'<div class="empty">'+t('bdayNone')+'</div>';
   hydratePhotos();
 }
 
@@ -2019,6 +2055,9 @@ function bindEvents(){
   $('#btnRepJoin').addEventListener('click',()=>genReport('join'));
   $('#btnRepResign').addEventListener('click',()=>genReport('resign'));
   $('#f_recNew').addEventListener('change',()=>{$('#replRow').style.display=$('#f_recNew').checked?'none':'';});
+  $('#btnTheme').addEventListener('click',()=>{const order=['light','dark','offwhite'];
+    CFG.theme=order[(order.indexOf(CFG.theme||'light')+1)%3];saveCfg();applyTheme();
+    toast((CFG.theme==='dark'?'🌙 Dark':CFG.theme==='offwhite'?'📄 Off-white':'☀️ Light')+' theme','ok');});
   $('#ovResign').addEventListener('click',ev=>{if(ev.target.id==='ovResign')$('#ovResign').classList.remove('on');});
   $('#btnRpCancel').addEventListener('click',()=>{$('#ovPass').classList.remove('on');});
   $('#btnRpOk').addEventListener('click',()=>{if(passTarget){resetUserPass(passTarget,$('#rp_pass').value);$('#ovPass').classList.remove('on');}});
@@ -2058,7 +2097,7 @@ function bindEvents(){
 /* ================= INIT ================= */
 async function boot(){
   if(!window.crypto||!crypto.subtle){$('#authCard').innerHTML='<div class="autherr" style="display:block">'+t('noCrypto')+'</div>';return;}
-  bindEvents();
+  bindEvents();applyTheme();
   $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
   $('#authView').style.display='flex';
   // remembered session?
@@ -2096,6 +2135,5 @@ function fillDatalists(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39eee4fac20d4ac',t:'MTc4OTIxNjMwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f0dbc5bd33a25',t:'MTc4OTIxNzU5MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
