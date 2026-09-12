@@ -250,6 +250,23 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   .pacts{margin-left:0;width:100%}
   #userChip span.un{max-width:70px;overflow:hidden;text-overflow:ellipsis}
 }
+@media (max-width:480px){
+  .kpis{gap:10px}
+  .kpi{padding:12px 14px}
+  .kpi .kn{font-size:22px}
+  .kpi .ki{width:28px;height:28px}
+  .kpi .ki svg{width:16px;height:16px}
+  .pgrid{grid-template-columns:1fr}
+  .search{flex:1 1 100%}
+  select.sel{flex:1 1 40%;max-width:none}
+  .ov{padding:8px}
+  .box{padding:16px}
+  #userChip{font-size:10.5px;padding:4px 7px}
+  #userChip .urole{display:none}
+  #btnLang,#btnLogout{padding:7px 9px}
+  .vtitle .btn{flex:1 1 100%;justify-content:center}
+  .fgrid4{gap:8px}
+}
 </style>
 </head>
 <body>
@@ -413,21 +430,20 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             <div class="field" style="grid-column:1/-1"><label data-i="fContact">Contact Number (Emergency)</label><input id="f_contact" type="tel"></div>
             <div class="field" style="grid-column:1/-1"><label data-i="fAddrP">Present Address</label>
               <div class="fgrid4">
-                <div class="field"><input id="f_addrPv" data-ip="aVill"></div>
-                <div class="field"><input id="f_addrPp" data-ip="aPost"></div>
-                <div class="field"><input id="f_addrPs" data-ip="aPs"></div>
-                <div class="field"><input id="f_addrPd" data-ip="aDist"></div>
+                <div class="field"><label data-i="aVill">Village / House</label><input id="f_addrPv"></div>
+                <div class="field"><label data-i="aPost">Post Office</label><input id="f_addrPp"></div>
+                <div class="field"><label data-i="aPs">Police Station</label><input id="f_addrPs"></div>
+                <div class="field"><label data-i="aDist">District</label><input id="f_addrPd"></div>
               </div>
             </div>
             <div class="field" style="grid-column:1/-1"><label data-i="fAddrV">Permanent Address</label>
               <div class="fgrid4">
-                <div class="field"><input id="f_addrVv" data-ip="aVill"></div>
-                <div class="field"><input id="f_addrVp" data-ip="aPost"></div>
-                <div class="field"><input id="f_addrVs" data-ip="aPs"></div>
-                <div class="field"><input id="f_addrVd" data-ip="aDist"></div>
+                <div class="field"><label data-i="aVill">Village / House</label><input id="f_addrVv"></div>
+                <div class="field"><label data-i="aPost">Post Office</label><input id="f_addrVp"></div>
+                <div class="field"><label data-i="aPs">Police Station</label><input id="f_addrVs"></div>
+                <div class="field"><label data-i="aDist">District</label><input id="f_addrVd"></div>
               </div>
             </div>
-            <div class="field" style="grid-column:1/-1"><label data-i="nomAddr">Nominee Address</label><textarea id="f_nomAddr" rows="2"></textarea></div>
           </div>
         </div>
         <div class="fsection">
@@ -436,6 +452,14 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             <div class="field"><label data-i="nomName">Nominee Name</label><input id="f_nomName"></div>
             <div class="field"><label data-i="nomPhone">Nominee Phone Number</label><input id="f_nomPhone" type="tel"></div>
             <div class="field"><label data-i="nomRelation">Relation with Nominee</label><input id="f_nomRel"></div>
+          </div>
+          <div class="field" style="margin-top:12px"><label data-i="nomAddr">Nominee Address</label>
+            <div class="fgrid4">
+              <div class="field"><label data-i="aVill">Village / House</label><input id="f_nomAv"></div>
+              <div class="field"><label data-i="aPost">Post Office</label><input id="f_nomAp"></div>
+              <div class="field"><label data-i="aPs">Police Station</label><input id="f_nomAs"></div>
+              <div class="field"><label data-i="aDist">District</label><input id="f_nomAd"></div>
+            </div>
           </div>
         </div>
         <div class="formfoot">
@@ -780,7 +804,7 @@ const SEED=[
 {code:'C 00002',nameEn:'Demo Person Two',nameBn:'ডেমো নমুনা দুই',desigEn:'Driver',deptEn:'Manufacturing',secEn:'Engineering',locEn:'Mawna Plant',join:'2021-02-02',dob:'1993-03-05',mobile:'01700000002',gender:'Male'},
 {code:'C 00003',nameEn:'Demo Person Three',nameBn:'ডেমো নমুনা তিন',desigEn:'Support Sales',deptEn:'Sales & Marketing',secEn:'Sales',locEn:'Head Office',join:'2022-03-03',dob:'1997-07-20',mobile:'01700000003',gender:'Female'},
 {code:'C 00004',nameEn:'Demo Person Four',nameBn:'ডেমো নমুনা চার',desigEn:'Material Handler',deptEn:'Supply Chain & IT',secEn:'Warehouse',locEn:'Chittagong',join:'2023-04-04',dob:'1999-11-30',mobile:'01700000004',gender:'Male'}
-].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAddr:'',contact:''},x));
+].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAddr:'',contact:''},x));
 
 /* ================= STATE ================= */
 let LANG=store.getItem('hr_lang')||'en';
@@ -820,7 +844,7 @@ function avColor(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>
 function isAdmin(){return SESSION&&SESSION.role==='admin';}
 function canEd(){return SESSION&&(SESSION.role==='admin'||SESSION.role==='editor');}
 function fixEmp(e){return Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
-  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAddr:'',contact:''},e);}
+  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAddr:'',contact:''},e);}
 
 /* ================= BASE64 / CRYPTO ================= */
 function b64FromU8(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
@@ -926,7 +950,7 @@ function badgeState(){
 
 /* ================= AUTH SCREENS ================= */
 function logoSVG(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>';}
-function authHeader(title,sub){return '<div class="authlogo">'+(BRAND.logo?'<img src="'+BRAND.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:16px">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';}
+function authHeader(title,sub){return '<div class="authlogo" style="'+(BRAND.logo?'background-color:transparent;width:auto;min-width:64px;max-width:200px;padding:0':'')+'">'+(BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';}
 function renderLogin(note){
   const c=$('#authCard');
   c.innerHTML=authHeader(brandName(),t('loginSub'))+
@@ -1291,7 +1315,8 @@ function renderProfile(code){
     '<div class="sec-title">'+t('fAddrV')+'</div><div class="pgrid">'+
       bnRow(t('aVill'),e.addrVv,'')+bnRow(t('aPost'),e.addrVp,'')+bnRow(t('aPs'),e.addrVs,'')+bnRow(t('aDist'),e.addrVd,'')+'</div>'+
     '<div class="sec-title">'+t('fsNominee')+'</div><div class="pgrid">'+
-      bnRow(t('nomName'),e.nomName,'')+bnRow(t('nomPhone'),e.nomPhone,'')+bnRow(t('nomRelation'),e.nomRel,'')+bnRow(t('nomAddr'),e.nomAddr,'')+'</div>'+
+      bnRow(t('nomName'),e.nomName,'')+bnRow(t('nomPhone'),e.nomPhone,'')+bnRow(t('nomRelation'),e.nomRel,'')+
+      bnRow(t('aVill'),e.nomAv,'')+bnRow(t('aPost'),e.nomAp,'')+bnRow(t('aPs'),e.nomAs,'')+bnRow(t('aDist'),e.nomAd,'')+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
     '<div class="sec-title">'+t('fsFamilyL')+'</div><div class="pgrid">'+
       bnRow(t('fFatherEn'),e.fatherEn,e.fatherBn)+bnRow(t('fMotherEn'),e.motherEn,e.motherBn)+'</div>'+
   '</div>';
@@ -1325,7 +1350,8 @@ function openForm(code){
   set('#f_contact',e&&e.contact);
   set('#f_addrPv',e&&e.addrPv);set('#f_addrPp',e&&e.addrPp);set('#f_addrPs',e&&e.addrPs);set('#f_addrPd',e&&e.addrPd);
   set('#f_addrVv',e&&e.addrVv);set('#f_addrVp',e&&e.addrVp);set('#f_addrVs',e&&e.addrVs);set('#f_addrVd',e&&e.addrVd);
-  set('#f_nomName',e&&e.nomName);set('#f_nomPhone',e&&e.nomPhone);set('#f_nomRel',e&&e.nomRel);set('#f_nomAddr',e&&e.nomAddr);
+  set('#f_nomName',e&&e.nomName);set('#f_nomPhone',e&&e.nomPhone);set('#f_nomRel',e&&e.nomRel);
+  set('#f_nomAv',e&&e.nomAv);set('#f_nomAp',e&&e.nomAp);set('#f_nomAs',e&&e.nomAs);set('#f_nomAd',e&&e.nomAd);
   formPhoto=e&&e.photoData?e.photoData:'';
   formHadPhoto=!!(e&&(e.photoData||e.photo));
   renderPhotoPrev();
@@ -1377,7 +1403,8 @@ async function submitForm(ev){
   e.contact=$('#f_contact').value.trim();
   e.addrPv=$('#f_addrPv').value.trim();e.addrPp=$('#f_addrPp').value.trim();e.addrPs=$('#f_addrPs').value.trim();e.addrPd=$('#f_addrPd').value.trim();
   e.addrVv=$('#f_addrVv').value.trim();e.addrVp=$('#f_addrVp').value.trim();e.addrVs=$('#f_addrVs').value.trim();e.addrVd=$('#f_addrVd').value.trim();
-  e.nomName=$('#f_nomName').value.trim();e.nomPhone=$('#f_nomPhone').value.trim();e.nomRel=$('#f_nomRel').value.trim();e.nomAddr=$('#f_nomAddr').value.trim();
+  e.nomName=$('#f_nomName').value.trim();e.nomPhone=$('#f_nomPhone').value.trim();e.nomRel=$('#f_nomRel').value.trim();
+  e.nomAv=$('#f_nomAv').value.trim();e.nomAp=$('#f_nomAp').value.trim();e.nomAs=$('#f_nomAs').value.trim();e.nomAd=$('#f_nomAd').value.trim();
   if(formPhoto){e.photoData=formPhoto;e.photoDirty=true;}
   else{
     if(old&&formHadPhoto&&!e.photoDel){e.photoDel=true;e.photoDelPath=e.photo||((CFG.photosDir||'photos')+'/'+slug(old.code)+'.enc');}
@@ -1561,7 +1588,14 @@ function applyBrand(){
   const bn=$('#brandName');if(bn)bn.textContent=brandName();
   const at=$('#achtTitle');if(at&&$('#loginForm'))at.textContent=brandName();
   const lg=$('#brandLogo');
-  if(lg)lg.innerHTML=BRAND.logo?'<img src="'+BRAND.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px">':logoSVG();
+  if(!lg)return;
+  if(BRAND.logo){
+    lg.innerHTML='<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:44px;max-width:160px;height:auto;width:auto;object-fit:contain;display:block;border-radius:8px">';
+    lg.style.width='auto';lg.style.minWidth='38px';lg.style.height='44px';lg.style.background='transparent';lg.style.borderRadius='8px';lg.style.padding='0';
+  }else{
+    lg.innerHTML=logoSVG();
+    lg.style.width='';lg.style.minWidth='';lg.style.height='';lg.style.background='';lg.style.borderRadius='';lg.style.padding='';
+  }
 }
 async function loadBrand(){
   try{
@@ -1573,7 +1607,7 @@ async function loadBrand(){
 function renderLogoPrev(){
   const el=$('#logoPrev');if(!el)return;
   const src=pendingLogo!==null?pendingLogo:BRAND.logo;
-  el.innerHTML=src?'<img src="'+src+'" style="width:100%;height:100%;object-fit:cover;border-radius:16px">':'🏢';
+  el.innerHTML=src?'<img src="'+src+'" style="width:100%;height:100%;object-fit:contain;border-radius:16px;background:#fff">':'🏢';
 }
 async function saveBrand(){
   if(!isAdmin())return;
@@ -1605,7 +1639,8 @@ function exportCsv(){
     ['Contact Number (Emergency)','contact'],
     ['Village / House','addrPv'],['Post Office','addrPp'],['Police Station','addrPs'],['District','addrPd'],
     ['Permanent Village / House','addrVv'],['Permanent Post Office','addrVp'],['Permanent Police Station','addrVs'],['Permanent District','addrVd'],
-    ['Nominee Name','nomName'],['Nominee Phone','nomPhone'],['Relation with Nominee','nomRel'],['Nominee Address','nomAddr'],
+    ['Nominee Name','nomName'],['Nominee Phone','nomPhone'],['Relation with Nominee','nomRel'],
+    ['Nominee Village / House','nomAv'],['Nominee Post Office','nomAp'],['Nominee Police Station','nomAs'],['Nominee District','nomAd'],['Nominee Address','nomAddr'],
     ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];
   const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(EMP.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
   download('employees-'+todayISO()+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
@@ -1630,7 +1665,7 @@ const HDR_MAP={empcode:'code',code:'code',id:'code',name:'nameEn',nameenglish:'n
   address:'address',presentaddress:'address',status:'status',
   village:'addrPv',house:'addrPv',villagehouse:'addrPv',postoffice:'addrPp',policestation:'addrPs',district:'addrPd',
   permanentvillage:'addrVv',permanenthouse:'addrVv',permanentvillagehouse:'addrVv',permanentpostoffice:'addrVp',permanentpolicestation:'addrVs',permanentdistrict:'addrVd',
-  nomineename:'nomName',nominee:'nomName',nomineephone:'nomPhone',nomineemobile:'nomPhone',nomineerelation:'nomRel',nomineeaddress:'nomAddr',
+  nomineename:'nomName',nominee:'nomName',nomineephone:'nomPhone',nomineemobile:'nomPhone',nomineerelation:'nomRel',nomineeaddress:'nomAddr',nomineevillage:'nomAv',nomineehouse:'nomAv',nomineepostoffice:'nomAp',nomineepolicestation:'nomAs',nomineedistrict:'nomAd',
   contactnumber:'contact',emergencycontact:'contact',contact:'contact'};
 function parseDateAny(s){
   if(!s)return '';s=String(s).trim();if(!s)return '';
@@ -1672,7 +1707,7 @@ function importTable(rows){
     const code=get('code');if(!code&&!get('nameEn'))continue;
     const ex=code?EMP.find(e=>normCode(e.code)===normCode(code)):null;
     const rec={code:code||('AUTO-'+(EMP.length+1+r))};
-    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrVv','addrVp','addrVs','addrVd','nomName','nomPhone','nomRel','nomAddr'].forEach(k=>{rec[k]=get(k);});
+    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrVv','addrVp','addrVs','addrVd','nomName','nomPhone','nomRel','nomAddr','nomAv','nomAp','nomAs','nomAd'].forEach(k=>{rec[k]=get(k);});
     rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
     const st=get('status').toLowerCase();rec.status=st.includes('resign')||st.includes('left')?'resigned':'active';
     if(!rec.nameEn&&ex)rec.nameEn=ex.nameEn;
@@ -1737,6 +1772,10 @@ async function printProfile(code){
   cell(t('fLocEn'),e.locEn,e.locBn)+cell(t('fJoin'),fmtDate(e.join),'')+cell(t('fDob'),fmtDate(e.dob),'')+
   cell(t('fGender'),e.gender,'')+cell(t('fBlood'),e.blood,'')+cell(t('fMobile'),e.mobile,'')+cell(t('fNid'),e.nid,'')+
   cell(t('fFatherEn'),e.fatherEn,e.fatherBn)+cell(t('fMotherEn'),e.motherEn,e.motherBn)+cell(t('fAddress'),e.address,'')+
+  cell(t('fAddrP'),[e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', '),'')+
+  cell(t('fAddrV'),[e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', '),'')+
+  cell(t('nomName'),e.nomName,'')+cell(t('nomPhone'),e.nomPhone,'')+cell(t('nomRelation'),e.nomRel,'')+
+  cell(t('nomAddr'),[e.nomAv,e.nomAp,e.nomAs,e.nomAd].filter(Boolean).join(', ')||e.nomAddr,'')+
   '</div><div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
   window.print();
 }
