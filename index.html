@@ -205,6 +205,11 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 
 /* ---------- new: address grid, big avatar ---------- */
 .fgrid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.addrwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.addrsub{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:10px 12px}
+.asub-t{font-size:11px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.addrsub .fgrid4{gap:8px}
+@media (max-width:960px){.addrsub{padding:8px 10px}}
 .fgrid4 .field{min-width:0}
 .av.xl{width:140px;height:140px;font-size:46px;border:4px solid #e2e8f0;box-shadow:var(--shadow)}
 @media (max-width:960px){
@@ -428,22 +433,50 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             <div class="field"><label data-i="fMotherEn">Mother's Name (English)</label><input id="f_motherEn"></div>
             <div class="field"><label data-i="fMotherBn">Mother's Name (Bangla)</label><input id="f_motherBn" lang="bn"></div>
             <div class="field" style="grid-column:1/-1"><label data-i="fContact">Contact Number (Emergency)</label><input id="f_contact" type="tel"></div>
-            <div class="field" style="grid-column:1/-1"><label data-i="fAddrP">Present Address</label>
-              <div class="fgrid4">
-                <div class="field"><label data-i="aVill">Village / House</label><input id="f_addrPv"></div>
-                <div class="field"><label data-i="aPost">Post Office</label><input id="f_addrPp"></div>
-                <div class="field"><label data-i="aPs">Police Station</label><input id="f_addrPs"></div>
-                <div class="field"><label data-i="aDist">District</label><input id="f_addrPd"></div>
-              </div>
+<div class="field" style="grid-column:1/-1"><label data-i="fAddrP">Present Address</label>
+            <div class="addrwrap">
+      <div class="addrsub">
+        <div class="asub-t" data-i="addrEn">English</div>
+        <div class="fgrid4">
+                <div class="field"><label data-i="aVill"></label><input id="f_addrPv"></div>
+                <div class="field"><label data-i="aPost"></label><input id="f_addrPp"></div>
+                <div class="field"><label data-i="aPs"></label><input id="f_addrPs"></div>
+                <div class="field"><label data-i="aDist"></label><input id="f_addrPd"></div>
+        </div>
+      </div>
+      <div class="addrsub">
+        <div class="asub-t" lang="bn" data-i="addrBn">বাংলা</div>
+        <div class="fgrid4">
+                <div class="field"><label lang="bn" data-i="aVillBn"></label><input lang="bn" id="f_addrPvBn"></div>
+                <div class="field"><label lang="bn" data-i="aPostBn"></label><input lang="bn" id="f_addrPpBn"></div>
+                <div class="field"><label lang="bn" data-i="aPsBn"></label><input lang="bn" id="f_addrPsBn"></div>
+                <div class="field"><label lang="bn" data-i="aDistBn"></label><input lang="bn" id="f_addrPdBn"></div>
+        </div>
+      </div>
             </div>
-            <div class="field" style="grid-column:1/-1"><label data-i="fAddrV">Permanent Address</label>
-              <div class="fgrid4">
-                <div class="field"><label data-i="aVill">Village / House</label><input id="f_addrVv"></div>
-                <div class="field"><label data-i="aPost">Post Office</label><input id="f_addrVp"></div>
-                <div class="field"><label data-i="aPs">Police Station</label><input id="f_addrVs"></div>
-                <div class="field"><label data-i="aDist">District</label><input id="f_addrVd"></div>
-              </div>
+          </div>
+<div class="field" style="grid-column:1/-1"><label data-i="fAddrV">Permanent Address</label>
+            <div class="addrwrap">
+      <div class="addrsub">
+        <div class="asub-t" data-i="addrEn">English</div>
+        <div class="fgrid4">
+                <div class="field"><label data-i="aVill"></label><input id="f_addrVv"></div>
+                <div class="field"><label data-i="aPost"></label><input id="f_addrVp"></div>
+                <div class="field"><label data-i="aPs"></label><input id="f_addrVs"></div>
+                <div class="field"><label data-i="aDist"></label><input id="f_addrVd"></div>
+        </div>
+      </div>
+      <div class="addrsub">
+        <div class="asub-t" lang="bn" data-i="addrBn">বাংলা</div>
+        <div class="fgrid4">
+                <div class="field"><label lang="bn" data-i="aVillBn"></label><input lang="bn" id="f_addrVvBn"></div>
+                <div class="field"><label lang="bn" data-i="aPostBn"></label><input lang="bn" id="f_addrVpBn"></div>
+                <div class="field"><label lang="bn" data-i="aPsBn"></label><input lang="bn" id="f_addrVsBn"></div>
+                <div class="field"><label lang="bn" data-i="aDistBn"></label><input lang="bn" id="f_addrVdBn"></div>
+        </div>
+      </div>
             </div>
+          </div>
           </div>
         </div>
         <div class="fsection">
@@ -453,13 +486,28 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             <div class="field"><label data-i="nomPhone">Nominee Phone Number</label><input id="f_nomPhone" type="tel"></div>
             <div class="field"><label data-i="nomRelation">Relation with Nominee</label><input id="f_nomRel"></div>
           </div>
-          <div class="field" style="margin-top:12px"><label data-i="nomAddr">Nominee Address</label>
-            <div class="fgrid4">
-              <div class="field"><label data-i="aVill">Village / House</label><input id="f_nomAv"></div>
-              <div class="field"><label data-i="aPost">Post Office</label><input id="f_nomAp"></div>
-              <div class="field"><label data-i="aPs">Police Station</label><input id="f_nomAs"></div>
-              <div class="field"><label data-i="aDist">District</label><input id="f_nomAd"></div>
+<div class="field" style="margin-top:12px"><label data-i="nomAddr">Nominee Address</label>
+            <div class="addrwrap">
+      <div class="addrsub">
+        <div class="asub-t" data-i="addrEn">English</div>
+        <div class="fgrid4">
+                <div class="field"><label data-i="aVill"></label><input id="f_nomAv"></div>
+                <div class="field"><label data-i="aPost"></label><input id="f_nomAp"></div>
+                <div class="field"><label data-i="aPs"></label><input id="f_nomAs"></div>
+                <div class="field"><label data-i="aDist"></label><input id="f_nomAd"></div>
+        </div>
+      </div>
+      <div class="addrsub">
+        <div class="asub-t" lang="bn" data-i="addrBn">বাংলা</div>
+        <div class="fgrid4">
+                <div class="field"><label lang="bn" data-i="aVillBn"></label><input lang="bn" id="f_nomAvBn"></div>
+                <div class="field"><label lang="bn" data-i="aPostBn"></label><input lang="bn" id="f_nomApBn"></div>
+                <div class="field"><label lang="bn" data-i="aPsBn"></label><input lang="bn" id="f_nomAsBn"></div>
+                <div class="field"><label lang="bn" data-i="aDistBn"></label><input lang="bn" id="f_nomAdBn"></div>
+        </div>
+      </div>
             </div>
+          </div>
           </div>
         </div>
         <div class="formfoot">
@@ -709,6 +757,7 @@ en:{
   parseErr:'Could not read the file: ',xlOld:'Browser cannot open .xlsx — please save as CSV UTF-8 and try again.',
   dupUserSkip:'(user exists)',
   aVill:'Village / House',aPost:'Post Office',aPs:'Police Station',aDist:'District',
+  aVillBn:'গ্রাম / বাড়ি',aPostBn:'ডাকঘর',aPsBn:'থানা',aDistBn:'জেলা',addrEn:'English',addrBn:'বাংলা',
   fAddrP:'Present Address',fAddrV:'Permanent Address',fContact:'Contact Number (Emergency)',
   fsNominee:'Nominee Information',nomName:'Nominee Name',nomPhone:'Nominee Phone Number',nomAddr:'Nominee Address',nomRelation:'Relation with Nominee',
   recTitle:'Employee Record',
@@ -784,6 +833,7 @@ bn:{
   parseErr:'ফাইলটি পড়া যায়নি: ',xlOld:'এই ব্রাউজারে .xlsx খোলা যায় না — CSV UTF-8 হিসেবে সেভ করে চেষ্টা করুন।',
   dupUserSkip:'(ইউজার আছে)',
   aVill:'গ্রাম / বাড়ি',aPost:'ডাকঘর',aPs:'থানা',aDist:'জেলা',
+  aVillBn:'গ্রাম / বাড়ি',aPostBn:'ডাকঘর',aPsBn:'থানা',aDistBn:'জেলা',addrEn:'ইংরেজি',addrBn:'বাংলা',
   fAddrP:'বর্তমান ঠিকানা',fAddrV:'স্থায়ী ঠিকানা',fContact:'জরুরি যোগাযোগ নম্বর',
   fsNominee:'নমিনির তথ্য',nomName:'নমিনির নাম',nomPhone:'নমিনির ফোন নম্বর',nomAddr:'নমিনির ঠিকানা',nomRelation:'নমিনির সাথে সম্পর্ক',
   recTitle:'কর্মী রেকর্ড',
@@ -804,7 +854,7 @@ const SEED=[
 {code:'C 00002',nameEn:'Demo Person Two',nameBn:'ডেমো নমুনা দুই',desigEn:'Driver',deptEn:'Manufacturing',secEn:'Engineering',locEn:'Mawna Plant',join:'2021-02-02',dob:'1993-03-05',mobile:'01700000002',gender:'Male'},
 {code:'C 00003',nameEn:'Demo Person Three',nameBn:'ডেমো নমুনা তিন',desigEn:'Support Sales',deptEn:'Sales & Marketing',secEn:'Sales',locEn:'Head Office',join:'2022-03-03',dob:'1997-07-20',mobile:'01700000003',gender:'Female'},
 {code:'C 00004',nameEn:'Demo Person Four',nameBn:'ডেমো নমুনা চার',desigEn:'Material Handler',deptEn:'Supply Chain & IT',secEn:'Warehouse',locEn:'Chittagong',join:'2023-04-04',dob:'1999-11-30',mobile:'01700000004',gender:'Male'}
-].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAddr:'',contact:''},x));
+].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:''},x));
 
 /* ================= STATE ================= */
 let LANG=store.getItem('hr_lang')||'en';
@@ -844,7 +894,7 @@ function avColor(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>
 function isAdmin(){return SESSION&&SESSION.role==='admin';}
 function canEd(){return SESSION&&(SESSION.role==='admin'||SESSION.role==='editor');}
 function fixEmp(e){return Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
-  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAddr:'',contact:''},e);}
+  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:''},e);}
 
 /* ================= BASE64 / CRYPTO ================= */
 function b64FromU8(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
@@ -1311,12 +1361,15 @@ function renderProfile(code){
       bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fContact'),e.contact,'')+
       (e.address?bnRow(t('fAddress'),e.address,''):'')+'</div>'+
     '<div class="sec-title">'+t('fAddrP')+'</div><div class="pgrid">'+
-      bnRow(t('aVill'),e.addrPv,'')+bnRow(t('aPost'),e.addrPp,'')+bnRow(t('aPs'),e.addrPs,'')+bnRow(t('aDist'),e.addrPd,'')+'</div>'+
+      bnRow(t('aVill'),e.addrPv,'')+bnRow(t('aPost'),e.addrPp,'')+bnRow(t('aPs'),e.addrPs,'')+bnRow(t('aDist'),e.addrPd,'')+
+      (e.addrPvBn||e.addrPpBn||e.addrPsBn||e.addrPdBn?bnRow(t('aVillBn')+' · '+t('aPostBn'),[e.addrPvBn,e.addrPpBn].filter(Boolean).join(', '),'')+bnRow(t('aPsBn')+' · '+t('aDistBn'),[e.addrPsBn,e.addrPdBn].filter(Boolean).join(', '),''):'')+'</div>'+
     '<div class="sec-title">'+t('fAddrV')+'</div><div class="pgrid">'+
-      bnRow(t('aVill'),e.addrVv,'')+bnRow(t('aPost'),e.addrVp,'')+bnRow(t('aPs'),e.addrVs,'')+bnRow(t('aDist'),e.addrVd,'')+'</div>'+
+      bnRow(t('aVill'),e.addrVv,'')+bnRow(t('aPost'),e.addrVp,'')+bnRow(t('aPs'),e.addrVs,'')+bnRow(t('aDist'),e.addrVd,'')+
+      (e.addrVvBn||e.addrVpBn||e.addrVsBn||e.addrVdBn?bnRow(t('aVillBn')+' · '+t('aPostBn'),[e.addrVvBn,e.addrVpBn].filter(Boolean).join(', '),'')+bnRow(t('aPsBn')+' · '+t('aDistBn'),[e.addrVsBn,e.addrVdBn].filter(Boolean).join(', '),''):'')+'</div>'+
     '<div class="sec-title">'+t('fsNominee')+'</div><div class="pgrid">'+
       bnRow(t('nomName'),e.nomName,'')+bnRow(t('nomPhone'),e.nomPhone,'')+bnRow(t('nomRelation'),e.nomRel,'')+
-      bnRow(t('aVill'),e.nomAv,'')+bnRow(t('aPost'),e.nomAp,'')+bnRow(t('aPs'),e.nomAs,'')+bnRow(t('aDist'),e.nomAd,'')+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
+      bnRow(t('aVill'),e.nomAv,'')+bnRow(t('aPost'),e.nomAp,'')+bnRow(t('aPs'),e.nomAs,'')+bnRow(t('aDist'),e.nomAd,'')+
+      (e.nomAvBn||e.nomApBn||e.nomAsBn||e.nomAdBn?bnRow(t('aVillBn')+' · '+t('aPostBn'),[e.nomAvBn,e.nomApBn].filter(Boolean).join(', '),'')+bnRow(t('aPsBn')+' · '+t('aDistBn'),[e.nomAsBn,e.nomAdBn].filter(Boolean).join(', '),''):'')+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
     '<div class="sec-title">'+t('fsFamilyL')+'</div><div class="pgrid">'+
       bnRow(t('fFatherEn'),e.fatherEn,e.fatherBn)+bnRow(t('fMotherEn'),e.motherEn,e.motherBn)+'</div>'+
   '</div>';
@@ -1349,9 +1402,12 @@ function openForm(code){
   set('#f_motherEn',e&&e.motherEn);set('#f_motherBn',e&&e.motherBn);
   set('#f_contact',e&&e.contact);
   set('#f_addrPv',e&&e.addrPv);set('#f_addrPp',e&&e.addrPp);set('#f_addrPs',e&&e.addrPs);set('#f_addrPd',e&&e.addrPd);
+  set('#f_addrPvBn',e&&e.addrPvBn);set('#f_addrPpBn',e&&e.addrPpBn);set('#f_addrPsBn',e&&e.addrPsBn);set('#f_addrPdBn',e&&e.addrPdBn);
   set('#f_addrVv',e&&e.addrVv);set('#f_addrVp',e&&e.addrVp);set('#f_addrVs',e&&e.addrVs);set('#f_addrVd',e&&e.addrVd);
+  set('#f_addrVvBn',e&&e.addrVvBn);set('#f_addrVpBn',e&&e.addrVpBn);set('#f_addrVsBn',e&&e.addrVsBn);set('#f_addrVdBn',e&&e.addrVdBn);
   set('#f_nomName',e&&e.nomName);set('#f_nomPhone',e&&e.nomPhone);set('#f_nomRel',e&&e.nomRel);
   set('#f_nomAv',e&&e.nomAv);set('#f_nomAp',e&&e.nomAp);set('#f_nomAs',e&&e.nomAs);set('#f_nomAd',e&&e.nomAd);
+  set('#f_nomAvBn',e&&e.nomAvBn);set('#f_nomApBn',e&&e.nomApBn);set('#f_nomAsBn',e&&e.nomAsBn);set('#f_nomAdBn',e&&e.nomAdBn);
   formPhoto=e&&e.photoData?e.photoData:'';
   formHadPhoto=!!(e&&(e.photoData||e.photo));
   renderPhotoPrev();
@@ -1402,9 +1458,12 @@ async function submitForm(ev){
   e.motherEn=$('#f_motherEn').value.trim();e.motherBn=$('#f_motherBn').value.trim();
   e.contact=$('#f_contact').value.trim();
   e.addrPv=$('#f_addrPv').value.trim();e.addrPp=$('#f_addrPp').value.trim();e.addrPs=$('#f_addrPs').value.trim();e.addrPd=$('#f_addrPd').value.trim();
+  e.addrPvBn=$('#f_addrPvBn').value.trim();e.addrPpBn=$('#f_addrPpBn').value.trim();e.addrPsBn=$('#f_addrPsBn').value.trim();e.addrPdBn=$('#f_addrPdBn').value.trim();
   e.addrVv=$('#f_addrVv').value.trim();e.addrVp=$('#f_addrVp').value.trim();e.addrVs=$('#f_addrVs').value.trim();e.addrVd=$('#f_addrVd').value.trim();
+  e.addrVvBn=$('#f_addrVvBn').value.trim();e.addrVpBn=$('#f_addrVpBn').value.trim();e.addrVsBn=$('#f_addrVsBn').value.trim();e.addrVdBn=$('#f_addrVdBn').value.trim();
   e.nomName=$('#f_nomName').value.trim();e.nomPhone=$('#f_nomPhone').value.trim();e.nomRel=$('#f_nomRel').value.trim();
   e.nomAv=$('#f_nomAv').value.trim();e.nomAp=$('#f_nomAp').value.trim();e.nomAs=$('#f_nomAs').value.trim();e.nomAd=$('#f_nomAd').value.trim();
+  e.nomAvBn=$('#f_nomAvBn').value.trim();e.nomApBn=$('#f_nomApBn').value.trim();e.nomAsBn=$('#f_nomAsBn').value.trim();e.nomAdBn=$('#f_nomAdBn').value.trim();
   if(formPhoto){e.photoData=formPhoto;e.photoDirty=true;}
   else{
     if(old&&formHadPhoto&&!e.photoDel){e.photoDel=true;e.photoDelPath=e.photo||((CFG.photosDir||'photos')+'/'+slug(old.code)+'.enc');}
@@ -1638,9 +1697,12 @@ function exportCsv(){
     ["Father's Name",'fatherEn'],["Father's Name (Bangla)",'fatherBn'],["Mother's Name",'motherEn'],["Mother's Name (Bangla)",'motherBn'],
     ['Contact Number (Emergency)','contact'],
     ['Village / House','addrPv'],['Post Office','addrPp'],['Police Station','addrPs'],['District','addrPd'],
+    ['Village / House (Bangla)','addrPvBn'],['Post Office (Bangla)','addrPpBn'],['Police Station (Bangla)','addrPsBn'],['District (Bangla)','addrPdBn'],
     ['Permanent Village / House','addrVv'],['Permanent Post Office','addrVp'],['Permanent Police Station','addrVs'],['Permanent District','addrVd'],
+    ['Permanent Village / House (Bangla)','addrVvBn'],['Permanent Post Office (Bangla)','addrVpBn'],['Permanent Police Station (Bangla)','addrVsBn'],['Permanent District (Bangla)','addrVdBn'],
     ['Nominee Name','nomName'],['Nominee Phone','nomPhone'],['Relation with Nominee','nomRel'],
-    ['Nominee Village / House','nomAv'],['Nominee Post Office','nomAp'],['Nominee Police Station','nomAs'],['Nominee District','nomAd'],['Nominee Address','nomAddr'],
+    ['Nominee Village / House','nomAv'],['Nominee Post Office','nomAp'],['Nominee Police Station','nomAs'],['Nominee District','nomAd'],
+    ['Nominee Village / House (Bangla)','nomAvBn'],['Nominee Post Office (Bangla)','nomApBn'],['Nominee Police Station (Bangla)','nomAsBn'],['Nominee District (Bangla)','nomAdBn'],['Nominee Address','nomAddr'],
     ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];
   const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(EMP.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
   download('employees-'+todayISO()+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
@@ -1666,6 +1728,9 @@ const HDR_MAP={empcode:'code',code:'code',id:'code',name:'nameEn',nameenglish:'n
   village:'addrPv',house:'addrPv',villagehouse:'addrPv',postoffice:'addrPp',policestation:'addrPs',district:'addrPd',
   permanentvillage:'addrVv',permanenthouse:'addrVv',permanentvillagehouse:'addrVv',permanentpostoffice:'addrVp',permanentpolicestation:'addrVs',permanentdistrict:'addrVd',
   nomineename:'nomName',nominee:'nomName',nomineephone:'nomPhone',nomineemobile:'nomPhone',nomineerelation:'nomRel',nomineeaddress:'nomAddr',nomineevillage:'nomAv',nomineehouse:'nomAv',nomineepostoffice:'nomAp',nomineepolicestation:'nomAs',nomineedistrict:'nomAd',
+  villagebangla:'addrPvBn',housebangla:'addrPvBn',postofficebangla:'addrPpBn',policestationbangla:'addrPsBn',districtbangla:'addrPdBn',
+  permanentvillagebangla:'addrVvBn',permanenthousebangla:'addrVvBn',permanentpostofficebangla:'addrVpBn',permanentpolicestationbangla:'addrVsBn',permanentdistrictbangla:'addrVdBn',
+  nomineevillagebangla:'nomAvBn',nomineehousebangla:'nomAvBn',nomineepostofficebangla:'nomApBn',nomineepolicestationbangla:'nomAsBn',nomineedistrictbangla:'nomAdBn',
   contactnumber:'contact',emergencycontact:'contact',contact:'contact'};
 function parseDateAny(s){
   if(!s)return '';s=String(s).trim();if(!s)return '';
@@ -1707,7 +1772,7 @@ function importTable(rows){
     const code=get('code');if(!code&&!get('nameEn'))continue;
     const ex=code?EMP.find(e=>normCode(e.code)===normCode(code)):null;
     const rec={code:code||('AUTO-'+(EMP.length+1+r))};
-    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrVv','addrVp','addrVs','addrVd','nomName','nomPhone','nomRel','nomAddr','nomAv','nomAp','nomAs','nomAd'].forEach(k=>{rec[k]=get(k);});
+    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrPvBn','addrPpBn','addrPsBn','addrPdBn','addrVv','addrVp','addrVs','addrVd','addrVvBn','addrVpBn','addrVsBn','addrVdBn','nomName','nomPhone','nomRel','nomAddr','nomAv','nomAp','nomAs','nomAd','nomAvBn','nomApBn','nomAsBn','nomAdBn'].forEach(k=>{rec[k]=get(k);});
     rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
     const st=get('status').toLowerCase();rec.status=st.includes('resign')||st.includes('left')?'resigned':'active';
     if(!rec.nameEn&&ex)rec.nameEn=ex.nameEn;
@@ -1772,10 +1837,10 @@ async function printProfile(code){
   cell(t('fLocEn'),e.locEn,e.locBn)+cell(t('fJoin'),fmtDate(e.join),'')+cell(t('fDob'),fmtDate(e.dob),'')+
   cell(t('fGender'),e.gender,'')+cell(t('fBlood'),e.blood,'')+cell(t('fMobile'),e.mobile,'')+cell(t('fNid'),e.nid,'')+
   cell(t('fFatherEn'),e.fatherEn,e.fatherBn)+cell(t('fMotherEn'),e.motherEn,e.motherBn)+cell(t('fAddress'),e.address,'')+
-  cell(t('fAddrP'),[e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', '),'')+
-  cell(t('fAddrV'),[e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', '),'')+
+  cell(t('fAddrP'),[e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', ')+(e.addrPvBn||e.addrPpBn||e.addrPsBn||e.addrPdBn?' | '+[e.addrPvBn,e.addrPpBn,e.addrPsBn,e.addrPdBn].filter(Boolean).join(', '):''),'')+
+  cell(t('fAddrV'),[e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', ')+(e.addrVvBn||e.addrVpBn||e.addrVsBn||e.addrVdBn?' | '+[e.addrVvBn,e.addrVpBn,e.addrVsBn,e.addrVdBn].filter(Boolean).join(', '):''),'')+
   cell(t('nomName'),e.nomName,'')+cell(t('nomPhone'),e.nomPhone,'')+cell(t('nomRelation'),e.nomRel,'')+
-  cell(t('nomAddr'),[e.nomAv,e.nomAp,e.nomAs,e.nomAd].filter(Boolean).join(', ')||e.nomAddr,'')+
+  cell(t('nomAddr'),[e.nomAv,e.nomAp,e.nomAs,e.nomAd].filter(Boolean).join(', ')+(e.nomAvBn||e.nomApBn||e.nomAsBn||e.nomAdBn?' | '+[e.nomAvBn,e.nomApBn,e.nomAsBn,e.nomAdBn].filter(Boolean).join(', '):'')||e.nomAddr,'')+
   '</div><div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
   window.print();
 }
