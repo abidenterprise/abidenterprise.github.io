@@ -216,61 +216,44 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   input,select,textarea{font-size:16px}
   .bsub{display:none}
   header{gap:8px;padding:0 10px}
-  #syncBadge{max-width:28vw;font-size:11.5px;padding:4px 9px}
-  #userChip{max-width:30vw;font-size:11.5px}
+  #syncBadge{max-width:26vw;font-size:11.5px;padding:4px 9px}
+  #userChip{max-width:28vw;font-size:11.5px}
   .fsection{padding:14px;border-radius:12px}
   .vtitle{font-size:18px}
   .av.xl{width:118px;height:118px;font-size:40px}
-  .fgrid4{grid-template-columns:1fr 1fr}
-  .pacts .btn{flex:1;justify-content:center}
-  .photobox{flex-direction:row}
+  nav#side{width:150px;flex:0 0 150px;padding:10px 7px}
+  .navbtn{padding:9px 9px;font-size:12.5px;gap:8px}
+  .navbtn svg{width:16px;height:16px}
+  .nsection{font-size:9.5px;padding:10px 9px 4px}
+  .bname{font-size:14px}
+  main{padding:12px}
+  .kpis{gap:8px}
+  .kpi{padding:10px 12px}
 }
 
 /* ---------- print ---------- */
 #printArea{display:none}
 @media print{
+  body{zoom:1 !important}
   body>*{display:none !important}
   #printArea{display:block !important;font-size:13px}
   .pcell{break-inside:avoid}
 }
 .ellip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ---------- responsive ---------- */
-@media (max-width:960px){
-  .kpis{grid-template-columns:repeat(2,1fr)}
-  .grid2{grid-template-columns:1fr}
-  .fgrid,.fgrid3{grid-template-columns:1fr}
-  #btnMenu{display:inline-flex}
-  nav#side{position:fixed;left:0;top:60px;bottom:0;z-index:45;transform:translateX(-105%);transition:.22s;height:auto}
-  nav#side.open{transform:none}
-  #backdrop.on{display:block}
-  main{padding:14px}
-  .tbl-wrap-desk{display:none}
-  .mobcard{display:block}
-  .mcard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px;display:flex;gap:12px;align-items:center}
-  .mcard .minfo{flex:1;min-width:0}
-  .mcard .mn{font-weight:700;font-size:15px}
-  .mcard .mb{font-size:13.5px;color:var(--mut)}
-  .mcard .mrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
-  .pacts{margin-left:0;width:100%}
-  #userChip span.un{max-width:70px;overflow:hidden;text-overflow:ellipsis}
-}
-@media (max-width:480px){
-  .kpis{gap:10px}
-  .kpi{padding:12px 14px}
-  .kpi .kn{font-size:22px}
-  .kpi .ki{width:28px;height:28px}
-  .kpi .ki svg{width:16px;height:16px}
-  .pgrid{grid-template-columns:1fr}
-  .search{flex:1 1 100%}
-  select.sel{flex:1 1 40%;max-width:none}
-  .ov{padding:8px}
-  .box{padding:16px}
+/* ---------- responsive: identical desktop layout at every screen size ---------- */
+@media (max-width:620px){
+  body{zoom:.65}
+  nav#side{width:128px;flex:0 0 128px}
+  .navbtn{font-size:11px;padding:8px 6px}
+  .bname{font-size:12.5px}
   #userChip{font-size:10.5px;padding:4px 7px}
+  #userChip span.un{max-width:56px;overflow:hidden;text-overflow:ellipsis}
   #userChip .urole{display:none}
   #btnLang,#btnLogout{padding:7px 9px}
-  .vtitle .btn{flex:1 1 100%;justify-content:center}
-  .fgrid4{gap:8px}
+}
+@media (max-width:430px){
+  body{zoom:.55}
 }
 </style>
 </head>
@@ -382,7 +365,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
           <div class="photobox">
             <div class="photoprev" id="photoPrev"><span data-i="photoHint">Click to<br>add photo</span></div>
             <div>
-              <input type="file" id="photoIn" accept="image/*" style="display:none">
+              <input type="file" id="photoIn" accept="image/*,.heic,.heif,.avif,.bmp,.gif,.webp" style="display:none">
               <button type="button" class="btn o sm" id="btnPhotoPick" data-i="photoPick">Choose Photo</button>
               <button type="button" class="mini d" id="btnPhotoRemove" style="margin-left:8px" data-i="photoRemove">Remove</button>
               <div style="font-size:12px;color:var(--mut);margin-top:8px" data-i="photoNote">Photo is encrypted and saved to GitHub named by employee code.</div>
@@ -508,7 +491,6 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
       </div>
             </div>
           </div>
-          </div>
         </div>
         <div class="formfoot">
           <button type="button" class="btn o" id="btnFormCancel" data-i="cancel">Cancel</button>
@@ -567,7 +549,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
           <button class="btn" id="impFileBtn">📊 <span data-i="impBtn">Choose Excel (.xlsx) or CSV file</span></button>
           <input type="file" id="impFile" accept=".xlsx,.csv" style="display:none">
           <button class="btn" id="bulkPhotoBtn">🖼 <span data-i="bulkBtn">Upload Photos (multiple)</span></button>
-          <input type="file" id="bulkPhotoIn" accept="image/*" multiple style="display:none">
+          <input type="file" id="bulkPhotoIn" accept="image/*,.heic,.heif,.avif,.bmp,.gif,.webp" multiple style="display:none">
           <button class="btn o" id="expCsv">⬇ <span data-i="expCsv">Export CSV (Excel)</span></button>
           <button class="btn o" id="expJson">⬇ <span data-i="expJson">Export JSON backup</span></button>
           <button class="btn o" id="impJsonBtn">⬆ <span data-i="impJson">Restore JSON backup</span></button>
@@ -589,7 +571,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
           <div>
             <button type="button" class="btn o sm" id="btnLogoPick" data-i="logoPick">Choose Logo</button>
             <button type="button" class="mini d" id="btnLogoRemove" style="margin-left:8px" data-i="logoRemove">Remove</button>
-            <input type="file" id="logoIn" accept="image/*" style="display:none">
+            <input type="file" id="logoIn" accept="image/*,.heic,.heif,.avif,.bmp,.gif,.webp" style="display:none">
             <div style="font-size:12px;color:var(--mut);margin-top:8px" data-i="logoNote"></div>
           </div>
         </div>
@@ -866,11 +848,13 @@ let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',br
   JSON.parse(store.getItem('hr_cfg')||'{}'));
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
-let syncing=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
+let syncing=false,syncAgain=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
 let formPhoto='',formHadPhoto=false;let profileCode=null;
 const photoCache={};
 function saveCfg(){store.setItem('hr_cfg',JSON.stringify(CFG));}
-function clearSess(){store.removeItem('hr_sess');}
+const sstore=(()=>{try{sessionStorage.setItem('__t','1');sessionStorage.removeItem('__t');return sessionStorage;}catch(e){return store;}})();
+// Session lives only for the current browser-tab visit: closing/leaving the page always requires a fresh login.
+function clearSess(){sstore.removeItem('hr_sess');}
 
 const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
 function t(k,fb){return (I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||fb||k;}
@@ -1009,12 +993,12 @@ function renderLogin(note){
   '<div class="autherr" id="lg_err"></div>'+
   '<form id="loginForm"><div class="field"><label>'+t('lgUser')+'</label><input id="lg_u" autocomplete="username" required></div>'+
   '<div class="field"><label>'+t('lgPass')+'</label><input id="lg_p" type="password" autocomplete="current-password" required></div>'+
-  '<label class="remrow"><input type="checkbox" id="lg_rem" checked>'+t('lgRemember')+'</label>'+
+
   '<button class="btn wide" type="submit">🔐 '+t('lgBtn')+'</button></form>'+
   '<div class="authfoot"><a id="lg_forgot">'+t('lgForgot')+'</a><a id="lg_local">'+t('lgUseLocal')+'</a></div>';
   $('#loginForm').addEventListener('submit',async ev=>{ev.preventDefault();
     const err=$('#lg_err');err.style.display='none';
-    try{await doLogin($('#lg_u').value,$('#lg_p').value,$('#lg_rem').checked);}
+    try{await doLogin($('#lg_u').value,$('#lg_p').value);}
     catch(e){err.textContent=t('lgErr');err.style.display='block';}
   });
   $('#lg_forgot').addEventListener('click',()=>confirmDlg(t('forgotTitle'),t('forgotMsg'),()=>{}));
@@ -1074,7 +1058,7 @@ async function doSetup(u,p,tok,samples){
     secSha=null;
     await ghPut(CFG.secPath,b64e(JSON.stringify(GHSEC,null,2)),null,'Initial security setup');
     await pushEmployees('Initial encrypted data');
-    saveCfg();saveSess(true);
+    saveCfg();saveSess();
   }else{
     EMP=samples?SEED.map(x=>Object.assign({},x)):[];
     store.setItem('hr_local_sec',JSON.stringify(GHSEC));
@@ -1083,7 +1067,7 @@ async function doSetup(u,p,tok,samples){
   await enterApp();
   toast(t('secApplied'),'ok');
 }
-async function doLogin(u,p,remember){
+async function doLogin(u,p){
   const sec=MODE==='gh'?GHSEC:JSON.parse(store.getItem('hr_local_sec')||'null');
   if(!sec)throw new Error('no security');
   const usr=(sec.users||[]).find(x=>x.u.toLowerCase()===String(u).trim().toLowerCase());
@@ -1096,14 +1080,13 @@ async function doLogin(u,p,remember){
   const keyObj=await impBits(rawBits);
   SESSION={user:usr.u,role:usr.role||'viewer',keyObj:keyObj,tok:''};
   if(MODE==='gh'&&sec.token){try{const tp=await decPkg(keyObj,sec.token);SESSION.tok=tp.t||'';}catch(e){}}
-  saveSess(remember);
+  saveSess();
   await enterApp();
 }
-function saveSess(remember){
-  if(!remember)return;
+function saveSess(){
   (async()=>{try{
     const raw=new Uint8Array(await crypto.subtle.exportKey('raw',SESSION.keyObj));
-    store.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.tok,mode:MODE}));
+    sstore.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.tok,mode:MODE}));
   }catch(e){}})();
 }
 async function logout(){clearSess();SESSION=null;EMP=[];Object.keys(photoCache).forEach(k=>delete photoCache[k]);
@@ -1166,11 +1149,11 @@ async function syncAll(silent){
   if(!SESSION)return;
   if(MODE==='local'){await saveLocal();if(!silent)toast(t('savedLocal'),'ok');return;}
   if(!SESSION.tok){if(!silent)toast(t('noTokenEdit'),'err');badgeState();return false;}
-  if(syncing)return false;syncing=true;setBadge('syncing',t('syncing'));
+  if(syncing){syncAgain=true;return true;}syncing=true;setBadge('syncing',t('syncing'));
   try{
     for(const em of EMP){
       if(em.photoDel&&em.photoDelPath){
-        try{const pj=await ghGet(em.photoDelPath);await ghDel(em.photoDelPath,pj.sha,'Delete photo '+em.code);}catch(err){if(err.status!==404)throw err;}
+        try{const pj=await ghGet(em.photoDelPath);await ghDel(em.photoDelPath,pj.sha,'Delete photo '+em.code);}catch(err){console.warn('Photo cleanup skipped ('+em.code+')',err);}
         em.photoDel=false;em.photoDelPath='';
       }
       if(em.photoData&&em.photoDirty){
@@ -1186,7 +1169,9 @@ async function syncAll(silent){
     Object.keys(photoCache).forEach(k=>{if(photoCache[k]&&!photoCache[k].ok)delete photoCache[k];});
     LAST_SYNC=new Date();badgeState();renderAll();
     if(!silent)toast(t('savedGH'),'ok');
-    syncing=false;return true;
+    syncing=false;
+    if(syncAgain){syncAgain=false;return await syncAll(silent);}
+    return true;
   }catch(e){
     syncing=false;badgeState();
     if(!silent)toast(t('syncFail')+(e.message||'')+(e.status===401?' — token invalid':'')+(e.status===422?' — data changed elsewhere, reload page':''),'err');
@@ -1209,6 +1194,17 @@ function renderAll(){fillDatalists();if(VIEW==='dash')renderDash();if(VIEW==='li
 
 /* ================= PHOTOS (encrypted, async) ================= */
 function photoPath(e){return e.photo||((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');}
+function sniffImgMime(u8){
+  if(u8&&u8.length>12){
+    if(u8[0]===0xFF&&u8[1]===0xD8)return 'image/jpeg';
+    if(u8[0]===0x89&&u8[1]===0x50)return 'image/png';
+    if(u8[0]===0x47&&u8[1]===0x49)return 'image/gif';
+    if(u8[0]===0x42&&u8[1]===0x4D)return 'image/bmp';
+    if(u8[0]===0x52&&u8[8]===0x57&&u8[9]===0x45&&u8[10]===0x42&&u8[11]===0x50)return 'image/webp';
+    if(u8[4]===0x66&&u8[5]===0x74&&u8[6]===0x79&&u8[7]===0x70)return 'image/heic';
+  }
+  return 'image/jpeg';
+}
 function ensurePhotoURL(e){
   const cached=photoCache[e.code];
   if(cached&&cached.ok)return cached.pr;
@@ -1224,8 +1220,9 @@ function ensurePhotoURL(e){
           if(!r.ok)throw new Error('http '+r.status);
           const u8=new Uint8Array(await r.arrayBuffer());
           const pt=await decBytesPk(SESSION.keyObj,u8);
-          try{return URL.createObjectURL(new Blob([pt],{type:'image/jpeg'}));}
-          catch(e){return 'data:image/jpeg;base64,'+b64FromU8(pt);}
+          const mime=sniffImgMime(pt);
+          try{return URL.createObjectURL(new Blob([pt],{type:mime}));}
+          catch(e){return 'data:'+mime+';base64,'+b64FromU8(pt);}
         }catch(err){if(i<3)await new Promise(res=>setTimeout(res,2000*(i+1)));}
       }
       return null;
@@ -1437,13 +1434,19 @@ function compressImage(file,M){
   M=M||480;
   return new Promise((res,rej)=>{
     const r=new FileReader();
+    const keepOriginal=()=>{ // browser cannot decode this format (e.g. HEIC) — keep the original file bytes
+      if(file.size&&file.size<=6*1024*1024)res(r.result);else rej(new Error('Photo too large (max 6 MB)'));};
     r.onload=()=>{const img=new Image();
-      img.onload=()=>{let w=img.width,h=img.height;
+      img.onload=()=>{let w=img.width||M,h=img.height||M;
+        if(w*h>12e6){const k2=Math.sqrt(12e6/(w*h));w=Math.round(w*k2);h=Math.round(h*k2);} // guard huge photos
         if(w>M||h>M){const k=Math.min(M/w,M/h);w=Math.round(w*k);h=Math.round(h*k);}
-        const c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0,w,h);
-        res(c.toDataURL('image/jpeg',0.85));};
-      img.onerror=rej;img.src=r.result;};
+        try{
+          const c=document.createElement('canvas');c.width=w;c.height=h;
+          const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h); // keep PNG transparency white
+          ctx.drawImage(img,0,0,w,h);
+          res(c.toDataURL('image/jpeg',0.85));
+        }catch(e){keepOriginal();}};
+      img.onerror=keepOriginal;img.src=r.result;};
     r.onerror=rej;r.readAsDataURL(file);
   });
 }
@@ -1529,10 +1532,16 @@ function delEmp(code){
     const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
     EMP=EMP.filter(x=>x.code!==code);
     delete photoCache[code];
-    await saveLocal();toast(displayName(e)+' '+t('empDeleted'));
-    nav('list');
-    if(MODE==='gh'&&SESSION&&SESSION.tok){try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){}}
-    if(canEditAnywhere())syncAll();
+    try{
+      await saveLocal();
+      toast(displayName(e)+' '+t('empDeleted'));
+      nav('list');
+      if(MODE==='gh'&&SESSION&&SESSION.tok){
+        try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){console.warn('Photo cleanup skipped ('+e.code+')',err);}
+        const ok=await syncAll(true);
+        if(!ok)toast(t('syncFail')+' — delete will retry on next sync','err');
+      }
+    }catch(err){console.warn(err);toast(t('syncFail')+' — delete will retry on next sync','err');}
   });
 }
 
@@ -1606,7 +1615,7 @@ async function changeMyPw(){
   const rec=await makeUserRec(usr.u,newP,usr.role,SESSION.keyObj);
   usr.salt=rec.salt;usr.iter=rec.iter;usr.wrap=rec.wrap;
   await pushSec();
-  clearSess();saveSess(true);
+  clearSess();saveSess();
   $('#cp_old').value='';$('#cp_new').value='';
   out.textContent=t('pwChanged');out.style.color='#15803d';
 }
@@ -1640,7 +1649,7 @@ async function saveToken(){
   SESSION.tok=tok;
   const sec=await getSec();if(!sec)return;
   sec.token=await encPkg(SESSION.keyObj,{t:tok});
-  clearSess();saveSess(true);
+  clearSess();saveSess();
   try{await pushSec();toast(t('tokSaved'),'ok');}catch(e){toast(t('syncFail')+(e.message||e),'err');}
   fillSettings();
   if(canEdit())syncAll(true);
@@ -1915,7 +1924,7 @@ function bindEvents(){
   $('#photoPrev').addEventListener('click',()=>$('#photoIn').click());
   $('#photoIn').addEventListener('change',async ev=>{
     const f=ev.target.files[0];if(!f)return;
-    try{formPhoto=await compressImage(f);renderPhotoPrev();}catch(e){toast('Photo error','err');}
+    try{formPhoto=await compressImage(f);renderPhotoPrev();}catch(e){toast(e&&e.message&&e.message.indexOf('6 MB')>-1?e.message:'Photo error: unsupported file','err');}
     ev.target.value='';
   });
   $('#btnPhotoRemove').addEventListener('click',()=>{formPhoto='';renderPhotoPrev();});
@@ -1964,7 +1973,7 @@ async function boot(){
   $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
   $('#authView').style.display='flex';
   // remembered session?
-  const sess=store.getItem('hr_sess');
+  const sess=sstore.getItem('hr_sess');
   if(sess){
     try{
       const s=JSON.parse(sess);
@@ -1998,5 +2007,5 @@ function fillDatalists(){
 }
 boot();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39eb43149dedb83',t:'MTc4OTIxMzkyNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
