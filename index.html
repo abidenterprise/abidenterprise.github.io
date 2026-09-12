@@ -302,6 +302,16 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
     <section id="v-dash" class="view">
       <div class="vtitle"><span data-i="dashTitle">Dashboard</span></div>
       <div class="kpis" id="kpis"></div>
+      <div class="card" style="margin-bottom:16px">
+        <h3>🗓 <span data-i="repTitle">Monthly Report — Joiners &amp; Resignations</span></h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+          <div class="field" style="max-width:220px"><label data-i="repMonth">Month</label><select id="repMonth"></select></div>
+          <div class="field" style="max-width:130px"><label data-i="repYear">Year</label><input id="repYear" type="number" min="1990" max="2100" step="1"></div>
+          <button class="btn g" id="btnRepJoin">🟢 <span data-i="repJoinBtn">New Joiners List</span></button>
+          <button class="btn o" id="btnRepResign">📤 <span data-i="repResignBtn">Resignation List</span></button>
+        </div>
+        <div id="repOut" style="margin-top:12px"></div>
+      </div>
       <div class="grid2">
         <div class="card"><h3 data-i="byDept">Employees by Department</h3><div id="chartDept"></div></div>
         <div class="card"><h3 data-i="byLoc">Employees by Job Location</h3><div id="chartLoc"></div></div>
@@ -391,6 +401,11 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             <div class="field"><label data-i="fSecBn">Section (Bangla)</label><input id="f_secBn" lang="bn"></div>
             <div class="field"><label><span data-i="fLocEn">Job Location (English)</span> <span class="req">*</span></label><input id="f_locEn" list="dlLoc" required></div>
             <div class="field"><label data-i="fLocBn">Job Location (Bangla)</label><input id="f_locBn" lang="bn"></div>
+            <div class="field" style="grid-column:1/-1">
+              <label data-i="fRecType">Recruitment Type</label>
+              <label style="display:flex;align-items:center;gap:9px;font-weight:600;font-size:13.5px;color:#334155;user-select:none;cursor:pointer;padding:4px 0"><input type="checkbox" id="f_recNew" style="width:17px;height:17px;accent-color:var(--p);flex:0 0 auto"> <span data-i="fRecNew">New Approved Employee</span></label>
+            </div>
+            <div class="field" id="replRow" style="display:none"><label data-i="fReplCode">Replacement For (Employee Code)</label><input id="f_replCode" list="dlCodes" placeholder="e.g. C 00099"></div>
           </div>
         </div>
         <div class="fsection">
@@ -406,6 +421,8 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             </div>
             <div class="field"><label data-i="fMobile">Mobile Number</label><input id="f_mobile" type="tel" placeholder="01XXXXXXXXX"></div>
             <div class="field"><label data-i="fNid">NID Number</label><input id="f_nid"></div>
+            <div class="field"><label data-i="fEmail">Email</label><input id="f_email" type="email"></div>
+            <div class="field"><label data-i="fBankAc">Bank Account Number</label><input id="f_bankAc"></div>
           </div>
         </div>
         <div class="fsection">
@@ -659,7 +676,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 
 <div id="printArea"></div>
 <div id="toast"></div>
-<div><datalist id="dlDept"></datalist><datalist id="dlSec"></datalist><datalist id="dlLoc"></datalist><datalist id="dlDesig"></datalist></div>
+<div><datalist id="dlDept"></datalist><datalist id="dlSec"></datalist><datalist id="dlLoc"></datalist><datalist id="dlDesig"></datalist><datalist id="dlCodes"></datalist></div>
 </div><!-- /appShell -->
 <script>
 'use strict';
@@ -686,6 +703,8 @@ en:{
   fMotherEn:"Mother's Name (English)",fMotherBn:"Mother's Name (Bangla)",fAddress:'Present Address',
   photoHint:'Click to<br>add photo',photoPick:'Choose Photo',photoRemove:'Remove',photoNote:'Photo is encrypted and saved to GitHub named by employee code (e.g. photos/C-10006.enc).',
   cancel:'Cancel',saveEmp:'Save Employee',male:'Male',female:'Female',other:'Other',
+  fRecType:'Recruitment Type',fRecNew:'New Approved Employee',fReplCode:'Replacement For (Employee Code)',recNew:'New Approved',recRepl:'Replacement',fEmail:'Email',fBankAc:'Bank Account Number',
+  repTitle:'Monthly Report — Joiners & Resignations',repMonth:'Month',repYear:'Year',repJoinBtn:'New Joiners List',repResignBtn:'Resignation List',repJoinTitle:'New Joiners List',repResignTitle:'Resignation List',repDJoin:'Joining Date',repDResign:'Resignation Date',repTotal:'Total',repEmpty:'No records found for this month.',
   setGit:'GitHub Connection & Security',setOwner:'GitHub username',setRepo:'Repository name',setBranch:'Branch',
   setOwnerH:'Your GitHub username (e.g. abidenterprise)',setRepoH:'For abidenterprise.github.io → exactly this name',
   setDataPath:'Data file path',setSecPath:'Security file path',setPhotosDir:'Photos folder',setToken:'GitHub Token (PAT)',setSave:'Save Settings',setTest:'Test Connection',
@@ -763,6 +782,8 @@ bn:{
   fMotherEn:'মাতার নাম (ইংরেজি)',fMotherBn:'মাতার নাম (বাংলা)',fAddress:'বর্তমান ঠিকানা',
   photoHint:'ছবি<br>যোগ করুন',photoPick:'ছবি নির্বাচন করুন',photoRemove:'মুছুন',photoNote:'ছবি এনক্রিপ্ট করে কর্মী কোড দিয়ে গিটহাবে সংরক্ষিত হয় (যেমন photos/C-10006.enc)।',
   cancel:'বাতিল',saveEmp:'কর্মী সংরক্ষণ করুন',male:'পুরুষ',female:'মহিলা',other:'অন্যান্য',
+  fRecType:'নিয়োগের ধরন',fRecNew:'নতুন অনুমোদিত কর্মী',fReplCode:'প্রতিস্থাপন (কর্মী কোড)',recNew:'নতুন অনুমোদিত',recRepl:'প্রতিস্থাপন',fEmail:'ইমেইল',fBankAc:'ব্যাংক অ্যাকাউন্ট নম্বর',
+  repTitle:'মাসিক রিপোর্ট — নতুন যোগদান ও পদত্যাগ',repMonth:'মাস',repYear:'বছর',repJoinBtn:'নতুন যোগদানকারীর তালিকা',repResignBtn:'পদত্যাগকারীর তালিকা',repJoinTitle:'নতুন যোগদানকারীর তালিকা',repResignTitle:'পদত্যাগকারীর তালিকা',repDJoin:'যোগদানের তারিখ',repDResign:'পদত্যাগের তারিখ',repTotal:'মোট',repEmpty:'এই মাসে কোনো রেকর্ড পাওয়া যায়নি।',
   setGit:'গিটহাব সংযোগ ও নিরাপত্তা',setOwner:'গিটহাব ইউজারনেম',setRepo:'রিপোজিটরির নাম',setBranch:'ব্রাঞ্চ',
   setOwnerH:'আপনার গিটহাব ইউজারনেম (যেমন abidenterprise)',setRepoH:'abidenterprise.github.io হলে ঠিক এই নামটিই দিন',
   setDataPath:'ডেটা ফাইলের পাথ',setSecPath:'সিকিউরিটি ফাইলের পাথ',setPhotosDir:'ছবির ফোল্ডার',setToken:'গিটহাব টোকেন (PAT)',setSave:'সেটিংস সংরক্ষণ',setTest:'সংযোগ পরীক্ষা',
@@ -836,7 +857,7 @@ const SEED=[
 {code:'C 00002',nameEn:'Demo Person Two',nameBn:'ডেমো নমুনা দুই',desigEn:'Driver',deptEn:'Manufacturing',secEn:'Engineering',locEn:'Mawna Plant',join:'2021-02-02',dob:'1993-03-05',mobile:'01700000002',gender:'Male'},
 {code:'C 00003',nameEn:'Demo Person Three',nameBn:'ডেমো নমুনা তিন',desigEn:'Support Sales',deptEn:'Sales & Marketing',secEn:'Sales',locEn:'Head Office',join:'2022-03-03',dob:'1997-07-20',mobile:'01700000003',gender:'Female'},
 {code:'C 00004',nameEn:'Demo Person Four',nameBn:'ডেমো নমুনা চার',desigEn:'Material Handler',deptEn:'Supply Chain & IT',secEn:'Warehouse',locEn:'Chittagong',join:'2023-04-04',dob:'1999-11-30',mobile:'01700000004',gender:'Male'}
-].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:''},x));
+].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:'',email:'',bankAc:'',recType:'',replCode:''},x));
 
 /* ================= STATE ================= */
 let LANG=store.getItem('hr_lang')||'en';
@@ -878,7 +899,7 @@ function avColor(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>
 function isAdmin(){return SESSION&&SESSION.role==='admin';}
 function canEd(){return SESSION&&(SESSION.role==='admin'||SESSION.role==='editor');}
 function fixEmp(e){return Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
-  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:''},e);}
+  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:'',email:'',bankAc:'',recType:'',replCode:''},e);}
 
 /* ================= BASE64 / CRYPTO ================= */
 function b64FromU8(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
@@ -1250,7 +1271,58 @@ function hydratePhotos(){
 function bnOf(v){return LOC_BN[v]||DEPT_BN[v]||SEC_BN[v]||DESIG_BN[v]||v;}
 function displayName(e){return LANG==='bn'&&(e.nameBn||'').trim()?e.nameBn:e.nameEn;}
 function displayDesig(e){return LANG==='bn'&&(e.desigBn||'').trim()?e.desigBn:(e.desigEn||'—');}
+function recLabel(e){return e.recType==='new'?t('recNew'):e.recType==='replacement'?(t('recRepl')+(e.replCode?' ('+e.replCode+')':'')):'—';}
+function monthName(i){try{return new Date(2024,i,1).toLocaleDateString(LANG==='bn'?'bn-BD':'en-US',{month:'long'});}catch(e){return String(i+1);}}
+function fillRepMonth(){
+  const sel=$('#repMonth');if(!sel)return;
+  const cur=sel.selectedIndex>0?sel.selectedIndex:-1;
+  sel.innerHTML='';
+  for(let i=0;i<12;i++){const o=document.createElement('option');o.value=String(i);o.textContent=monthName(i);sel.appendChild(o);}
+  const now=new Date();
+  if(!$('#repYear').value)$('#repYear').value=now.getFullYear();
+  sel.selectedIndex=cur>=0?cur:now.getMonth();
+}
+function monthEmps(kind){
+  if(!$('#repMonth').options.length)fillRepMonth();
+  const m=+$('#repMonth').value,y=+$('#repYear').value;
+  const pref=y+'-'+pad(m+1);
+  return kind==='join'
+    ?EMP.filter(e=>String(e.join||'').startsWith(pref)).sort((a,b)=>String(a.join).localeCompare(String(b.join)))
+    :EMP.filter(e=>e.status==='resigned'&&String(e.resignDate||'').startsWith(pref)).sort((a,b)=>String(a.resignDate).localeCompare(String(b.resignDate)));
+}
+function genReport(kind){
+  const list=monthEmps(kind);
+  const mName=monthName(+$('#repMonth').value),y=$('#repYear').value;
+  const isJoin=kind==='join',dk=isJoin?'join':'resignDate';
+  $('#repOut').innerHTML='<div style="font-weight:800;margin-bottom:8px">'+(isJoin?'🟢 '+t('repJoinTitle'):'📤 '+t('repResignTitle'))+' — '+esc(mName+' '+y)+' ('+t('repTotal')+': '+list.length+')</div>'+
+   (list.length?'<div class="tscroll"><table class="tbl" style="min-width:640px"><thead><tr><th>'+t('thCode')+'</th><th>'+t('thEmp')+'</th><th>'+t('thDesig')+'</th><th>'+t('fDeptEn')+'</th><th>'+t('fLocEn')+'</th><th>'+(isJoin?t('repDJoin'):t('repDResign'))+'</th><th>'+(isJoin?t('fRecType'):t('resignReason'))+'</th></tr></thead><tbody>'+
+   list.map(e=>'<tr><td>'+esc(e.code)+'</td><td>'+esc(displayName(e))+'</td><td>'+esc(displayDesig(e))+'</td><td>'+esc(e.deptEn||'')+'</td><td>'+esc(e.locEn||'')+'</td><td>'+fmtDate(e[dk])+'</td><td>'+(isJoin?recLabel(e):esc(e.resignReason||'—'))+'</td></tr>').join('')+'</tbody></table></div>'+
+   '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" id="btnRepPrint">🖨 '+t('thPrint')+'</button><button class="btn sm o" id="btnRepCsv">⬇ CSV</button></div>'
+   :'<div class="empty">'+t('repEmpty')+'</div>');
+  if(list.length){
+    const period=mName+' '+y;
+    $('#btnRepPrint').addEventListener('click',()=>printReport(isJoin,list,period));
+    $('#btnRepCsv').addEventListener('click',()=>{
+      const cols=[['Emp Code','code'],['Name','nameEn'],['Name (Bangla)','nameBn'],['Designation','desigEn'],['Department','deptEn'],['Job Location','locEn'],[isJoin?'Joining Date':'Resignation Date',dk],['Recruitment Type','recType'],['Replacement For (Emp Code)','replCode'],['Resignation Reason','resignReason']];
+      const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(list.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
+      download((isJoin?'new-joiners-':'resignations-')+y+'-'+pad(+$('#repMonth').value+1)+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
+    });
+  }
+}
+function printReport(isJoin,list,period){
+  const H=['#',t('thCode'),t('thEmp'),t('thDesig'),t('fDeptEn'),t('fLocEn'),isJoin?t('repDJoin'):t('repDResign'),isJoin?t('fRecType'):t('resignReason')];
+  const cell=v=>'<td style="padding:6px 8px;border:1px solid #cbd5e1">'+v+'</td>';
+  const th=h=>'<th style="padding:6px 8px;border:1px solid #cbd5e1;background:#eff6ff">'+h+'</th>';
+  const rows=list.map((e,i)=>'<tr>'+cell(i+1)+cell(esc(e.code))+cell(esc(displayName(e))+(e.nameBn?'<div style="font-size:11px;color:#475569">'+esc(e.nameBn)+'</div>':''))+cell(esc(displayDesig(e)))+cell(esc(e.deptEn||''))+cell(esc(e.locEn||''))+cell(fmtDate(isJoin?e.join:e.resignDate))+cell(isJoin?esc(recLabel(e)):esc(e.resignReason||'—'))+'</tr>').join('');
+  $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;padding:8px">'+
+   '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+esc(brandName())+' — '+(isJoin?t('repJoinTitle'):t('repResignTitle'))+'</h2>'+
+   '<div style="font-weight:700;margin:8px 0">'+esc(period)+' · '+t('repTotal')+': '+list.length+'</div>'+
+   '<table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>'+H.map(th).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'+
+   '<div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
+  window.print();
+}
 function renderDash(){
+  fillRepMonth();
   const act=EMP.filter(e=>e.status!=='resigned');
   const res=EMP.filter(e=>e.status==='resigned');
   const yr=new Date().getFullYear();
@@ -1352,6 +1424,8 @@ function renderProfile(code){
       (e.blood?'<span class="bg" style="background:#fee2e2;color:#b91c1c">🩸 '+esc(e.blood)+'</span>':'')+
       (tr?'<span class="tag">'+t('tenure')+': '+tenureStr(tr)+'</span>':'')+
       (e.dob?'<span class="tag">'+t('age')+': '+ageStr(e.dob)+'</span>':'')+
+      (e.recType==='new'?'<span class="tag" style="background:#dcfce7;color:#15803d">✅ '+t('recNew')+'</span>':'')+
+      (e.recType==='replacement'?'<span class="tag" style="background:#fef3c7;color:#92400e">🔄 '+t('recRepl')+(e.replCode?': '+esc(e.replCode):'')+'</span>':'')+
       '</div></div>'+
       '<div class="pacts">'+
         '<button class="btn o sm" data-nav="list">← '+t('navList')+'</button>'+
@@ -1365,10 +1439,10 @@ function renderProfile(code){
     (e.status==='resigned'?'<div class="resignbox">📤 <b>'+t('stResigned')+'</b> — '+t('lastWork')+': '+fmtDate(e.resignDate)+(e.resignReason?' · '+esc(e.resignReason):'')+'</div>':'')+
     '<div class="sec-title">'+t('fsJob')+'</div><div class="pgrid">'+
       bnRow(t('fDesigEn'),e.desigEn,e.desigBn)+bnRow(t('fDeptEn'),e.deptEn,e.deptBn)+bnRow(t('fSecEn'),e.secEn,e.secBn)+bnRow(t('fLocEn'),e.locEn,e.locBn)+
-      bnRow(t('fJoin'),fmtDate(e.join),'')+'</div>'+
+      bnRow(t('fJoin'),fmtDate(e.join),'')+bnRow(t('fRecType'),recLabel(e),'')+'</div>'+
     '<div class="sec-title">'+t('fsPersonal')+'</div><div class="pgrid">'+
       bnRow(t('fDob'),fmtDate(e.dob),'')+bnRow(t('fGender'),e.gender?(LANG==='bn'?({Male:t('male'),Female:t('female'),Other:t('other')}[e.gender]||e.gender):e.gender):'','')+
-      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fContact'),e.contact,'')+
+      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fContact'),e.contact,'')+bnRow(t('fEmail'),e.email,'')+bnRow(t('fBankAc'),e.bankAc,'')+
       (e.address?bnRow(t('fAddress'),e.address,''):'')+'</div>'+
     '<div class="sec-title">'+t('fAddrP')+'</div><div class="pgrid">'+
       bnRow(t('aVill'),e.addrPv,'')+bnRow(t('aPost'),e.addrPp,'')+bnRow(t('aPs'),e.addrPs,'')+bnRow(t('aDist'),e.addrPd,'')+
@@ -1414,6 +1488,10 @@ function openForm(code){
   set('#f_fatherEn',e&&e.fatherEn);set('#f_fatherBn',e&&e.fatherBn);
   set('#f_motherEn',e&&e.motherEn);set('#f_motherBn',e&&e.motherBn);
   set('#f_contact',e&&e.contact);
+  set('#f_email',e&&e.email);set('#f_bankAc',e&&e.bankAc);
+  $('#f_recNew').checked=e?e.recType==='new':true;
+  set('#f_replCode',e&&e.replCode);
+  $('#replRow').style.display=$('#f_recNew').checked?'none':'';
   set('#f_addrPv',e&&e.addrPv);set('#f_addrPp',e&&e.addrPp);set('#f_addrPs',e&&e.addrPs);set('#f_addrPd',e&&e.addrPd);
   set('#f_addrPvBn',e&&e.addrPvBn);set('#f_addrPpBn',e&&e.addrPpBn);set('#f_addrPsBn',e&&e.addrPsBn);set('#f_addrPdBn',e&&e.addrPdBn);
   set('#f_addrVv',e&&e.addrVv);set('#f_addrVp',e&&e.addrVp);set('#f_addrVs',e&&e.addrVs);set('#f_addrVd',e&&e.addrVd);
@@ -1476,6 +1554,9 @@ async function submitForm(ev){
   e.fatherEn=$('#f_fatherEn').value.trim();e.fatherBn=$('#f_fatherBn').value.trim();
   e.motherEn=$('#f_motherEn').value.trim();e.motherBn=$('#f_motherBn').value.trim();
   e.contact=$('#f_contact').value.trim();
+  e.email=$('#f_email').value.trim();e.bankAc=$('#f_bankAc').value.trim();
+  e.recType=$('#f_recNew').checked?'new':($('#f_replCode').value.trim()?'replacement':'');
+  e.replCode=$('#f_recNew').checked?'':$('#f_replCode').value.trim();
   e.addrPv=$('#f_addrPv').value.trim();e.addrPp=$('#f_addrPp').value.trim();e.addrPs=$('#f_addrPs').value.trim();e.addrPd=$('#f_addrPd').value.trim();
   e.addrPvBn=$('#f_addrPvBn').value.trim();e.addrPpBn=$('#f_addrPpBn').value.trim();e.addrPsBn=$('#f_addrPsBn').value.trim();e.addrPdBn=$('#f_addrPdBn').value.trim();
   e.addrVv=$('#f_addrVv').value.trim();e.addrVp=$('#f_addrVp').value.trim();e.addrVs=$('#f_addrVs').value.trim();e.addrVd=$('#f_addrVd').value.trim();
@@ -1720,7 +1801,8 @@ function exportCsv(){
     ['Department','deptEn'],['Department (Bangla)','deptBn'],['Section','secEn'],['Section (Bangla)','secBn'],['Job Location','locEn'],['Job Location (Bangla)','locBn'],
     ['Date Of Joining','join'],['Date Of Birth','dob'],['Mobile number','mobile'],['NID','nid'],['Blood Group','blood'],['Gender','gender'],
     ["Father's Name",'fatherEn'],["Father's Name (Bangla)",'fatherBn'],["Mother's Name",'motherEn'],["Mother's Name (Bangla)",'motherBn'],
-    ['Contact Number (Emergency)','contact'],
+    ['Contact Number (Emergency)','contact'],['Email','email'],['Bank Account Number','bankAc'],
+    ['Recruitment Type','recType'],['Replacement For (Emp Code)','replCode'],
     ['Village / House','addrPv'],['Post Office','addrPp'],['Police Station','addrPs'],['District','addrPd'],
     ['Village / House (Bangla)','addrPvBn'],['Post Office (Bangla)','addrPpBn'],['Police Station (Bangla)','addrPsBn'],['District (Bangla)','addrPdBn'],
     ['Permanent Village / House','addrVv'],['Permanent Post Office','addrVp'],['Permanent Police Station','addrVs'],['Permanent District','addrVd'],
@@ -1748,6 +1830,7 @@ const HDR_MAP={empcode:'code',code:'code',id:'code',name:'nameEn',nameenglish:'n
   departmentbangla:'deptBn',section:'secEn',sectionbangla:'secBn',joblocation:'locEn',location:'locEn',locationbangla:'locBn',
   dateofjoining:'join',joiningdate:'join',join:'join',doj:'join',dateofbirth:'dob',dob:'dob',birthdate:'dob',
   mobilenumber:'mobile',mobile:'mobile',phone:'mobile',contact:'mobile',nid:'nid',nidno:'nid',bloodgroup:'blood',blood:'blood',
+  email:'email',emailaddress:'email',bankaccount:'bankAc',bankaccountnumber:'bankAc',bankac:'bankAc',rectype:'recType',recruitmenttype:'recType',replacementcode:'replCode',replacementfor:'replCode',replacementforempcode:'replCode',
   gender:'gender',sex:'gender',fathersname:'fatherEn',father:'fatherEn',fathersnamebangla:'fatherBn',mothersname:'motherEn',mother:'motherEn',mothersnamebangla:'motherBn',
   address:'address',presentaddress:'address',status:'status',
   village:'addrPv',house:'addrPv',villagehouse:'addrPv',postoffice:'addrPp',policestation:'addrPs',district:'addrPd',
@@ -1799,6 +1882,9 @@ function importTable(rows){
     const rec={code:code||('AUTO-'+(EMP.length+1+r))};
     ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrPvBn','addrPpBn','addrPsBn','addrPdBn','addrVv','addrVp','addrVs','addrVd','addrVvBn','addrVpBn','addrVsBn','addrVdBn','nomName','nomPhone','nomRel','nomAddr','nomAv','nomAp','nomAs','nomAd','nomAvBn','nomApBn','nomAsBn','nomAdBn'].forEach(k=>{rec[k]=get(k);});
     rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
+    const rtRaw=get('recType').toLowerCase(),rcRaw=get('replCode').trim();
+    rec.recType=/new|approve/.test(rtRaw)?'new':(/repl/.test(rtRaw)||rcRaw?'replacement':'');
+    rec.replCode=rec.recType==='replacement'?rcRaw:'';
     const st=get('status').toLowerCase();rec.status=st.includes('resign')||st.includes('left')?'resigned':'active';
     if(!rec.nameEn&&ex)rec.nameEn=ex.nameEn;
     if(ex){
@@ -1860,7 +1946,7 @@ async function printProfile(code){
   '<div class="pgrid" style="margin-top:14px">'+
   cell(t('fDesigEn'),e.desigEn,e.desigBn)+cell(t('fDeptEn'),e.deptEn,e.deptBn)+cell(t('fSecEn'),e.secEn,e.secBn)+
   cell(t('fLocEn'),e.locEn,e.locBn)+cell(t('fJoin'),fmtDate(e.join),'')+cell(t('fDob'),fmtDate(e.dob),'')+
-  cell(t('fGender'),e.gender,'')+cell(t('fBlood'),e.blood,'')+cell(t('fMobile'),e.mobile,'')+cell(t('fNid'),e.nid,'')+
+  cell(t('fGender'),e.gender,'')+cell(t('fBlood'),e.blood,'')+cell(t('fMobile'),e.mobile,'')+cell(t('fNid'),e.nid,'')+cell(t('fEmail'),e.email,'')+cell(t('fBankAc'),e.bankAc,'')+cell(t('fRecType'),recLabel(e),'')+
   cell(t('fFatherEn'),e.fatherEn,e.fatherBn)+cell(t('fMotherEn'),e.motherEn,e.motherBn)+cell(t('fAddress'),e.address,'')+
   cell(t('fAddrP'),[e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', ')+(e.addrPvBn||e.addrPpBn||e.addrPsBn||e.addrPdBn?' | '+[e.addrPvBn,e.addrPpBn,e.addrPsBn,e.addrPdBn].filter(Boolean).join(', '):''),'')+
   cell(t('fAddrV'),[e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', ')+(e.addrVvBn||e.addrVpBn||e.addrVsBn||e.addrVdBn?' | '+[e.addrVvBn,e.addrVpBn,e.addrVsBn,e.addrVdBn].filter(Boolean).join(', '):''),'')+
@@ -1930,6 +2016,9 @@ function bindEvents(){
   $('#btnPhotoRemove').addEventListener('click',()=>{formPhoto='';renderPhotoPrev();});
   $('#btnResignCancel').addEventListener('click',()=>{$('#ovResign').classList.remove('on');});
   $('#btnResignOk').addEventListener('click',doResign);
+  $('#btnRepJoin').addEventListener('click',()=>genReport('join'));
+  $('#btnRepResign').addEventListener('click',()=>genReport('resign'));
+  $('#f_recNew').addEventListener('change',()=>{$('#replRow').style.display=$('#f_recNew').checked?'none':'';});
   $('#ovResign').addEventListener('click',ev=>{if(ev.target.id==='ovResign')$('#ovResign').classList.remove('on');});
   $('#btnRpCancel').addEventListener('click',()=>{$('#ovPass').classList.remove('on');});
   $('#btnRpOk').addEventListener('click',()=>{if(passTarget){resetUserPass(passTarget,$('#rp_pass').value);$('#ovPass').classList.remove('on');}});
@@ -2002,10 +2091,11 @@ function fillDatalists(){
   const uniq=k=>Array.from(new Set(EMP.map(e=>(e[k]||'').trim()).filter(Boolean))).sort();
   const defaults={dlDept:Object.keys(DEPT_BN),dlSec:Object.keys(SEC_BN),dlLoc:Object.keys(LOC_BN),dlDesig:Object.keys(DESIG_BN)};
   [['dlDept','deptEn'],['dlSec','secEn'],['dlLoc','locEn'],['dlDesig','desigEn']].forEach(([id,k])=>{
-    $('#'+id).innerHTML=Array.from(new Set(defaults[id].concat(uniq(k)))).map(v=>'<option value="'+esc(v)+'">').join('');
-  });
+    $('#'+id).innerHTML=Array.from(new Set(defaults[id].concat(uniq(k)))).map(v=>'<option value="'+esc(v)+'">').join('');});
+  $('#dlCodes').innerHTML=EMP.map(e=>'<option value="'+esc(e.code)+'">').join('');
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39eb43149dedb83',t:'MTc4OTIxMzkyNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39eee4fac20d4ac',t:'MTc4OTIxNjMwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
+</body>
 </html>
