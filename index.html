@@ -31,6 +31,15 @@ body:not(.r-admin) .ad-only{display:none!important}
 .acht{font-size:20px;font-weight:800;text-align:center}
 .achs{font-size:13px;color:var(--mut);text-align:center;margin:2px 0 18px;font-weight:600}
 .authcard .field{margin-bottom:12px}
+.authlogo,.blogo{background:linear-gradient(135deg,var(--p),var(--acc))!important}
+.authlogo.has-image{width:auto;min-width:64px;max-width:200px;padding:0 10px}
+.authlogo.has-image img{background:transparent;border-radius:12px}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:48px!important}
+.pass-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:var(--mut);font-size:18px;display:flex;align-items:center;justify-content:center}
+.pass-toggle:hover{background:#f1f5f9;color:var(--p)}
+.authcard .pass-toggle:focus-visible{outline:2px solid var(--p);outline-offset:1px}
+.hbtn svg{width:18px;height:18px;display:block}
 .autherr{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;border-radius:10px;padding:9px 13px;font-size:13.5px;font-weight:600;margin-bottom:12px;display:none}
 .authnote{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:10px;padding:9px 13px;font-size:12.5px;margin-bottom:12px}
 .authfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12.5px}
@@ -245,6 +254,8 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 .mlchips{min-height:26px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:3.5px 6px 3.5px 11px;font-size:12.5px;font-weight:600;margin:0 6px 6px 0}
 .chip button{background:#fee2e2;border:none;color:#b91c1c;width:18px;height:18px;border-radius:50%;font-size:10.5px;line-height:1;cursor:pointer;flex:0 0 auto}
+.chip button.chip-edit{background:#dbeafe;color:#1d4ed8}
+body.theme-dark .chip button.chip-edit{background:#183b68;color:#b7d3f8}
 .mlbox input{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:9px;outline:none}
 .mlbox input:focus{border-color:var(--p)}
 body.theme-dark .mlbox{background:#0d1730}
@@ -265,7 +276,6 @@ body.theme-dark .seg button.on{background:var(--p);color:#fff}
 .authcard .field input{padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:15px}
 .authcard .btn.wide{background:linear-gradient(135deg,var(--p),var(--acc));border:none;color:#fff;padding:13px;border-radius:12px;font-size:15px;font-weight:800;box-shadow:0 10px 26px rgba(30,90,168,.38);margin-top:4px}
 .authcard .btn.wide:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(30,90,168,.45)}
-.authbrand{position:relative;z-index:1;text-align:center;margin-top:16px;font-size:11px;color:rgba(255,255,255,.75);font-weight:600;letter-spacing:.4px}
 
 /* ---------- themes (admin): light / dark / off-white ---------- */
 body,.card,.kpi,.tscroll,.box,header,.field input,.field select,.field textarea,.setrow input,.search input,select.sel,.addrsub,.pcell,.fsection,.btn,.hbtn{transition:background .25s ease,color .25s ease,border-color .25s ease}
@@ -323,13 +333,14 @@ body.theme-dark .mini.d:hover{background:#3a1212}
 .bilingual-field{min-width:0}
 .bilingual-field>label{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 .bi-sep{color:var(--mut);font-weight:500}
-.bi-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bi-inputs{display:grid;grid-template-columns:1fr;gap:8px}
 .bi-inputs input,.bi-inputs select{min-width:0}
 .bi-inputs input[lang="bn"]{font-family:'Noto Sans Bengali',inherit}
 .bi-value .bi-en{font-weight:600;line-height:1.25}
 .bi-value .bi-bn{font-size:12px;color:var(--mut);line-height:1.25;margin-top:2px}
 .bi-tag{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.2}
 .bi-tag .bi-bn{font-family:'Noto Sans Bengali',inherit;color:var(--mut);font-size:10.5px}
+.lang-en .bi-bn-label,.lang-en .bi-sep{display:none}
 
 /* ---------- employee bulk selection ---------- */
 .bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin:-4px 0 12px;box-shadow:var(--shadow)}
@@ -434,7 +445,7 @@ body.write-locked .ed-only{display:none!important}
   <div class="hspace"></div>
   <span id="syncBadge"><span class="dot"></span><span id="syncTxt"></span></span>
   <span id="userChip">👤 <span class="un" id="ucName"></span><span class="urole" id="ucRole"></span></span>
-  <button class="hbtn" id="btnLogout" title="Logout">⏻</button>
+  <button class="hbtn" id="btnLogout" title="Logout" aria-label="Logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v9"/><path d="M6.2 6.2a8 8 0 1 0 11.6 0"/></svg></button>
   <button class="hbtn ad-only" id="btnTheme" title="Theme / থিম">☀️</button>
   <button class="hbtn" id="btnLang" title="Language / ভাষা">বাংলা</button>
 </header>
@@ -554,11 +565,11 @@ body.write-locked .ed-only{display:none!important}
             <div class="field"><label><span data-i="fStatusF">Status</span></label>
               <select id="f_statusF"><option value="active" data-i="stActive">Active</option><option value="resigned" data-i="stResigned">Resigned</option></select>
             </div>
-            <div class="field bilingual-field"><label><span data-i="fNameEn">Name (English)</span><span class="bi-sep">/</span><span data-i="fNameBn">Name (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><input id="f_nameEn" required placeholder="English"><input id="f_nameBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fDesigEn">Designation (English)</span><span class="bi-sep">/</span><span data-i="fDesigBn">Designation (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_desigEn" required><option value="">—</option></select><input id="f_desigBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fDeptEn">Department (English)</span><span class="bi-sep">/</span><span data-i="fDeptBn">Department (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_deptEn" required><option value="">—</option></select><input id="f_deptBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fSecEn">Section (English)</span><span class="bi-sep">/</span><span data-i="fSecBn">Section (Bangla)</span></label><div class="bi-inputs"><select id="f_secEn"><option value="">—</option></select><input id="f_secBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fLocEn">Job Location (English)</span><span class="bi-sep">/</span><span data-i="fLocBn">Job Location (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_locEn" required><option value="">—</option></select><input id="f_locBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fNameEn">Name (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fNameBn">Name (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><input id="f_nameEn" required placeholder="English"><input id="f_nameBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fDesigEn">Designation (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fDesigBn">Designation (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_desigEn" required><option value="">—</option></select><input id="f_desigBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fDeptEn">Department (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fDeptBn">Department (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_deptEn" required><option value="">—</option></select><input id="f_deptBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fSecEn">Section (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fSecBn">Section (Bangla)</span></label><div class="bi-inputs"><select id="f_secEn"><option value="">—</option></select><input id="f_secBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fLocEn">Job Location (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fLocBn">Job Location (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_locEn" required><option value="">—</option></select><input id="f_locBn" lang="bn" placeholder="বাংলা"></div></div>
             <div class="field" style="grid-column:1/-1">
               <label data-i="fRecType">Recruitment Type</label>
               <label style="display:flex;align-items:center;gap:9px;font-weight:600;font-size:13.5px;color:#334155;user-select:none;cursor:pointer;padding:4px 0"><input type="checkbox" id="f_recNew" style="width:17px;height:17px;accent-color:var(--p);flex:0 0 auto"> <span data-i="fRecNew">New Approved Employee</span></label>
@@ -577,17 +588,17 @@ body.write-locked .ed-only{display:none!important}
             <div class="field"><label data-i="fBlood">Blood Group</label>
               <select id="f_blood"><option value="">—</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
             </div>
-            <div class="field"><label data-i="fMobile">Mobile Number</label><input id="f_mobile" type="tel" inputmode="numeric" maxlength="11" minlength="11" pattern="01[0-9]{9}" placeholder="01XXXXXXXXX"></div>
+            <div class="field"><label data-i="fMobile">Mobile Number</label><input id="f_mobile" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX"></div>
             <div class="field"><label data-i="fNid">NID Number</label><input id="f_nid"></div>
             <div class="field"><label data-i="fEmail">Email</label><input id="f_email" type="email"></div>
-            <div class="field"><label data-i="fBankAc">Rocket Account Number</label><input id="f_rocketAc" inputmode="numeric" maxlength="12" minlength="12" pattern="[0-9]{12}"></div>
+            <div class="field"><label data-i="fBankAc">Rocket Account Number</label><input id="f_rocketAc" inputmode="numeric" maxlength="12"></div>
           </div>
         </div>
         <div class="fsection">
           <h3>👨‍👩‍👧 <span data-i="fsFamily">Family &amp; Address</span></h3>
           <div class="fgrid">
-            <div class="field bilingual-field"><label><span data-i="fFatherEn">Father's Name (English)</span><span class="bi-sep">/</span><span data-i="fFatherBn">Father's Name (Bangla)</span></label><div class="bi-inputs"><input id="f_fatherEn" placeholder="English"><input id="f_fatherBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fMotherEn">Mother's Name (English)</span><span class="bi-sep">/</span><span data-i="fMotherBn">Mother's Name (Bangla)</span></label><div class="bi-inputs"><input id="f_motherEn" placeholder="English"><input id="f_motherBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fFatherEn">Father's Name (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fFatherBn">Father's Name (Bangla)</span></label><div class="bi-inputs"><input id="f_fatherEn" placeholder="English"><input id="f_fatherBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field bilingual-field"><label><span data-i="fMotherEn">Mother's Name (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fMotherBn">Mother's Name (Bangla)</span></label><div class="bi-inputs"><input id="f_motherEn" placeholder="English"><input id="f_motherBn" lang="bn" placeholder="বাংলা"></div></div>
             <div class="field" style="grid-column:1/-1"><label data-i="fContact">Contact Number (Emergency)</label><input id="f_contact" type="tel"></div>
 <div class="field" style="grid-column:1/-1"><label data-i="fAddrP">Present Address</label>
             <div class="addrwrap">
@@ -908,14 +919,14 @@ en:{
   thPrint:'Print',editBt:'Edit',resignBt:'Resign',reinstateBt:'Reinstate',fsJob:'Job Information',fsPersonal:'Personal Information',fsFamilyL:'Family',
   bdayNone:'No birthdays this week.',bdayDay:'day',bdayToday:'Today',bdayTmrw:'Tomorrow',
   setGitNote:'All data is stored ENCRYPTED (AES-GCM) in your repository. Visitors see only the login screen. Only users you create can open the records. Writes use the encrypted GitHub token stored here.',
-  staticSecurityNote:'Static-browser limitation: only the administrator session receives the repository write token. For production HR data, use a backend or serverless API so the token and role checks never reach the browser.',
+  staticSecurityNote:'Static-browser limitation: administrator and editor sessions can receive the repository write token, while viewers remain read-only. For production HR data, use a backend or serverless API so the token and role checks never reach the browser.',
   setBackupNote:'Excel: File → Save As → "CSV UTF-8" or upload the .xlsx directly. Columns are auto-matched (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…). Same Emp Code = update, new code = add. Keep a JSON backup at least monthly — if the admin password is ever lost, the backup is the only way to recover data!',
   resetDone:'Local device data cleared.',localStat:'records cached on this device',
   noTokenEdit:'No token saved — ask the admin to add one in Settings.',
   /* --- auth --- */
   loginTitle:'Employee Records',loginSub:'Sign in to continue',lgUser:'Username',lgPass:'Password',lgRemember:'Keep me signed in on this device',
-  lgBtn:'Sign In',lgErr:'Wrong username or password',lgGhNote:'🔒 Secure connection to GitHub — data is encrypted.',lgLocalNote:'📴 GitHub not reachable — using this device (local mode).',
-  lgUseLocal:'Use this device only',lgForgot:'Forgot password?',
+  lgBtn:'Sign In',lgErr:'Wrong username or password',showPassword:'Show password',hidePassword:'Hide password',showUsername:'Show username',hideUsername:'Hide username',
+  lgForgot:'Forgot password?',
   forgotTitle:'Forgot password?',forgotMsg:'1) Another ADMIN can reset your password from "User Accounts". 2) If the only admin lost the password: the encrypted data cannot be opened again — delete data/security.json AND data/employees.json on github.com to restart, then restore your JSON backup (Settings → Restore JSON backup). Keep backups regularly!',
   setupTitle:'Initial Setup',setupSub:'Create the administrator account (one time)',
   suUser:'Admin username',suPass:'Password (min 6 chars)',suPass2:'Repeat password',suToken:'GitHub Token (required for first save)',
@@ -957,11 +968,11 @@ bn:{
   expXls:'এক্সেল (.xlsx) ডাউনলোড',prTitle:'ড্রপডাউন তালিকায় যোগ করুন',prEn:'ইংরেজি মান',prBn:'বাংলা নাম (ঐচ্ছিক — অ্যাটো-ফিল ও বাংলা দেখানোর জন্য)',prAdd:'যোগ করুন',
   prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',selectAll:'সব নির্বাচন করুন',selectedCount:'নির্বাচিত',deleteSelected:'নির্বাচিত মুছুন',deleteAll:'সব কর্মী মুছুন',noSelected:'প্রথমে অন্তত একজন কর্মী নির্বাচন করুন।',bulkDeleteTitle:'নির্বাচিত কর্মী মুছবেন?',bulkDeleteMsg:'আপনি কি নিশ্চিত যে নির্বাচিত কর্মীদের স্থায়ীভাবে মুছে ফেলতে চান?',bulkDeleteAllTitle:'সব কর্মী মুছবেন?',bulkDeleteAllMsg:'আপনি কি নিশ্চিত যে সব কর্মীর রেকর্ড স্থায়ীভাবে মুছে ফেলতে চান? এটি আর ফিরিয়ে আনা যাবে না।',bulkDeleted:'মুছে ফেলা হয়েছে',
   fsBasic:'মৌলিক তথ্য',fsDates:'ব্যক্তিগত তথ্য ও তারিখ',fsFamily:'পারিবারিক তথ্য ও ঠিকানা',fsPhoto:'কর্মীর ছবি',
-  fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম (ইংরেজি)',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি (ইংরেজি)',fDesigBn:'পদবি (বাংলা)',
-  fDeptEn:'বিভাগ (ইংরেজি)',fDeptBn:'বিভাগ (বাংলা)',fSecEn:'শাখা (ইংরেজি)',fSecBn:'শাখা (বাংলা)',
-  fLocEn:'অফিসের অবস্থান (ইংরেজি)',fLocBn:'অফিসের অবস্থান (বাংলা)',fDob:'জন্ম তারিখ',fJoin:'যোগদানের তারিখ',fGender:'লিঙ্গ',
-  fBlood:'রক্তের গ্রুপ',fMobile:'মোবাইল নম্বর',fNid:'এনআইডি নম্বর',fFatherEn:'পিতার নাম (ইংরেজি)',fFatherBn:'পিতার নাম (বাংলা)',
-  fMotherEn:'মাতার নাম (ইংরেজি)',fMotherBn:'মাতার নাম (বাংলা)',fAddress:'বর্তমান ঠিকানা',
+  fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি',fDesigBn:'পদবি (বাংলা)',
+  fDeptEn:'বিভাগ',fDeptBn:'বিভাগ (বাংলা)',fSecEn:'শাখা',fSecBn:'শাখা (বাংলা)',
+  fLocEn:'অফিসের অবস্থান',fLocBn:'অফিসের অবস্থান (বাংলা)',fDob:'জন্ম তারিখ',fJoin:'যোগদানের তারিখ',fGender:'লিঙ্গ',
+  fBlood:'রক্তের গ্রুপ',fMobile:'মোবাইল নম্বর',fNid:'এনআইডি নম্বর',fFatherEn:'পিতার নাম',fFatherBn:'পিতার নাম (বাংলা)',
+  fMotherEn:'মাতার নাম',fMotherBn:'মাতার নাম (বাংলা)',fAddress:'বর্তমান ঠিকানা',
   photoHint:'ছবি<br>যোগ করুন',photoPick:'ছবি নির্বাচন করুন',photoRemove:'মুছুন',photoNote:'ছবি এনক্রিপ্ট করে কর্মী কোড দিয়ে গিটহাবে সংরক্ষিত হয় (যেমন photos/C-10006.enc)।',
   cancel:'বাতিল',saveEmp:'কর্মী সংরক্ষণ করুন',male:'পুরুষ',female:'মহিলা',other:'অন্যান্য',
   fRecType:'নিয়োগের ধরন',fRecNew:'নতুন অনুমোদিত কর্মী',fReplCode:'প্রতিস্থাপন (কর্মী কোড)',recNew:'নতুন অনুমোদিত',recRepl:'প্রতিস্থাপন',fEmail:'ইমেইল',fBankAc:'রকেট অ্যাকাউন্ট নম্বর',
@@ -990,13 +1001,13 @@ bn:{
   thPrint:'প্রিন্ট',editBt:'সম্পাদনা',resignBt:'ইস্তেফা',reinstateBt:'পুনরায় কর্মরত',fsJob:'চাকরির তথ্য',fsPersonal:'ব্যক্তিগত তথ্য',fsFamilyL:'পরিবার',
   bdayNone:'এই সপ্তাহে কোনো জন্মদিন নেই।',bdayDay:'তারিখ',bdayToday:'আজ',bdayTmrw:'আগামীকাল',
   setGitNote:'সব ডেটা আপনার রিপোজিটরিতে এনক্রিপ্টেড (AES-GCM) অবস্থায় থাকে। বাইরের কেউ শুধু লগইন স্ক্রিন দেখতে পায়। শুধু আপনার তৈরি ইউজাররাই রেকর্ড খুলতে পারবে। সংরক্ষণের জন্য এখানে এনক্রিপ্টেড গিটহাব টোকেন ব্যবহৃত হয়।',
-  staticSecurityNote:'স্ট্যাটিক ব্রাউজার সীমাবদ্ধতা: রিপোজিটরির লেখার টোকেন শুধু অ্যাডমিন সেশনে ব্যবহৃত হয়। বাস্তব এইচআর ডেটার জন্য ব্যাকএন্ড বা সার্ভারলেস API ব্যবহার করুন, যাতে টোকেন ও অনুমতি ব্রাউজারে না আসে.',
+  staticSecurityNote:'স্ট্যাটিক ব্রাউজার সীমাবদ্ধতা: অ্যাডমিন ও সম্পাদক সেশনে রিপোজিটরির লেখার টোকেন ব্যবহৃত হয়, আর পর্যবেক্ষক শুধু দেখতে পারে। বাস্তব এইচআর ডেটার জন্য ব্যাকএন্ড বা সার্ভারলেস API ব্যবহার করুন, যাতে টোকেন ও অনুমতি ব্রাউজারে না আসে.',
   setBackupNote:'এক্সেল: File → Save As → "CSV UTF-8" অথবা সরাসরি .xlsx ফাইল আপলোড করুন। কলাম নিজে থেকেই মিলে যায় (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…)। একই Emp Code হলে আপডেট হবে, নতুন হলে যোগ হবে। অন্তত মাসে একবার JSON ব্যাকআপ নিন — অ্যাডমিন পাসওয়ার্ড হারালে ব্যাকআপই একমাত্র উপায়!',
   resetDone:'এই ডিভাইসের ডেটা মুছে ফেলা হয়েছে।',localStat:'রেকর্ড এই ডিভাইসে ক্যাশে আছে',
   noTokenEdit:'কোনো টোকেন সেভ নেই — অ্যাডমিকে সেটিংসে টোকেন যোগ করতে বলুন।',
   loginTitle:'কর্মী রেকর্ডস',loginSub:'চালিয়ে যেতে সাইন ইন করুন',lgUser:'ইউজারনেম',lgPass:'পাসওয়ার্ড',lgRemember:'এই ডিভাইসে সাইন ইন থাকুন',
-  lgBtn:'সাইন ইন',lgErr:'ইউজারনেম বা পাসওয়ার্ড ভুল',lgGhNote:'🔒 গিটহাবের সাথে নিরাপদ সংযোগ — ডেটা এনক্রিপ্টেড।',lgLocalNote:'📴 গিটহাব পাওয়া যাচ্ছে না — এই ডিভাইস ব্যবহৃত হচ্ছে (লোকাল মোড)।',
-  lgUseLocal:'শুধু এই ডিভাইস ব্যবহার করুন',lgForgot:'পাসওয়ার্ড ভুলে গেছেন?',
+  lgBtn:'সাইন ইন',lgErr:'ইউজারনেম বা পাসওয়ার্ড ভুল',showPassword:'পাসওয়ার্ড দেখুন',hidePassword:'পাসওয়ার্ড লুকান',showUsername:'ইউজারনেম দেখুন',hideUsername:'ইউজারনেম লুকান',
+  lgForgot:'পাসওয়ার্ড ভুলে গেছেন?',
   forgotTitle:'পাসওয়ার্ড ভুলে গেছেন?',forgotMsg:'১) অন্য কোনো অ্যাডমিন "ইউজার একাউন্ট" থেকে পাসওয়ার্ড রিসেট করে দিতে পারবেন। ২) একমাত্র অ্যাডমিন পাসওয়ার্ড হারালে: এনক্রিপ্টেড ডেটা আর খোলা যাবে না — github.com-এ data/security.json ও data/employees.json মুছে দিয়ে নতুন করে শুরু করুন, তারপর JSON ব্যাকআপ পুনরুদ্ধার করুন (সেটিংস → Restore JSON backup)। নিয়মিত ব্যাকআপ রাখুন!',
   setupTitle:'প্রাথমিক সেটআপ',setupSub:'অ্যাডমিন একাউন্ট তৈরি করুন (একবারই)',
   suUser:'অ্যাডমিন ইউজারনেম',suPass:'পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)',suPass2:'পাসওয়ার্ড আবার দিন',suToken:'গিটহাব টোকেন (প্রথম সেভের জন্য আবশ্যক)',
@@ -1024,7 +1035,7 @@ bn:{
   fsNominee:'নমিনির তথ্য',nomName:'নমিনির নাম',nomPhone:'নমিনির ফোন নম্বর',nomAddr:'নমিনির ঠিকানা',nomRelation:'নমিনির সাথে সম্পর্ক',
   recTitle:'কর্মী রেকর্ড',
   brandT:'কোম্পানি ব্র্যান্ড',brandNote:'কোম্পানির নাম ও লোগো লগইন স্ক্রিনে এবং হেডারে দেখা যাবে। লোগো একটি পাবলিক ফাইল হিসেবে থাকে (সংবেদনশীল নয়)।',
-  brandNameL:'কোম্পানির নাম (ইংরেজি)',brandNameB:'কোম্পানির নাম (বাংলা)',logoPick:'লোগো বাছুন',logoRemove:'মুছুন',logoNote:'বর্গাকার ছবি ভালো। স্বয়ংক্রিয়ভাবে ছোট করা হয়।',brandSave:'ব্র্যান্ড সংরক্ষণ',brandSaved:'✅ ব্র্যান্ড সংরক্ষিত'
+  brandNameL:'কোম্পানির নাম',brandNameB:'কোম্পানির নাম (বাংলা)',logoPick:'লোগো বাছুন',logoRemove:'মুছুন',logoNote:'বর্গাকার ছবি ভালো। স্বয়ংক্রিয়ভাবে ছোট করা হয়।',brandSave:'ব্র্যান্ড সংরক্ষণ',brandSaved:'✅ ব্র্যান্ড সংরক্ষিত'
 }};
 
 /* auto Bangla for known values */
@@ -1067,6 +1078,12 @@ function t(k,fb){return (I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||fb||k;}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function pad(n){return String(n).padStart(2,'0');}
 function normCode(c){return String(c||'').trim().replace(/\s+/g,' ').toLowerCase();}
+function normalizeMobile(v){
+  let d=String(v||'').replace(/\D/g,'');
+  if(/^008801\d{9}$/.test(d))d='0'+d.slice(5);
+  else if(/^8801\d{9}$/.test(d))d='0'+d.slice(3);
+  return d;
+}
 function slug(s){return String(s).trim().replace(/[^\w\u0980-\u09FF-]+/g,'-').replace(/-+/g,'-');}
 function todayISO(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
 function fmtDate(iso){if(!iso)return '—';const m=String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);if(!m)return String(iso);
@@ -1206,34 +1223,39 @@ function badgeState(){
 
 /* ================= AUTH SCREENS ================= */
 function logoSVG(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>';}
-function authHeader(title,sub){return '<div class="authlogo" style="'+(BRAND.logo?'background-color:transparent;width:auto;min-width:64px;max-width:200px;padding:0':'')+'">'+(BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div><div class="authbrand">🔒 abidenterprise.github.io · AES-256 encrypted</div>';}
+function authLogoHTML(){return BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG();}
+function authHeader(title,sub){
+  return '<div class="authlogo'+(BRAND.logo?' has-image':'')+'">'+authLogoHTML()+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';
+}
+function refreshAuthLogo(){
+  const el=$('#authCard .authlogo');if(!el)return;
+  el.className='authlogo'+(BRAND.logo?' has-image':'');el.innerHTML=authLogoHTML();
+}
 function renderLogin(note){
   const c=$('#authCard');
   c.innerHTML=authHeader(brandName(),t('loginSub'))+
-  (note?'<div class="authnote">'+esc(note)+'</div>':
-    (MODE==='gh'?'<div class="authnote">'+t('lgGhNote')+'</div>':'<div class="authnote">'+t('lgLocalNote')+'</div>'))+
   '<div class="autherr" id="lg_err"></div>'+
-  '<form id="loginForm"><div class="field"><label>'+t('lgUser')+'</label><input id="lg_u" autocomplete="username" required></div>'+
-  '<div class="field"><label>'+t('lgPass')+'</label><input id="lg_p" type="password" autocomplete="current-password" required></div>'+
-
-  '<button class="btn wide" type="submit">🔐 '+t('lgBtn')+'</button></form>'+
-  '<div class="authfoot"><a id="lg_forgot">'+t('lgForgot')+'</a><a id="lg_local">'+t('lgUseLocal')+'</a></div>';
+  '<form id="loginForm"><div class="field"><label>'+t('lgUser')+'</label><div class="password-wrap"><input id="lg_u" type="text" autocomplete="username" required><button type="button" class="pass-toggle" id="lg_user_eye" aria-label="'+t('showUsername')+'" title="'+t('showUsername')+'">👁</button></div></div>'+  '<div class="field"><label>'+t('lgPass')+'</label><div class="password-wrap"><input id="lg_p" type="password" autocomplete="current-password" required><button type="button" class="pass-toggle" id="lg_eye" aria-label="'+t('showPassword')+'" title="'+t('showPassword')+'">👁</button></div></div>'+  '<button class="btn wide" type="submit">🔐 '+t('lgBtn')+'</button></form>'+  '<div class="authfoot"><a id="lg_forgot">'+t('lgForgot')+'</a></div>';
   $('#loginForm').addEventListener('submit',async ev=>{ev.preventDefault();
     const err=$('#lg_err');err.style.display='none';
     try{await doLogin($('#lg_u').value,$('#lg_p').value);}
     catch(e){err.textContent=t('lgErr');err.style.display='block';}
   });
+  $('#lg_eye').addEventListener('click',ev=>{
+    const input=$('#lg_p'),shown=input.type==='text';input.type=shown?'password':'text';
+    const label=t(shown?'showPassword':'hidePassword');ev.currentTarget.textContent=shown?'👁':'🙈';ev.currentTarget.setAttribute('aria-label',label);ev.currentTarget.title=label;
+  });
+  $('#lg_user_eye').addEventListener('click',ev=>{
+    const input=$('#lg_u'),shown=input.type==='text';input.type=shown?'password':'text';
+    const label=t(shown?'showUsername':'hideUsername');ev.currentTarget.textContent=shown?'👁':'🙈';ev.currentTarget.setAttribute('aria-label',label);ev.currentTarget.title=label;
+  });
   $('#lg_forgot').addEventListener('click',()=>confirmDlg(t('forgotTitle'),t('forgotMsg'),()=>{}));
   $('#btnCfNo').textContent=t('cancel');
-  $('#lg_local').addEventListener('click',async()=>{
-    MODE='local';const ls=store.getItem('hr_local_sec');
-    if(ls){renderLogin(t('lgLocalNote'));}else renderSetup(t('lgLocalNote'));
-  });
 }
 function renderSetup(note){
   const c=$('#authCard');
   c.innerHTML=authHeader(t('setupTitle'),t('setupSub'))+
-  (note?'<div class="authnote">'+esc(note)+'</div>':'<div class="authnote">'+(MODE==='gh'?t('lgGhNote'):t('lgLocalNote'))+'</div>')+
+  (note?'<div class="authnote">'+esc(note)+'</div>':'')+
   '<div class="autherr" id="su_err"></div>'+
   '<form id="setupForm">'+
   '<div class="field"><label>'+t('suUser')+'</label><input id="su_u" autocomplete="username" required></div>'+
@@ -1301,14 +1323,14 @@ async function doLogin(u,p){
   catch(e){throw new Error('bad password');}
   const keyObj=await impBits(rawBits);
   SESSION={user:usr.u,role:usr.role||'viewer',keyObj:keyObj,tok:''};
-  if(MODE==='gh'&&sec.token&&usr.role==='admin'){try{const tp=await decPkg(keyObj,sec.token);SESSION.tok=tp.t||'';}catch(e){}}
+  if(MODE==='gh'&&sec.token&&usr.role!=='viewer'){try{const tp=await decPkg(keyObj,sec.token);SESSION.tok=tp.t||'';}catch(e){}}
   saveSess();
   await enterApp();
 }
 function saveSess(){
   (async()=>{try{
     const raw=new Uint8Array(await crypto.subtle.exportKey('raw',SESSION.keyObj));
-    sstore.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.role==='admin'?SESSION.tok:'',mode:MODE}));
+    sstore.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.role!=='viewer'?SESSION.tok:'',mode:MODE}));
   }catch(e){}})();
 }
 async function logout(){clearSess();SESSION=null;EMP=[];pendingPhotoDeletes=[];Object.keys(photoCache).forEach(k=>delete photoCache[k]);
@@ -1587,7 +1609,7 @@ function renderManageLists(){
   if(!LISTS)LISTS=defaultLists();
   [['dept'],['sec'],['loc'],['desig']].forEach(a=>{const k=a[0];
     const el=$('#ml_'+k);if(!el)return;
-    el.innerHTML=(LISTS[k]||[]).map((v,i)=>'<span class="chip">'+esc(v)+(LISTS.bn[k]&&LISTS.bn[k][v]?' <span lang="bn" style="color:var(--mut);font-weight:700">· '+esc(LISTS.bn[k][v])+'</span>':'')+'<button type="button" data-mlk="'+k+'" data-mli="'+i+'" title="Remove">✕</button></span>').join('')||'<span class="sub" style="font-size:12px;color:var(--mut)">—</span>';
+    el.innerHTML=(LISTS[k]||[]).map((v,i)=>'<span class="chip">'+esc(v)+(LISTS.bn[k]&&LISTS.bn[k][v]?' <span lang="bn" style="color:var(--mut);font-weight:700">· '+esc(LISTS.bn[k][v])+'</span>':'')+'<button type="button" class="chip-edit" data-mledit="'+k+'" data-mli="'+i+'" title="'+esc(t('editBt'))+'">✎</button><button type="button" data-mlk="'+k+'" data-mli="'+i+'" title="Remove">✕</button></span>').join('')||'<span class="sub" style="font-size:12px;color:var(--mut)">—</span>';
   });
 }
 async function addListVal(k){
@@ -1601,11 +1623,19 @@ async function addListVal(k){
   toast(t('savedGH'),'ok');
 }
 function promptAdd(k,onDone,onCancel){
-  window.__prk=k;window.__pron=onDone;window.__prc=onCancel;
+  window.__prk=k;window.__prmode='add';window.__pri=-1;window.__pron=onDone;window.__prc=onCancel;
   $('#pr_title').textContent='➕ '+t('ml'+k.charAt(0).toUpperCase()+k.slice(1));
   $('#pr_en').value='';$('#pr_bn').value='';
   $('#ovPrompt').classList.add('on');
   setTimeout(()=>$('#pr_en').focus(),60);
+}
+function promptEdit(k,i){
+  const value=(LISTS[k]||[])[i];if(value===undefined)return;
+  window.__prk=k;window.__prmode='edit';window.__pri=i;window.__pron=null;window.__prc=null;
+  $('#pr_title').textContent='✎ '+t('editBt')+' — '+t('ml'+k.charAt(0).toUpperCase()+k.slice(1));
+  $('#pr_en').value=value;$('#pr_bn').value=(LISTS.bn[k]&&LISTS.bn[k][value])||'';
+  $('#ovPrompt').classList.add('on');
+  setTimeout(()=>{$('#pr_en').focus();$('#pr_en').select();},60);
 }
 function applyTheme(){
   document.body.classList.remove('theme-dark','theme-offwhite');
@@ -1789,6 +1819,7 @@ function openForm(code){
   const e=code?EMP.find(x=>x.code===code):null;
   $('#formTitle').textContent=e?t('formEdit'):t('formAdd');
   const set=(id,v)=>{$(id).value=v||'';};
+  ['#f_nameBn','#f_desigBn','#f_deptBn','#f_secBn','#f_locBn','#f_fatherBn','#f_motherBn'].forEach(id=>$(id).dataset.auto='');
   set('#f_code',e?e.code:(nextCode()));
   $('#f_statusF').value=e&&e.status==='resigned'?'resigned':'active';
   set('#f_nameEn',e&&e.nameEn);set('#f_nameBn',e&&e.nameBn);
@@ -1797,7 +1828,7 @@ function openForm(code){
   set('#f_secEn',e&&e.secEn);set('#f_secBn',e&&e.secBn);
   set('#f_locEn',e&&e.locEn);set('#f_locBn',e&&e.locBn);
   set('#f_dob',e&&e.dob);set('#f_join',e&&e.join);
-  set('#f_gender',e&&e.gender);set('#f_blood',e&&e.blood);set('#f_mobile',e&&e.mobile);set('#f_nid',e&&e.nid);
+  set('#f_gender',e&&e.gender);set('#f_blood',e&&e.blood);set('#f_mobile',normalizeMobile(e&&e.mobile));set('#f_nid',e&&e.nid);
   set('#f_fatherEn',e&&e.fatherEn);set('#f_fatherBn',e&&e.fatherBn);
   set('#f_motherEn',e&&e.motherEn);set('#f_motherBn',e&&e.motherBn);
   set('#f_contact',e&&e.contact);
@@ -1841,8 +1872,8 @@ function compressImage(file,M){
     r.onerror=rej;r.readAsDataURL(file);
   });
 }
-function autoFillBn(){
-  const g=(a,b,map)=>{const en=$(a).value.trim();const bn=$(b);if(en&&!bn.value.trim()&&map[en])bn.value=map[en];};
+function autoFillBn(force){
+  const g=(a,b,map)=>{const en=$(a).value.trim(),bn=$(b);if(force){bn.value=en&&map[en]?map[en]:'';bn.dataset.auto='1';}else if(en&&map[en]&&(!bn.value.trim()||bn.dataset.auto==='1')){bn.value=map[en];bn.dataset.auto='1';}};
   const lb=(LISTS&&LISTS.bn)||{};
   g('#f_deptEn','#f_deptBn',Object.assign({},DEPT_BN,lb.dept||{}));g('#f_secEn','#f_secBn',Object.assign({},SEC_BN,lb.sec||{}));
   g('#f_locEn','#f_locBn',Object.assign({},LOC_BN,lb.loc||{}));g('#f_desigEn','#f_desigBn',Object.assign({},DESIG_BN,lb.desig||{}));
@@ -1854,7 +1885,7 @@ async function submitForm(ev){
   if(!code||!$('#f_nameEn').value.trim()||!$('#f_desigEn').value.trim()||!$('#f_deptEn').value.trim()||!$('#f_locEn').value.trim()||!$('#f_join').value){toast(t('reqFields'),'err');return;}
   if(EMP.some(e=>normCode(e.code)===normCode(code)&&e.code!==editingCode)){toast(t('dupCode'),'err');return;}
   const mob=$('#f_mobile').value.trim();
-  const cleanMob=mob.replace(/\D/g,'');
+  const cleanMob=normalizeMobile(mob);
   if(mob&&!/^01\d{9}$/.test(cleanMob)){toast(t('badMobile'),'err');return;}
   const rocket=$('#f_rocketAc').value.trim().replace(/\D/g,'');
   if(rocket&&!/^\d{12}$/.test(rocket)){toast(t('badRocket'),'err');return;}
@@ -1862,7 +1893,7 @@ async function submitForm(ev){
   if(join>todayISO()){toast(t('futureJoin'),'err');return;}
   if(dob&&join&&dob>=join){toast(t('badDates'),'err');return;}
   const same=(a,b)=>String(a||'').replace(/\D/g,'')===String(b||'').replace(/\D/g,'');
-  if(mob&&EMP.some(x=>x.code!==editingCode&&same(x.mobile,mob))){toast(t('dupMobile'),'err');return;}
+  if(mob&&EMP.some(x=>x.code!==editingCode&&same(normalizeMobile(x.mobile),cleanMob))){toast(t('dupMobile'),'err');return;}
   const nid=$('#f_nid').value.trim();
   if(nid&&EMP.some(x=>x.code!==editingCode&&String(x.nid||'').trim()===nid)){toast(t('dupNid'),'err');return;}
   autoFillBn();
@@ -2123,6 +2154,32 @@ async function testConnection(){
 /* ================= BRAND (company name & logo) ================= */
 let BRAND={name:'',nameBn:'',logo:''};let pendingLogo=null;
 function brandName(){return (LANG==='bn'&&(BRAND.nameBn||'').trim())?BRAND.nameBn:(BRAND.name||'Abid Enterprise');}
+async function cleanLogoBackground(data){
+  if(!data||!/^data:image\//i.test(String(data)))return data;
+  return new Promise(resolve=>{
+    try{
+      const img=new Image();img.onload=()=>{
+        try{
+          const c=document.createElement('canvas');c.width=img.naturalWidth||img.width;c.height=img.naturalHeight||img.height;
+          const ctx=c.getContext('2d');ctx.drawImage(img,0,0,c.width,c.height);
+          const im=ctx.getImageData(0,0,c.width,c.height),d=im.data,w=c.width,h=c.height;
+          const sample=[];
+          for(const [x,y] of [[0,0],[w-1,0],[0,h-1],[w-1,h-1]]){const i=(y*w+x)*4;sample.push([d[i],d[i+1],d[i+2],d[i+3]]);}
+          const dark=sample.filter(v=>v[3]>0&&v[0]<75&&v[1]<75&&v[2]<75).length;
+          const light=sample.filter(v=>v[3]>0&&v[0]>235&&v[1]>235&&v[2]>235).length;
+          const removeDark=dark>=2,removeLight=!removeDark&&light>=2;
+          if(!removeDark&&!removeLight){resolve(data);return;}
+          const isBg=(i)=>{const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];return a<20||(removeDark?r<85&&g<85&&b<85:r>230&&g>230&&b>230);};
+          const seen=new Uint8Array(w*h),stack=[];
+          for(let x=0;x<w;x++){stack.push(x,w*(h-1)+x);}
+          for(let y=0;y<h;y++){stack.push(y*w,w*(y+1)-1);}
+          while(stack.length){const pos=stack.pop();if(pos<0||pos>=w*h||seen[pos]||!isBg(pos*4))continue;seen[pos]=1;d[pos*4+3]=0;const x=pos%w,y=Math.floor(pos/w);if(x)stack.push(pos-1);if(x<w-1)stack.push(pos+1);if(y)stack.push(pos-w);if(y<h-1)stack.push(pos+w);}
+          ctx.putImageData(im,0,0);resolve(c.toDataURL('image/png'));
+        }catch(e){resolve(data);}
+      };img.onerror=()=>resolve(data);img.src=data;
+    }catch(e){resolve(data);}
+  });
+}
 function applyBrand(){
   const bn=$('#brandName');if(bn)bn.textContent=brandName();
   const at=$('#achtTitle');if(at&&$('#loginForm'))at.textContent=brandName();
@@ -2130,7 +2187,7 @@ function applyBrand(){
   if(!lg)return;
   if(BRAND.logo){
     lg.innerHTML='<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:44px;max-width:160px;height:auto;width:auto;object-fit:contain;display:block;border-radius:8px">';
-    lg.style.width='auto';lg.style.minWidth='38px';lg.style.height='44px';lg.style.background='transparent';lg.style.borderRadius='8px';lg.style.padding='0';
+    lg.style.width='auto';lg.style.minWidth='38px';lg.style.height='44px';lg.style.background='';lg.style.borderRadius='8px';lg.style.padding='0';
   }else{
     lg.innerHTML=logoSVG();
     lg.style.width='';lg.style.minWidth='';lg.style.height='';lg.style.background='';lg.style.borderRadius='';lg.style.padding='';
@@ -2141,7 +2198,8 @@ async function loadBrand(){
     if(MODE==='gh'){const r=await fetch(rawURL('data/brand.json'));if(r.ok)BRAND=Object.assign(BRAND,await r.json());}
     else{const st=store.getItem('hr_brand');if(st)BRAND=Object.assign(BRAND,JSON.parse(st));}
   }catch(e){}
-  applyBrand();
+  if(BRAND.logo)BRAND.logo=await cleanLogoBackground(BRAND.logo);
+  applyBrand();refreshAuthLogo();
 }
 function renderLogoPrev(){
   const el=$('#logoPrev');if(!el)return;
@@ -2328,7 +2386,7 @@ function importTable(rows){
     const ex=code?EMP.find(e=>normCode(e.code)===normCode(code)):null;
     const rec={code:code||('AUTO-'+(EMP.length+1+r))};
     ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','rocketAc','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrPvBn','addrPpBn','addrPsBn','addrPdBn','addrVv','addrVp','addrVs','addrVd','addrVvBn','addrVpBn','addrVsBn','addrVdBn','nomName','nomPhone','nomRel','nomAddr','resignDate','resignReason','nomAv','nomAp','nomAs','nomAd','nomAvBn','nomApBn','nomAsBn','nomAdBn'].forEach(k=>{rec[k]=get(k);});
-    rec.mobile=rec.mobile.replace(/\D/g,'');rec.rocketAc=rec.rocketAc.replace(/\D/g,'');
+    rec.mobile=normalizeMobile(rec.mobile);rec.rocketAc=rec.rocketAc.replace(/\D/g,'');
     if((rec.mobile&&!/^01\d{9}$/.test(rec.mobile))||(rec.rocketAc&&!/^\d{12}$/.test(rec.rocketAc))){skipped++;continue;}
     rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
     rec.resignDate=parseDateAny(get('resignDate'));rec.resignReason=get('resignReason');
@@ -2440,6 +2498,7 @@ document.addEventListener('click',ev=>{
 function applyLang(){
   $$('[data-i]').forEach(el=>{el.textContent=t(el.getAttribute('data-i'));});
   document.documentElement.lang=LANG==='bn'?'bn':'en';
+  document.body.classList.toggle('lang-en',LANG==='en');document.body.classList.toggle('lang-bn',LANG==='bn');
   $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
   applyBrand();
   $('#brandSub').textContent=LANG==='bn'?'সুরক্ষিত এইচআর ইআরপি · কর্মী রেকর্ড':'Secure HR ERP · Employee Records';
@@ -2481,6 +2540,7 @@ function bindEvents(){
   $('#codeAuto').addEventListener('click',()=>{$('#f_code').value=nextCode();});
   $('#f_mobile').addEventListener('input',ev=>{ev.target.value=ev.target.value.replace(/\D/g,'').slice(0,11);});
   $('#f_rocketAc').addEventListener('input',ev=>{ev.target.value=ev.target.value.replace(/\D/g,'').slice(0,12);});
+  ['#f_nameBn','#f_desigBn','#f_deptBn','#f_secBn','#f_locBn','#f_fatherBn','#f_motherBn'].forEach(id=>$(id).addEventListener('input',()=>$(id).dataset.auto=''));
   $('#btnPhotoPick').addEventListener('click',()=>$('#photoIn').click());
   $('#photoPrev').addEventListener('click',()=>$('#photoIn').click());
   $('#photoIn').addEventListener('change',async ev=>{
@@ -2506,27 +2566,36 @@ function bindEvents(){
     sel.addEventListener('change',()=>{
       if(sel.value==='__add__'){
         const prev=sel.dataset.prev||'';
-        promptAdd(k,v=>{fillDatalists();sel.value=v;sel.dataset.prev=v;},()=>{sel.value=prev;});
-      }else{sel.dataset.prev=sel.value;autoFillBn();}
+        promptAdd(k,v=>{fillDatalists();sel.value=v;sel.dataset.prev=v;autoFillBn(true);},()=>{sel.value=prev;});
+      }else{sel.dataset.prev=sel.value;autoFillBn(true);}
     });
   });
   $('#prOk').addEventListener('click',async()=>{
-    const k=window.__prk||'dept';const en=$('#pr_en').value.trim(),bn=$('#pr_bn').value.trim();
+    const k=window.__prk||'dept',mode=window.__prmode||'add',index=Number(window.__pri);const en=$('#pr_en').value.trim(),bn=$('#pr_bn').value.trim();
     if(!en){$('#pr_en').focus();return;}
-    if((LISTS[k]||[]).some(x=>x.toLowerCase()===en.toLowerCase())){$('#pr_en').focus();return;}
-    (LISTS[k]=LISTS[k]||[]).push(en);if(bn)LISTS.bn[k][en]=bn;
+    const duplicate=(LISTS[k]||[]).some((x,i)=>x.toLowerCase()===en.toLowerCase()&&(mode!=='edit'||i!==index));
+    if(duplicate){$('#pr_en').focus();return;}
+    if(mode==='edit'&&index>=0&&index<(LISTS[k]||[]).length){
+      const old=(LISTS[k]||[])[index];LISTS[k][index]=en;
+      if(old!==en)delete LISTS.bn[k][old];
+      if(bn)LISTS.bn[k][en]=bn;else delete LISTS.bn[k][en];
+    }else{
+      (LISTS[k]=LISTS[k]||[]).push(en);if(bn)LISTS.bn[k][en]=bn;
+    }
     $('#ovPrompt').classList.remove('on');$('#pr_en').value='';$('#pr_bn').value='';
-    const done=window.__pron;window.__pron=null;window.__prk=null;
+    const done=window.__pron;window.__pron=null;window.__prc=null;window.__prk=null;window.__prmode=null;window.__pri=-1;
     if(done)done(en);
     await saveLists();fillDatalists();if(VIEW==='settings')renderManageLists();
     toast(t('savedGH'),'ok');
   });
   $('#prCancel').addEventListener('click',()=>{
     $('#ovPrompt').classList.remove('on');$('#pr_en').value='';$('#pr_bn').value='';
-    const cancel=window.__prc;window.__prc=null;window.__prk=null;window.__pron=null;
+    const cancel=window.__prc;window.__prc=null;window.__prk=null;window.__pron=null;window.__prmode=null;window.__pri=-1;
     if(cancel)cancel();
   });
   document.addEventListener('click',ev=>{
+    const edit=ev.target.closest('[data-mledit]');
+    if(edit){promptEdit(edit.dataset.mledit,+edit.dataset.mli);return;}
     const mb=ev.target.closest('[data-mlk]');if(!mb)return;
     const k=mb.dataset.mlk,i=+mb.dataset.mli,v=(LISTS[k]||[])[i];
     if(v===undefined)return;
@@ -2557,7 +2626,7 @@ function bindEvents(){
   $('#impFile').addEventListener('change',ev=>{const f=ev.target.files[0];if(f)handleImportFile(f);ev.target.value='';});
   $('#btnLogoPick').addEventListener('click',()=>$('#logoIn').click());
   $('#logoIn').addEventListener('change',async ev=>{const f=ev.target.files[0];if(!f)return;
-    try{pendingLogo=await compressImage(f,170);renderLogoPrev();}catch(e){}
+    try{pendingLogo=await cleanLogoBackground(await compressImage(f,170));renderLogoPrev();}catch(e){}
     ev.target.value='';});
   $('#btnLogoRemove').addEventListener('click',()=>{pendingLogo='';renderLogoPrev();});
   $('#btnBrandSave').addEventListener('click',saveBrand);
@@ -2589,8 +2658,13 @@ async function boot(){
       const s=JSON.parse(sess);
       MODE=s.mode||'local';
       const keyObj=await impBits(u8FromB64(s.key));
-      SESSION={user:s.u,role:s.role,keyObj:keyObj,tok:s.role==='admin'?(s.tok||''):'',mode:MODE};
-      if(MODE==='gh'){try{const j=await ghGet(CFG.secPath);GHSEC=JSON.parse(b64d(j.content));}catch(e){}}
+      SESSION={user:s.u,role:s.role,keyObj:keyObj,tok:s.role!=='viewer'?(s.tok||''):'',mode:MODE};
+      if(MODE==='gh'){
+        try{
+          const j=await ghGet(CFG.secPath);GHSEC=JSON.parse(b64d(j.content));
+          if(!SESSION.tok&&s.role!=='viewer'&&GHSEC.token){try{const tp=await decPkg(keyObj,GHSEC.token);SESSION.tok=tp.t||'';saveSess();}catch(e){}}
+        }catch(e){}
+      }
       await enterApp();return;
     }catch(e){clearSess();}
   }
@@ -2624,5 +2698,5 @@ function fillDatalists(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f6b589ec35d31',t:'MTc4OTIyMTQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a0752aa93bdb83',t:'MTc4OTIzMjMxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f6b589ec35d31',t:'MTc4OTIyMTQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a0d6399ea5812c',t:'MTc4OTIzNjI4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
