@@ -13,16 +13,6 @@
         "iv": "Wlu3XVMPBXAy7qQz",
         "data": "9PbONeROLU5yEqu6wiGbAbqCO99SMB6KlJ7XVxTReMTgYP2MFTMHFsDxFe/WPgWn"
       }
-    },
-    {
-      "u": "Admin",
-      "role": "viewer",
-      "salt": "rtzDyUpfSKAFU4JBkGD1jQ==",
-      "iter": 150000,
-      "wrap": {
-        "iv": "LIsbEozPyKZ+v7hk",
-        "data": "Eb+tMUxzUGn/sWet887Ci1FEe288LZXlwysIOyEVZ1Pn8PMtanlGOHlJOTN5uZ8u"
-      }
     }
   ],
   "token": {
