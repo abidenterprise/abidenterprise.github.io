@@ -331,6 +331,21 @@ body.theme-dark .mini.d:hover{background:#3a1212}
 .bi-tag{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.2}
 .bi-tag .bi-bn{font-family:'Noto Sans Bengali',inherit;color:var(--mut);font-size:10.5px}
 
+/* ---------- employee bulk selection ---------- */
+.bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin:-4px 0 12px;box-shadow:var(--shadow)}
+.bulk-select{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#334155;user-select:none;cursor:pointer}
+.bulk-select input,.empCheck,.mselect input{width:17px;height:17px;accent-color:var(--p);cursor:pointer}
+.selected-count{font-size:12.5px;color:var(--mut);font-weight:700}
+.bulk-actions{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.selcell{width:42px;text-align:center}
+.mselect{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+body.theme-dark .bulk-select{color:#c9d4e8}
+@media (max-width:760px){
+  .bulkbar{padding:9px;gap:8px}
+  .bulk-actions{width:100%;margin-left:0}
+  .bulk-actions .btn{flex:1;justify-content:center}
+}
+
 /* ---------- refined responsive layout ---------- */
 
 body.write-locked .ed-only{display:none!important}
@@ -484,10 +499,18 @@ body.write-locked .ed-only{display:none!important}
           <option value="joinAsc" data-i="sortJoinA">Sort: Longest service</option>
         </select>
       </div>
+      <div class="bulkbar ad-only" id="bulkBar">
+        <label class="bulk-select"><input type="checkbox" id="selectAllEmp"><span data-i="selectAll">Select all</span></label>
+        <span id="selectedCount" class="selected-count"></span>
+        <div class="bulk-actions">
+          <button class="btn r sm" id="btnDeleteSelected">🗑 <span data-i="deleteSelected">Delete selected</span></button>
+          <button class="btn r sm" id="btnDeleteAll">⚠ <span data-i="deleteAll">Delete all employees</span></button>
+        </div>
+      </div>
       <div id="listCount" style="margin-bottom:10px;font-size:13px;color:var(--mut)"></div>
       <div class="tbl-wrap-desk"><div class="tscroll"><table class="tbl">
         <thead><tr>
-          <th data-i="thCode">Code</th><th data-i="thEmp">Employee</th><th data-i="thDesig">Designation</th>
+          <th class="ad-only" aria-label="Select"></th><th data-i="thCode">Code</th><th data-i="thEmp">Employee</th><th data-i="thDesig">Designation</th>
           <th data-i="thDept">Department</th><th data-i="thLoc">Location</th><th data-i="thMobile">Mobile</th>
           <th data-i="thJoin">Joined</th><th data-i="thStatus">Status</th><th></th>
         </tr></thead>
@@ -850,7 +873,7 @@ en:{
   thEmp:'Employee',thCode:'Code',thDesig:'Designation',thDept:'Department',thLoc:'Location',thMobile:'Mobile',thJoin:'Joined',thStatus:'Status',thSec:'Section',
   mlTitle:'Manage Dropdown Lists',mlNote:'Add or remove the options shown in the Add Employee dropdowns. You can also add directly from the form dropdown ("\u2795 Add new\u2026"). Bangla names are optional \u2014 they auto-fill the Bangla fields and show in Bangla mode. Existing employees are not affected.',mlDept:'Department',mlSec:'Section',mlLoc:'Office Location',mlDesig:'Designation',mlPh:'Add new value…',
   expXls:'Export Excel (.xlsx)',prTitle:'Add to Dropdown List',prEn:'English value',prBn:'Bangla name (optional — used for auto-fill & Bangla display)',prAdd:'Add',
-  prev:'Prev',next:'Next',searchPh:'Search name, code, mobile, NID…',
+  prev:'Prev',next:'Next',searchPh:'Search name, code, mobile, NID…',selectAll:'Select all',selectedCount:'selected',deleteSelected:'Delete selected',deleteAll:'Delete all employees',noSelected:'Select at least one employee first.',bulkDeleteTitle:'Delete selected employees?',bulkDeleteMsg:'Are you sure you want to permanently delete the selected employees?',bulkDeleteAllTitle:'Delete all employees?',bulkDeleteAllMsg:'Are you sure you want to permanently delete ALL employee records? This cannot be undone.',bulkDeleted:'Deleted',
   fsBasic:'Basic Information',fsDates:'Personal Details & Dates',fsFamily:'Family & Address',fsPhoto:'Employee Photo',
   fCode:'Employee Code',fStatusF:'Status',fNameEn:'Name (English)',fNameBn:'Name (Bangla)',fDesigEn:'Designation (English)',fDesigBn:'Designation (Bangla)',
   fDeptEn:'Department (English)',fDeptBn:'Department (Bangla)',fSecEn:'Section (English)',fSecBn:'Section (Bangla)',
@@ -932,7 +955,7 @@ bn:{
   thEmp:'কর্মী',thCode:'কোড',thDesig:'পদবি',thDept:'বিভাগ',thLoc:'কর্মস্থল',thMobile:'মোবাইল',thJoin:'যোগদান',thStatus:'অবস্থা',thSec:'সেকশন',
   mlTitle:'ড্রপডাউন তালিকা ব্যবস্থাপনা',mlNote:'Add Employee ফর্মের ড্রপডাউনে অপশন যোগ বা মুছে ফেলুন। ফর্মের ড্রপডাউন থেকেও সরাসরি ("➕ নতুন যোগ করুন…") যোগ করা যায়। বাংলা নাম দিলে বাংলা ফিল্ড অ্যাটো-ফিল হবে ও বাংলা মোডে দেখাবে। বিদ্যমান কর্মীদের তথ্য অপরিবর্তিত থাকবে।',mlDept:'বিভাগ',mlSec:'সেকশন',mlLoc:'অফিসের অবস্থান',mlDesig:'পদবি',mlPh:'নতুন মান লিখুন…',
   expXls:'এক্সেল (.xlsx) ডাউনলোড',prTitle:'ড্রপডাউন তালিকায় যোগ করুন',prEn:'ইংরেজি মান',prBn:'বাংলা নাম (ঐচ্ছিক — অ্যাটো-ফিল ও বাংলা দেখানোর জন্য)',prAdd:'যোগ করুন',
-  prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',
+  prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',selectAll:'সব নির্বাচন করুন',selectedCount:'নির্বাচিত',deleteSelected:'নির্বাচিত মুছুন',deleteAll:'সব কর্মী মুছুন',noSelected:'প্রথমে অন্তত একজন কর্মী নির্বাচন করুন।',bulkDeleteTitle:'নির্বাচিত কর্মী মুছবেন?',bulkDeleteMsg:'আপনি কি নিশ্চিত যে নির্বাচিত কর্মীদের স্থায়ীভাবে মুছে ফেলতে চান?',bulkDeleteAllTitle:'সব কর্মী মুছবেন?',bulkDeleteAllMsg:'আপনি কি নিশ্চিত যে সব কর্মীর রেকর্ড স্থায়ীভাবে মুছে ফেলতে চান? এটি আর ফিরিয়ে আনা যাবে না।',bulkDeleted:'মুছে ফেলা হয়েছে',
   fsBasic:'মৌলিক তথ্য',fsDates:'ব্যক্তিগত তথ্য ও তারিখ',fsFamily:'পারিবারিক তথ্য ও ঠিকানা',fsPhoto:'কর্মীর ছবি',
   fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম (ইংরেজি)',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি (ইংরেজি)',fDesigBn:'পদবি (বাংলা)',
   fDeptEn:'বিভাগ (ইংরেজি)',fDeptBn:'বিভাগ (বাংলা)',fSecEn:'শাখা (ইংরেজি)',fSecBn:'শাখা (বাংলা)',
@@ -1029,6 +1052,7 @@ let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',br
   JSON.parse(store.getItem('hr_cfg')||'{}'));
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
+let selectedCodes=new Set();
 let syncing=false,syncAgain=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
 let pendingPhotoDeletes=[];
 let formPhoto='',formHadPhoto=false;let profileCode=null;let distKey='deptEn';let LISTS=null;
@@ -1605,8 +1629,8 @@ function renderDash(){
   const cnt=key=>{const m={};EMP.forEach(e=>{const v=(e[key]||'').trim()||'—';m[v]=(m[v]||0)+1;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
   const bars=data=>{const mx=Math.max(1,...data.map(d=>d[1]));
     if(!data.length)return '<div class="empty">—</div>';
-    return data.map(d=>{const bn=bnOf(d[0]);const lab=bn&&bn!==d[0]?d[0]+' / '+bn:d[0];
-      return '<div class="brow"><span class="blabel" title="'+esc(d[0])+'">'+esc(lab)+'</span><div class="btrack"><div class="bfill" style="width:'+Math.round(d[1]/mx*100)+'%"></div></div><span class="bval">'+d[1]+'</span></div>';}).join('');};
+    return data.map(d=>{const lab=LANG==='bn'?bnOf(d[0]):d[0];
+      return '<div class="brow"><span class="blabel" title="'+esc(LANG==='bn'?lab:d[0])+'">'+esc(lab)+'</span><div class="btrack"><div class="bfill" style="width:'+Math.round(d[1]/mx*100)+'%"></div></div><span class="bval">'+d[1]+'</span></div>';}).join('');};
   $('#chartDept').innerHTML=bars(cnt(distKey));
   $('#chartLoc').innerHTML=bars(cnt('locEn'));
   const yrs={};EMP.forEach(e=>{const y=String(e.join||'').slice(0,4);if(/^\d{4}$/.test(y))yrs[y]=(yrs[y]||0)+1;});
@@ -1643,6 +1667,20 @@ function fillFilterOptions(){
   const fill=(id,arr,cur)=>{const s=$(id);const first=s.options[0];s.innerHTML='';s.appendChild(first);arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});s.value=cur;};
   fill('#fDept',uniq('deptEn'),filters.dept);fill('#fLoc',uniq('locEn'),filters.loc);
 }
+function updateSelectionUI(){
+  const valid=new Set(EMP.map(e=>e.code));
+  selectedCodes=new Set(Array.from(selectedCodes).filter(code=>valid.has(code)));
+  const list=filtered();
+  const selectedInList=list.filter(e=>selectedCodes.has(e.code)).length;
+  const allBox=$('#selectAllEmp');
+  if(allBox){
+    allBox.checked=list.length>0&&selectedInList===list.length;
+    allBox.indeterminate=selectedInList>0&&selectedInList<list.length;
+  }
+  $$('#tblBody input[data-select-code],#mobCards input[data-select-code]').forEach(cb=>{cb.checked=selectedCodes.has(cb.dataset.selectCode);});
+  const out=$('#selectedCount');
+  if(out)out.textContent=selectedCodes.size+' '+t('selectedCount');
+}
 function renderList(){
   fillFilterOptions();
   const a=filtered();
@@ -1650,10 +1688,11 @@ function renderList(){
   if(page>pages)page=pages;
   const slice=a.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE);
   $('#listCount').textContent=a.length+' '+t('navList');
-  $('#tblBody').innerHTML=slice.length?slice.map(rowHTML).join(''):'<tr><td colspan="9"><div class="empty">'+(EMP.length?t('noMatch'):t('noData'))+'</div></td></tr>';
+  $('#tblBody').innerHTML=slice.length?slice.map(rowHTML).join(''):'<tr><td colspan="10"><div class="empty">'+(EMP.length?t('noMatch'):t('noData'))+'</div></td></tr>';
   $('#mobCards').innerHTML=slice.length?slice.map(mobileCardHTML).join(''):'<div class="empty">'+(EMP.length?t('noMatch'):t('noData'))+'</div>';
   $('#pageInfo').textContent=a.length?((page-1)*PAGE_SIZE+1)+'–'+Math.min(page*PAGE_SIZE,a.length)+' / '+a.length:'';
   $('#pgPrev').disabled=page<=1;$('#pgNext').disabled=page>=pages;
+  updateSelectionUI();
   hydratePhotos();
 }
 function statusBadge(e){return e.status==='resigned'?'<span class="bg r">'+t('stResigned')+'</span>':'<span class="bg a">'+t('stActive')+'</span>';}
@@ -1667,6 +1706,7 @@ function biTag(en,bn){
 function rowHTML(e){
   const res=e.status==='resigned';
   return '<tr data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.62"':'')+'>'+
+    '<td class="ad-only selcell"><input class="empCheck" type="checkbox" data-select-code="'+esc(e.code)+'" aria-label="Select '+esc(e.code)+'"></td>'+
     '<td style="font-weight:700;white-space:nowrap">'+esc(e.code)+'</td>'+
     '<td><div class="cellname">'+photoHTML(e,'s')+biText(e.nameEn,e.nameBn)+'</div></td>'+
     '<td>'+biText(e.desigEn,e.desigBn)+'</td>'+
@@ -1683,7 +1723,7 @@ function rowHTML(e){
 }
 function mobileCardHTML(e){
   const res=e.status==='resigned';
-  return '<div class="mcard" data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.65"':'')+'>'+photoHTML(e,'m')+
+  return '<div class="mcard" data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.65"':'')+'><label class="mselect ad-only"><input class="empCheck" type="checkbox" data-select-code="'+esc(e.code)+'" aria-label="Select '+esc(e.code)+'"></label>'+photoHTML(e,'m')+
   '<div class="minfo"><div class="mn">'+esc(e.code)+'</div>'+biText(e.nameEn,e.nameBn)+'<div class="mb">'+biText(e.desigEn,e.desigBn)+'</div>'+
   '<div class="mrow">'+biTag(e.deptEn,e.deptBn||bnOf(e.deptEn))+biTag(e.locEn,e.locBn||bnOf(e.locEn))+'<span class="tag">📞 '+esc(e.mobile||'—')+'</span>'+statusBadge(e)+'</div></div>'+
   '<div style="display:flex;flex-direction:column;gap:6px"><button class="mini ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏</button>'+(res?'':'<button class="mini ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤</button>')+'</div></div>';
@@ -1901,6 +1941,7 @@ function delEmp(code){
   confirmDlg(t('cfDelTitle'),t('cfDelMsg')+' — '+displayName(e)+'?',async()=>{
     const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
     EMP=EMP.filter(x=>x.code!==code);
+    selectedCodes.delete(code);
     delete photoCache[code];
     try{
       await saveLocal();
@@ -1913,6 +1954,41 @@ function delEmp(code){
       }
     }catch(err){console.warn(err);toast(t('syncFail')+' — delete will retry on next sync','err');}
   });
+}
+
+
+async function performBulkDelete(codes){
+  if(!isAdmin()||!requireWriteAccess())return;
+  const wanted=new Set(codes);
+  const victims=EMP.filter(e=>wanted.has(e.code));
+  if(!victims.length){toast(t('noSelected'),'err');return;}
+  victims.forEach(e=>{
+    if(MODE==='gh')pendingPhotoDeletes.push(e.photo||((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc'));
+    delete photoCache[e.code];
+  });
+  EMP=EMP.filter(e=>!wanted.has(e.code));
+  selectedCodes.clear();
+  try{
+    await saveLocal();
+    renderAll();nav('list');
+    toast(t('bulkDeleted')+' '+victims.length,'ok');
+    if(MODE==='gh'&&SESSION&&SESSION.tok){
+      const ok=await syncAll(true);
+      if(!ok)toast(t('syncFail')+' — deletion will retry on next sync','err');
+    }
+  }catch(err){console.warn(err);toast(t('syncFail')+' — deletion will retry on next sync','err');}
+}
+function deleteSelectedEmployees(){
+  if(!isAdmin()||!requireWriteAccess())return;
+  const codes=Array.from(selectedCodes).filter(code=>EMP.some(e=>e.code===code));
+  if(!codes.length){toast(t('noSelected'),'err');return;}
+  confirmDlg(t('bulkDeleteTitle'),t('bulkDeleteMsg')+' ('+codes.length+')',()=>performBulkDelete(codes));
+}
+function deleteAllEmployees(){
+  if(!isAdmin()||!requireWriteAccess())return;
+  const codes=EMP.map(e=>e.code);
+  if(!codes.length){toast(t('noData'),'err');return;}
+  confirmDlg(t('bulkDeleteAllTitle'),t('bulkDeleteAllMsg'),()=>performBulkDelete(codes));
 }
 
 /* ================= USER MANAGEMENT (admin) ================= */
@@ -2342,6 +2418,7 @@ async function printProfile(code){
 
 /* ================= EVENTS ================= */
 document.addEventListener('click',ev=>{
+  if(ev.target.closest('input[data-select-code]')||ev.target.closest('.mselect'))return;
   const nb=ev.target.closest('[data-nav]');
   if(nb){ev.preventDefault();if(nb.dataset.nav==='form')openForm(null);else nav(nb.dataset.nav);return;}
   const ac=ev.target.closest('[data-act]');
@@ -2386,6 +2463,17 @@ function bindEvents(){
   $('#fLoc').addEventListener('change',()=>{filters.loc=$('#fLoc').value;page=1;renderList();});
   $('#fStatus').addEventListener('change',()=>{filters.status=$('#fStatus').value;page=1;renderList();});
   $('#fSort').addEventListener('change',()=>{filters.sort=$('#fSort').value;renderList();});
+  $('#selectAllEmp').addEventListener('change',ev=>{
+    filtered().forEach(e=>{if(ev.target.checked)selectedCodes.add(e.code);else selectedCodes.delete(e.code);});
+    updateSelectionUI();
+  });
+  document.addEventListener('change',ev=>{
+    const cb=ev.target.closest('input[data-select-code]');if(!cb)return;
+    if(cb.checked)selectedCodes.add(cb.dataset.selectCode);else selectedCodes.delete(cb.dataset.selectCode);
+    updateSelectionUI();
+  });
+  $('#btnDeleteSelected').addEventListener('click',deleteSelectedEmployees);
+  $('#btnDeleteAll').addEventListener('click',deleteAllEmployees);
   $('#pgPrev').addEventListener('click',()=>{if(page>1){page--;renderList();}});
   $('#pgNext').addEventListener('click',()=>{page++;renderList();});
   $('#empForm').addEventListener('submit',submitForm);
@@ -2536,5 +2624,5 @@ function fillDatalists(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f6b589ec35d31',t:'MTc4OTIyMTQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a03b68de99a07c',t:'MTc4OTIyOTk0OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f6b589ec35d31',t:'MTc4OTIyMTQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a0752aa93bdb83',t:'MTc4OTIzMjMxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
