@@ -231,6 +231,42 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   .kpi{padding:10px 12px}
 }
 
+/* ---------- professional polish ---------- */
+.card h3,.fsection h3{padding-bottom:9px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(16,35,63,.14)}
+.btn:active{transform:none;box-shadow:none}
+:focus-visible{outline:2px solid var(--p);outline-offset:2px}
+.seg{display:inline-flex;background:#f1f5f9;border:1px solid var(--line);border-radius:99px;padding:3px;gap:2px}
+.seg button{border:none;background:none;border-radius:99px;padding:5px 12px;font-size:12.5px;font-weight:700;color:var(--mut);cursor:pointer}
+.seg button.on{background:var(--p);color:#fff}
+.mlgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.mlbox{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px}
+.mlhead{font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--p);margin-bottom:9px}
+.mlchips{min-height:26px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:3.5px 6px 3.5px 11px;font-size:12.5px;font-weight:600;margin:0 6px 6px 0}
+.chip button{background:#fee2e2;border:none;color:#b91c1c;width:18px;height:18px;border-radius:50%;font-size:10.5px;line-height:1;cursor:pointer;flex:0 0 auto}
+.mlbox input{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:9px;outline:none}
+.mlbox input:focus{border-color:var(--p)}
+body.theme-dark .mlbox{background:#0d1730}
+body.theme-dark .chip{background:#182447;border-color:var(--line);color:var(--tx)}
+body.theme-dark .seg{background:#182447;border-color:var(--line)}
+body.theme-dark .seg button{color:var(--mut)}
+body.theme-dark .seg button.on{background:var(--p);color:#fff}
+
+/* ---------- modern login ---------- */
+#authView::before{content:'';position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.4),transparent 70%);top:-130px;right:-90px;animation:blob1 9s ease-in-out infinite alternate;pointer-events:none}
+#authView::after{content:'';position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(30,90,168,.45),transparent 70%);bottom:-120px;left:-80px;animation:blob1 11s ease-in-out infinite alternate-reverse;pointer-events:none}
+@keyframes blob1{from{transform:translate(0,0) scale(1)}to{transform:translate(-30px,24px) scale(1.12)}}
+.authcard{position:relative;z-index:1;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.65);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.authlogo{width:72px;height:72px;border-radius:20px;box-shadow:0 12px 30px rgba(30,90,168,.42)}
+.authlogo svg{width:40px;height:40px}
+.acht{font-size:22px;font-weight:800;text-align:center;letter-spacing:-.3px}
+.achs{font-size:13px;color:var(--mut);text-align:center;margin:3px 0 20px;font-weight:600}
+.authcard .field input{padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:15px}
+.authcard .btn.wide{background:linear-gradient(135deg,var(--p),var(--acc));border:none;color:#fff;padding:13px;border-radius:12px;font-size:15px;font-weight:800;box-shadow:0 10px 26px rgba(30,90,168,.38);margin-top:4px}
+.authcard .btn.wide:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(30,90,168,.45)}
+.authbrand{position:relative;z-index:1;text-align:center;margin-top:16px;font-size:11px;color:rgba(255,255,255,.75);font-weight:600;letter-spacing:.4px}
+
 /* ---------- themes (admin): light / dark / off-white ---------- */
 body,.card,.kpi,.tscroll,.box,header,.field input,.field select,.field textarea,.setrow input,.search input,select.sel,.addrsub,.pcell,.fsection,.btn,.hbtn{transition:background .25s ease,color .25s ease,border-color .25s ease}
 body.theme-offwhite{--bg:#f5f0e6;--card:#fffdf7;--line:#e6dcc8}
@@ -258,6 +294,7 @@ body.theme-dark .mini.d:hover{background:#3a1212}
 
 /* ---------- print ---------- */
 #printArea{display:none}
+@page{size:A4;margin:9mm}
 @media print{
   body{zoom:1 !important;background:#fff !important}
   body>*:not(#printArea){display:none !important}
@@ -339,7 +376,7 @@ body.theme-dark .mini.d:hover{background:#3a1212}
         <div id="repOut" style="margin-top:12px"></div>
       </div>
       <div class="grid2">
-        <div class="card"><h3 data-i="byDept">Employees by Department</h3><div id="chartDept"></div></div>
+        <div class="card"><h3 style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap"><span data-i="byDept">Employees by Department</span><span class="seg" id="segDist"><button type="button" class="on" data-dk="deptEn" data-i="thDept">Department</button><button type="button" data-dk="secEn" data-i="thSec">Section</button></span></h3><div id="chartDept"></div></div>
         <div class="card"><h3 data-i="byLoc">Employees by Job Location</h3><div id="chartLoc"></div></div>
         <div class="card"><h3 data-i="byYear">New Joining by Year</h3><div id="chartYear"></div></div>
         <div class="card"><h3 data-i="bdayTitle">🎂 Birthdays this month</h3><div id="bdayList"></div></div>
@@ -373,7 +410,7 @@ body.theme-dark .mini.d:hover{background:#3a1212}
       <div id="listCount" style="margin-bottom:10px;font-size:13px;color:var(--mut)"></div>
       <div class="tbl-wrap-desk"><div class="tscroll"><table class="tbl">
         <thead><tr>
-          <th data-i="thEmp">Employee</th><th data-i="thCode">Code</th><th data-i="thDesig">Designation</th>
+          <th data-i="thCode">Code</th><th data-i="thEmp">Employee</th><th data-i="thDesig">Designation</th>
           <th data-i="thDept">Department</th><th data-i="thLoc">Location</th><th data-i="thMobile">Mobile</th>
           <th data-i="thJoin">Joined</th><th data-i="thStatus">Status</th><th></th>
         </tr></thead>
@@ -419,13 +456,13 @@ body.theme-dark .mini.d:hover{background:#3a1212}
             </div>
             <div class="field"><label><span data-i="fNameEn">Name (English)</span> <span class="req">*</span></label><input id="f_nameEn" required></div>
             <div class="field"><label data-i="fNameBn">Name (Bangla)</label><input id="f_nameBn" lang="bn"></div>
-            <div class="field"><label><span data-i="fDesigEn">Designation (English)</span> <span class="req">*</span></label><input id="f_desigEn" list="dlDesig" required></div>
+            <div class="field"><label><span data-i="fDesigEn">Designation (English)</span> <span class="req">*</span></label><select id="f_desigEn" required><option value="">—</option></select></div>
             <div class="field"><label data-i="fDesigBn">Designation (Bangla)</label><input id="f_desigBn" lang="bn"></div>
-            <div class="field"><label><span data-i="fDeptEn">Department (English)</span> <span class="req">*</span></label><input id="f_deptEn" list="dlDept" required></div>
+            <div class="field"><label><span data-i="fDeptEn">Department (English)</span> <span class="req">*</span></label><select id="f_deptEn" required><option value="">—</option></select></div>
             <div class="field"><label data-i="fDeptBn">Department (Bangla)</label><input id="f_deptBn" lang="bn"></div>
-            <div class="field"><label data-i="fSecEn">Section (English)</label><input id="f_secEn" list="dlSec"></div>
+            <div class="field"><label data-i="fSecEn">Section (English)</label><select id="f_secEn"><option value="">—</option></select></div>
             <div class="field"><label data-i="fSecBn">Section (Bangla)</label><input id="f_secBn" lang="bn"></div>
-            <div class="field"><label><span data-i="fLocEn">Job Location (English)</span> <span class="req">*</span></label><input id="f_locEn" list="dlLoc" required></div>
+            <div class="field"><label><span data-i="fLocEn">Job Location (English)</span> <span class="req">*</span></label><select id="f_locEn" required><option value="">—</option></select></div>
             <div class="field"><label data-i="fLocBn">Job Location (Bangla)</label><input id="f_locBn" lang="bn"></div>
             <div class="field" style="grid-column:1/-1">
               <label data-i="fRecType">Recruitment Type</label>
@@ -593,7 +630,8 @@ body.theme-dark .mini.d:hover{background:#3a1212}
           <input type="file" id="impFile" accept=".xlsx,.csv" style="display:none">
           <button class="btn" id="bulkPhotoBtn">🖼 <span data-i="bulkBtn">Upload Photos (multiple)</span></button>
           <input type="file" id="bulkPhotoIn" accept="image/*,.heic,.heif,.avif,.bmp,.gif,.webp" multiple style="display:none">
-          <button class="btn o" id="expCsv">⬇ <span data-i="expCsv">Export CSV (Excel)</span></button>
+          <button class="btn o" id="expCsv">⬇ <span data-i="expCsv">Export CSV</span></button>
+          <button class="btn o" id="expXls">⬇ <span data-i="expXls">Export Excel (.xlsx)</span></button>
           <button class="btn o" id="expJson">⬇ <span data-i="expJson">Export JSON backup</span></button>
           <button class="btn o" id="impJsonBtn">⬆ <span data-i="impJson">Restore JSON backup</span></button>
           <input type="file" id="impJson" accept=".json,application/json" style="display:none">
@@ -602,6 +640,16 @@ body.theme-dark .mini.d:hover{background:#3a1212}
         <div class="note warn" style="margin:14px 0 0" data-i="setBackupNote"></div>
       </div>
 
+      <div class="card ad-only" style="margin-bottom:16px">
+        <h3>📋 <span data-i="mlTitle">Manage Dropdown Lists</span></h3>
+        <div class="note" data-i="mlNote"></div>
+        <div class="mlgrid">
+  <div class="mlbox"><div class="mlhead" data-i="mlDept">Dept</div><div class="mlchips" id="ml_dept"></div><div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap"><input id="ml_dept_in" placeholder="English"><input id="ml_dept_bn" lang="bn" style="flex:1;min-width:90px" placeholder="বাংলা (ঐচ্ছিক)"><button class="btn sm g" id="ml_dept_add">➕</button></div></div>
+  <div class="mlbox"><div class="mlhead" data-i="mlSec">Sec</div><div class="mlchips" id="ml_sec"></div><div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap"><input id="ml_sec_in" placeholder="English"><input id="ml_sec_bn" lang="bn" style="flex:1;min-width:90px" placeholder="বাংলা (ঐচ্ছিক)"><button class="btn sm g" id="ml_sec_add">➕</button></div></div>
+  <div class="mlbox"><div class="mlhead" data-i="mlLoc">Loc</div><div class="mlchips" id="ml_loc"></div><div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap"><input id="ml_loc_in" placeholder="English"><input id="ml_loc_bn" lang="bn" style="flex:1;min-width:90px" placeholder="বাংলা (ঐচ্ছিক)"><button class="btn sm g" id="ml_loc_add">➕</button></div></div>
+  <div class="mlbox"><div class="mlhead" data-i="mlDesig">Desig</div><div class="mlchips" id="ml_desig"></div><div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap"><input id="ml_desig_in" placeholder="English"><input id="ml_desig_bn" lang="bn" style="flex:1;min-width:90px" placeholder="বাংলা (ঐচ্ছিক)"><button class="btn sm g" id="ml_desig_add">➕</button></div></div>
+        </div>
+      </div>
       <div class="card ad-only" style="margin-bottom:16px">
         <h3>🏢 <span data-i="brandT">Company Brand</span></h3>
         <div class="note" data-i="brandNote"></div>
@@ -691,6 +739,15 @@ body.theme-dark .mini.d:hover{background:#3a1212}
 </div></div>
 
 <!-- CONFIRM MODAL -->
+<div class="ov" id="ovPrompt"><div class="box">
+  <h3 id="pr_title">➕ <span data-i="prTitle">Add to Dropdown List</span></h3>
+  <div class="setrow"><label data-i="prEn">English value</label><input id="pr_en"></div>
+  <div class="setrow"><label data-i="prBn">Bangla name (optional — used for auto-fill & Bangla display)</label><input id="pr_bn" lang="bn"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+    <button class="btn o" id="prCancel" data-i="cancel">Cancel</button>
+    <button class="btn g" id="prOk" data-i="prAdd">Add</button>
+  </div>
+</div></div>
 <div class="ov" id="ovConfirm"><div class="box">
   <h3 id="cfTitle">⚠️</h3>
   <div id="cfMsg" style="margin-bottom:18px"></div>
@@ -719,7 +776,9 @@ en:{
   kTotal:'Total Employees',kActive:'Active',kResigned:'Resigned',kNew:'Joined this year',
   allDept:'All departments',allLoc:'All locations',allSt:'All status',stActive:'Active',stResigned:'Resigned',
   sortCode:'Sort: Emp Code',sortName:'Sort: Name',sortJoin:'Sort: Newest joined',sortJoinA:'Sort: Longest service',
-  thEmp:'Employee',thCode:'Code',thDesig:'Designation',thDept:'Department',thLoc:'Location',thMobile:'Mobile',thJoin:'Joined',thStatus:'Status',
+  thEmp:'Employee',thCode:'Code',thDesig:'Designation',thDept:'Department',thLoc:'Location',thMobile:'Mobile',thJoin:'Joined',thStatus:'Status',thSec:'Section',
+  mlTitle:'Manage Dropdown Lists',mlNote:'Add or remove the options shown in the Add Employee dropdowns. You can also add directly from the form dropdown ("\u2795 Add new\u2026"). Bangla names are optional \u2014 they auto-fill the Bangla fields and show in Bangla mode. Existing employees are not affected.',mlDept:'Department',mlSec:'Section',mlLoc:'Job Location',mlDesig:'Designation',mlPh:'Add new value…',
+  expXls:'Export Excel (.xlsx)',prTitle:'Add to Dropdown List',prEn:'English value',prBn:'Bangla name (optional — used for auto-fill & Bangla display)',prAdd:'Add',
   prev:'Prev',next:'Next',searchPh:'Search name, code, mobile, NID…',
   fsBasic:'Basic Information',fsDates:'Personal Details & Dates',fsFamily:'Family & Address',fsPhoto:'Employee Photo',
   fCode:'Employee Code',fStatusF:'Status',fNameEn:'Name (English)',fNameBn:'Name (Bangla)',fDesigEn:'Designation (English)',fDesigBn:'Designation (Bangla)',
@@ -798,7 +857,9 @@ bn:{
   kTotal:'মোট কর্মী',kActive:'কর্মরত',kResigned:'ইস্তেফাপ্রাপ্ত',kNew:'এ বছর যোগ দিয়েছেন',
   allDept:'সব বিভাগ',allLoc:'সব কর্মস্থল',allSt:'সব অবস্থা',stActive:'কর্মরত',stResigned:'ইস্তেফাপ্রাপ্ত',
   sortCode:'সাজান: কর্মী কোড',sortName:'সাজান: নাম',sortJoin:'সাজান: নতুন যোগদান আগে',sortJoinA:'সাজান: দীর্ঘ চাকরি আগে',
-  thEmp:'কর্মী',thCode:'কোড',thDesig:'পদবি',thDept:'বিভাগ',thLoc:'কর্মস্থল',thMobile:'মোবাইল',thJoin:'যোগদান',thStatus:'অবস্থা',
+  thEmp:'কর্মী',thCode:'কোড',thDesig:'পদবি',thDept:'বিভাগ',thLoc:'কর্মস্থল',thMobile:'মোবাইল',thJoin:'যোগদান',thStatus:'অবস্থা',thSec:'সেকশন',
+  mlTitle:'ড্রপডাউন তালিকা ব্যবস্থাপনা',mlNote:'Add Employee ফর্মের ড্রপডাউনে অপশন যোগ বা মুছে ফেলুন। ফর্মের ড্রপডাউন থেকেও সরাসরি ("➕ নতুন যোগ করুন…") যোগ করা যায়। বাংলা নাম দিলে বাংলা ফিল্ড অ্যাটো-ফিল হবে ও বাংলা মোডে দেখাবে। বিদ্যমান কর্মীদের তথ্য অপরিবর্তিত থাকবে।',mlDept:'বিভাগ',mlSec:'সেকশন',mlLoc:'কর্মস্থল',mlDesig:'পদবি',mlPh:'নতুন মান লিখুন…',
+  expXls:'এক্সেল (.xlsx) ডাউনলোড',prTitle:'ড্রপডাউন তালিকায় যোগ করুন',prEn:'ইংরেজি মান',prBn:'বাংলা নাম (ঐচ্ছিক — অ্যাটো-ফিল ও বাংলা দেখানোর জন্য)',prAdd:'যোগ করুন',
   prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',
   fsBasic:'মৌলিক তথ্য',fsDates:'ব্যক্তিগত তথ্য ও তারিখ',fsFamily:'পারিবারিক তথ্য ও ঠিকানা',fsPhoto:'কর্মীর ছবি',
   fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম (ইংরেজি)',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি (ইংরেজি)',fDesigBn:'পদবি (বাংলা)',
@@ -896,7 +957,7 @@ let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',br
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
 let syncing=false,syncAgain=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
-let formPhoto='',formHadPhoto=false;let profileCode=null;
+let formPhoto='',formHadPhoto=false;let profileCode=null;let distKey='deptEn';let LISTS=null;
 const photoCache={};
 function saveCfg(){store.setItem('hr_cfg',JSON.stringify(CFG));}
 const sstore=(()=>{try{sessionStorage.setItem('__t','1');sessionStorage.removeItem('__t');return sessionStorage;}catch(e){return store;}})();
@@ -1031,7 +1092,7 @@ function badgeState(){
 
 /* ================= AUTH SCREENS ================= */
 function logoSVG(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>';}
-function authHeader(title,sub){return '<div class="authlogo" style="'+(BRAND.logo?'background-color:transparent;width:auto;min-width:64px;max-width:200px;padding:0':'')+'">'+(BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';}
+function authHeader(title,sub){return '<div class="authlogo" style="'+(BRAND.logo?'background-color:transparent;width:auto;min-width:64px;max-width:200px;padding:0':'')+'">'+(BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div><div class="authbrand">🔒 abidenterprise.github.io · AES-256 encrypted</div>';}
 function renderLogin(note){
   const c=$('#authCard');
   c.innerHTML=authHeader(brandName(),t('loginSub'))+
@@ -1153,7 +1214,7 @@ async function enterApp(){
   applyLang();
   if(MODE==='gh'){await loadLocalCache();await pullData(true);}
   else{const raw=store.getItem('hr_emp');EMP=raw?JSON.parse(raw).map(fixEmp):[];if(!EMP.length){EMP=SEED.map(x=>Object.assign({},x));saveLocal();}}
-  fillDatalists();nav('dash');badgeState();
+  await loadLists();fillDatalists();nav('dash');badgeState();
 }
 async function loadLocalCache(){
   const enc=store.getItem('hr_emp_enc');
@@ -1294,7 +1355,9 @@ function hydratePhotos(){
 }
 
 /* ================= DASHBOARD ================= */
-function bnOf(v){return LOC_BN[v]||DEPT_BN[v]||SEC_BN[v]||DESIG_BN[v]||v;}
+function bnOf(v){
+  if(LISTS&&LISTS.bn){for(const kk of ['dept','sec','loc','desig']){if(LISTS.bn[kk]&&LISTS.bn[kk][v])return LISTS.bn[kk][v];}}
+  return LOC_BN[v]||DEPT_BN[v]||SEC_BN[v]||DESIG_BN[v]||v;}
 function displayName(e){return LANG==='bn'&&(e.nameBn||'').trim()?e.nameBn:e.nameEn;}
 function displayDesig(e){return LANG==='bn'&&(e.desigBn||'').trim()?e.desigBn:(e.desigEn||'—');}
 function recLabel(e){return e.recType==='new'?t('recNew'):e.recType==='replacement'?(t('recRepl')+(e.replCode?' ('+e.replCode+')':'')):'—';}
@@ -1323,11 +1386,20 @@ function genReport(kind){
   $('#repOut').innerHTML='<div style="font-weight:800;margin-bottom:8px">'+(isJoin?'🟢 '+t('repJoinTitle'):'📤 '+t('repResignTitle'))+' — '+esc(mName+' '+y)+' ('+t('repTotal')+': '+list.length+')</div>'+
    (list.length?'<div class="tscroll"><table class="tbl" style="min-width:640px"><thead><tr><th>'+t('thCode')+'</th><th>'+t('thEmp')+'</th><th>'+t('thDesig')+'</th><th>'+t('fDeptEn')+'</th><th>'+t('fLocEn')+'</th><th>'+(isJoin?t('repDJoin'):t('repDResign'))+'</th><th>'+(isJoin?t('fRecType'):t('resignReason'))+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>'+
    list.map(e=>'<tr><td>'+esc(e.code)+'</td><td>'+esc(displayName(e))+'</td><td>'+esc(displayDesig(e))+'</td><td>'+esc(e.deptEn||'')+'</td><td>'+esc(e.locEn||'')+'</td><td>'+fmtDate(e[dk])+'</td><td>'+(isJoin?recLabel(e):esc(e.resignReason||'—'))+'</td><td>'+esc(e.status==='resigned'?t('stResigned'):t('stActive'))+'</td></tr>').join('')+'</tbody></table></div>'+
-   '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" id="btnRepPrint">🖨 '+t('thPrint')+'</button><button class="btn sm o" id="btnRepCsv">⬇ CSV</button></div>'
+   '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" id="btnRepPrint">🖨 '+t('thPrint')+'</button><button class="btn sm o" id="btnRepCsv">⬇ CSV</button><button class="btn sm g" id="btnRepXls">⬇ Excel (.xlsx)</button></div>'
    :'<div class="empty">'+t('repEmpty')+'</div>');
   if(list.length){
     const period=mName+' '+y;
     $('#btnRepPrint').addEventListener('click',()=>printReport(isJoin,list,period));
+    $('#btnRepXls').addEventListener('click',()=>{
+      const xcols=[['Emp Code','code'],['Name','nameEn'],['Name (Bangla)','nameBn'],['Designation','desigEn'],['Department','deptEn'],['Job Location','locEn'],[isJoin?'Joining Date':'Resignation Date',dk],['Recruitment Type','recType'],['Replacement For (Emp Code)','replCode'],['Resignation Reason','resignReason'],['Status','status']];
+      const rows=[xcols.map(c=>c[0])].concat(list.map(e=>xcols.map(c=>{let v=e[c[1]];
+        if(c[1]==='join'||c[1]==='resignDate')v=fmtDate(v);
+        else if(c[1]==='recType')v=recLabel(e);
+        else if(c[1]==='status')v=(e.status==='resigned'?t('stResigned'):t('stActive'));
+        return v==null?'':String(v);})));
+      download((isJoin?'new-joiners-':'resignations-')+y+'-'+pad(+$('#repMonth').value+1)+'.xlsx',xlsxFromRows(rows),'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    });
     $('#btnRepCsv').addEventListener('click',()=>{
       const cols=[['Emp Code','code'],['Name','nameEn'],['Name (Bangla)','nameBn'],['Designation','desigEn'],['Department','deptEn'],['Job Location','locEn'],[isJoin?'Joining Date':'Resignation Date',dk],['Recruitment Type','recType'],['Replacement For (Emp Code)','replCode'],['Resignation Reason','resignReason']];
       const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(list.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
@@ -1346,6 +1418,30 @@ function printReport(isJoin,list,period){
    '<table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>'+H.map(th).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'+
    '<div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
   window.print();
+}
+function renderManageLists(){
+  if(!LISTS)LISTS=defaultLists();
+  [['dept'],['sec'],['loc'],['desig']].forEach(a=>{const k=a[0];
+    const el=$('#ml_'+k);if(!el)return;
+    el.innerHTML=(LISTS[k]||[]).map((v,i)=>'<span class="chip">'+esc(v)+(LISTS.bn[k]&&LISTS.bn[k][v]?' <span lang="bn" style="color:var(--mut);font-weight:700">· '+esc(LISTS.bn[k][v])+'</span>':'')+'<button type="button" data-mlk="'+k+'" data-mli="'+i+'" title="Remove">✕</button></span>').join('')||'<span class="sub" style="font-size:12px;color:var(--mut)">—</span>';
+  });
+}
+async function addListVal(k){
+  const inp=$('#ml_'+k+'_in'),binp=$('#ml_'+k+'_bn');const v=(inp.value||'').trim(),vb=(binp.value||'').trim();
+  if(!v){toast(LANG==='bn'?'\u0987\u0982\u09b0\u09c7\u099c\u09bf \u09ae\u09be\u09a8 \u09b2\u09bf\u0996\u09c1\u09a8':'Type the English value first','err');return;}
+  if((LISTS[k]||[]).some(x=>x.toLowerCase()===v.toLowerCase())){toast('Already in list','err');return;}
+  (LISTS[k]=LISTS[k]||[]).push(v);
+  if(vb)LISTS.bn[k][v]=vb;
+  inp.value='';binp.value='';
+  await saveLists();fillDatalists();renderManageLists();
+  toast(t('savedGH'),'ok');
+}
+function promptAdd(k,onDone,onCancel){
+  window.__prk=k;window.__pron=onDone;window.__prc=onCancel;
+  $('#pr_title').textContent='➕ '+t('ml'+k.charAt(0).toUpperCase()+k.slice(1));
+  $('#pr_en').value='';$('#pr_bn').value='';
+  $('#ovPrompt').classList.add('on');
+  setTimeout(()=>$('#pr_en').focus(),60);
 }
 function applyTheme(){
   document.body.classList.remove('theme-dark','theme-offwhite');
@@ -1371,7 +1467,7 @@ function renderDash(){
     if(!data.length)return '<div class="empty">—</div>';
     return data.map(d=>{const lab=(LANG==='bn')?bnOf(d[0]):d[0];
       return '<div class="brow"><span class="blabel" title="'+esc(d[0])+'">'+esc(lab)+'</span><div class="btrack"><div class="bfill" style="width:'+Math.round(d[1]/mx*100)+'%"></div></div><span class="bval">'+d[1]+'</span></div>';}).join('');};
-  $('#chartDept').innerHTML=bars(cnt('deptEn'));
+  $('#chartDept').innerHTML=bars(cnt(distKey));
   $('#chartLoc').innerHTML=bars(cnt('locEn'));
   const yrs={};EMP.forEach(e=>{const y=String(e.join||'').slice(0,4);if(/^\d{4}$/.test(y))yrs[y]=(yrs[y]||0)+1;});
   const yEntries=Object.entries(yrs).sort((a,b)=>a[0]<b[0]?-1:1).slice(-10);
@@ -1424,8 +1520,8 @@ function statusBadge(e){return e.status==='resigned'?'<span class="bg r">'+t('st
 function rowHTML(e){
   const res=e.status==='resigned';
   return '<tr data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.62"':'')+'>'+
+    '<td style="font-weight:700;white-space:nowrap">'+esc(e.code)+'</td>'+
     '<td><div class="cellname">'+photoHTML(e,'s')+'<div><div class="cn1">'+esc(displayName(e))+'</div><div class="cn2">'+esc(LANG==='bn'&&e.nameBn?e.nameEn:'')+'</div></div></div></td>'+
-    '<td class="sub">'+esc(e.code)+'</td>'+
     '<td>'+esc(displayDesig(e))+'</td>'+
     '<td class="sub">'+esc(LANG==='bn'?bnOf(e.deptEn)||e.deptEn:e.deptEn||'—')+'</td>'+
     '<td class="sub">'+esc(LANG==='bn'?bnOf(e.locEn)||e.locEn:e.locEn||'—')+'</td>'+
@@ -1441,7 +1537,7 @@ function rowHTML(e){
 function mobileCardHTML(e){
   const res=e.status==='resigned';
   return '<div class="mcard" data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.65"':'')+'>'+photoHTML(e,'m')+
-  '<div class="minfo"><div class="mn">'+esc(displayName(e))+'</div><div class="mb">'+esc(displayDesig(e))+' · '+esc(e.code)+'</div>'+
+  '<div class="minfo"><div class="mn">'+esc(e.code)+' — '+esc(displayName(e))+'</div><div class="mb">'+esc(displayDesig(e))+'</div>'+
   '<div class="mrow"><span class="tag">'+esc(LANG==='bn'?bnOf(e.deptEn)||e.deptEn:e.deptEn||'—')+'</span><span class="tag">'+esc(LANG==='bn'?bnOf(e.locEn)||e.locEn:e.locEn||'—')+'</span><span class="tag">📞 '+esc(e.mobile||'—')+'</span>'+statusBadge(e)+'</div></div>'+
   '<div style="display:flex;flex-direction:column;gap:6px"><button class="mini ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏</button>'+(res?'':'<button class="mini ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤</button>')+'</div></div>';
 }
@@ -1566,7 +1662,9 @@ function compressImage(file,M){
 }
 function autoFillBn(){
   const g=(a,b,map)=>{const en=$(a).value.trim();const bn=$(b);if(en&&!bn.value.trim()&&map[en])bn.value=map[en];};
-  g('#f_deptEn','#f_deptBn',DEPT_BN);g('#f_secEn','#f_secBn',SEC_BN);g('#f_locEn','#f_locBn',LOC_BN);g('#f_desigEn','#f_desigBn',DESIG_BN);
+  const lb=(LISTS&&LISTS.bn)||{};
+  g('#f_deptEn','#f_deptBn',Object.assign({},DEPT_BN,lb.dept||{}));g('#f_secEn','#f_secBn',Object.assign({},SEC_BN,lb.sec||{}));
+  g('#f_locEn','#f_locBn',Object.assign({},LOC_BN,lb.loc||{}));g('#f_desigEn','#f_desigBn',Object.assign({},DESIG_BN,lb.desig||{}));
 }
 async function submitForm(ev){
   ev.preventDefault();
@@ -1738,7 +1836,7 @@ async function changeMyPw(){
 }
 
 /* ================= SETTINGS ================= */
-function fillSettings(){
+function fillSettings(){renderManageLists();
   $('#s_owner').value=CFG.owner;$('#s_repo').value=CFG.repo;$('#s_branch').value=CFG.branch;
   $('#s_dataPath').value=CFG.dataPath;$('#s_secPath').value=CFG.secPath;$('#s_photosDir').value=CFG.photosDir;
   $('#s_token').value='';
@@ -1831,9 +1929,64 @@ function download(name,content,type){
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
 }
 function exportJson(){download('hr-backup-'+todayISO()+'.json',JSON.stringify({employees:EMP},null,2),'application/json');}
+function defaultLists(){return {dept:Object.keys(DEPT_BN),sec:Object.keys(SEC_BN),loc:Object.keys(LOC_BN),desig:Object.keys(DESIG_BN),bn:{dept:{},sec:{},loc:{},desig:{}}};}
+async function loadLists(){
+  try{
+    const merge=o=>{LISTS=Object.assign(defaultLists(),o||{});LISTS.bn=Object.assign({dept:{},sec:{},loc:{},desig:{}},(o&&o.bn)||{});};
+    if(MODE==='gh'&&SESSION){
+      try{const j=await ghGet('data/lists.json');merge(await decPkg(SESSION.keyObj,JSON.parse(b64d(j.content))));}
+      catch(e){LISTS=LISTS||defaultLists();}
+    }else{
+      const raw=store.getItem('hr_lists');
+      merge(raw?JSON.parse(raw):{});
+    }
+  }catch(e){LISTS=defaultLists();}
+}
+async function saveLists(){
+  try{
+    if(MODE==='gh'&&SESSION&&SESSION.tok){
+      let sha=null;try{const j=await ghGet('data/lists.json');sha=j.sha;}catch(e){}
+      const pkg=await encPkg(SESSION.keyObj,LISTS);
+      await ghPut('data/lists.json',b64e(JSON.stringify(pkg)),sha,'Dropdown lists update');
+    }else store.setItem('hr_lists',JSON.stringify(LISTS));
+  }catch(e){}
+}
+const CRC_T=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+function crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=CRC_T[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function zipStore(files){
+  const enc=new TextEncoder();const chunks=[];const central=[];let off=0;
+  const dt=new Date();const dtime=((dt.getHours()<<11)|(dt.getMinutes()<<5)|(dt.getSeconds()>>1))&0xFFFF;
+  const ddate=(((dt.getFullYear()-1980)<<9)|((dt.getMonth()+1)<<5)|dt.getDate())&0xFFFF;
+  const w16=v=>[v&255,(v>>8)&255];const w32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>24)&255];
+  files.forEach(f=>{const nm=enc.encode(f.name);const crc=crc32(f.data);const sz=f.data.length;
+    const lh=new Uint8Array([80,75,3,4].concat(w16(20),w16(0x0800),w16(0),w16(dtime),w16(ddate),w32(crc),w32(sz),w32(sz),w16(nm.length),w16(0)));
+    chunks.push(lh,nm,f.data);
+    central.push(new Uint8Array([80,75,1,2].concat(w16(20),w16(20),w16(0x0800),w16(0),w16(dtime),w16(ddate),w32(crc),w32(sz),w32(sz),w16(nm.length),w16(0),w16(0),w16(0),w16(0),w32(0),w32(off))),nm);
+    off+=lh.length+nm.length+sz;});
+  const cdStart=off;let cdLen=0;central.forEach(c=>cdLen+=c.length);
+  const eocd=new Uint8Array([80,75,5,6,0,0,0,0].concat(w16(files.length),w16(files.length),w32(cdLen),w32(cdStart),w16(0)));
+  const out=new Uint8Array(cdStart+cdLen+eocd.length);let p=0;
+  chunks.concat(central,[eocd]).forEach(c=>{out.set(c,p);p+=c.length;});
+  return out;
+}
+function xlsxFromRows(rows){
+  const escX=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const strings=[];const sidx={};
+  const ss=v=>{const k=String(v==null?'':v);if(!(k in sidx)){sidx[k]=strings.length;strings.push(k);}return sidx[k];};
+  const body=rows.map((r,ri)=>'<row r="'+(ri+1)+'">'+r.map((c,ci)=>'<c r="'+(ci<26?String.fromCharCode(65+ci):'A'+String.fromCharCode(65+ci-26))+(ri+1)+'" t="s"><v>'+ss(c)+'</v></c>').join('')+'</row>').join('');
+  const sst='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="'+strings.length+'" uniqueCount="'+strings.length+'">'+strings.map(x=>'<si><t xml:space="preserve">'+escX(x)+'</t></si>').join('')+'</sst>';
+  const ncol=Math.max.apply(null,rows.map(r=>r.length));
+  const cols='<cols>'+Array.from({length:ncol},(_,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="24" customWidth="1"/>').join('')+'</cols>';
+  const sheet='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'+cols+'<sheetData>'+body+'</sheetData></worksheet>';
+  const wb='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Report" sheetId="1" r:id="rId1"/></sheets></workbook>';
+  const ct='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/></Types>';
+  const r1='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>';
+  const r2='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>';
+  const e=new TextEncoder();
+  return zipStore([{name:'[Content_Types].xml',data:e.encode(ct)},{name:'_rels/.rels',data:e.encode(r1)},{name:'xl/workbook.xml',data:e.encode(wb)},{name:'xl/_rels/workbook.xml.rels',data:e.encode(r2)},{name:'xl/sharedStrings.xml',data:e.encode(sst)},{name:'xl/worksheets/sheet1.xml',data:e.encode(sheet)}]);
+}
 function csvCell(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
-function exportCsv(){
-  const cols=[['Emp Code','code'],['Name','nameEn'],['Name (Bangla)','nameBn'],['Designation','desigEn'],['Designation (Bangla)','desigBn'],
+function expCols(){return [['Emp Code','code'],['Name','nameEn'],['Name (Bangla)','nameBn'],['Designation','desigEn'],['Designation (Bangla)','desigBn'],
     ['Department','deptEn'],['Department (Bangla)','deptBn'],['Section','secEn'],['Section (Bangla)','secBn'],['Job Location','locEn'],['Job Location (Bangla)','locBn'],
     ['Date Of Joining','join'],['Date Of Birth','dob'],['Mobile number','mobile'],['NID','nid'],['Blood Group','blood'],['Gender','gender'],
     ["Father's Name",'fatherEn'],["Father's Name (Bangla)",'fatherBn'],["Mother's Name",'motherEn'],["Mother's Name (Bangla)",'motherBn'],
@@ -1846,7 +1999,18 @@ function exportCsv(){
     ['Nominee Name','nomName'],['Nominee Phone','nomPhone'],['Relation with Nominee','nomRel'],
     ['Nominee Village / House','nomAv'],['Nominee Post Office','nomAp'],['Nominee Police Station','nomAs'],['Nominee District','nomAd'],
     ['Nominee Village / House (Bangla)','nomAvBn'],['Nominee Post Office (Bangla)','nomApBn'],['Nominee Police Station (Bangla)','nomAsBn'],['Nominee District (Bangla)','nomAdBn'],['Nominee Address','nomAddr'],
-    ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];
+    ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];}
+function exportXlsx(){
+  const cols=expCols();
+  const rows=[cols.map(c=>c[0])].concat(EMP.map(e=>cols.map(c=>{let v=e[c[1]];
+    if(c[1]==='join'||c[1]==='dob'||c[1]==='resignDate')v=fmtDate(v);
+    else if(c[1]==='recType')v=recLabel(e);
+    else if(c[1]==='status')v=(e.status==='resigned'?t('stResigned'):t('stActive'));
+    return v==null?'':String(v);})));
+  download('employees-'+todayISO()+'.xlsx',xlsxFromRows(rows),'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+}
+function exportCsv(){
+  const cols=expCols();
   const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(EMP.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
   download('employees-'+todayISO()+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
 }
@@ -1969,26 +2133,35 @@ function importJsonText(text){
 /* ================= PRINT ================= */
 async function printProfile(code){
   const e=EMP.find(x=>x.code===code);if(!e)return;
-  const cell=(l,v,bn)=>'<div class="pcell"><div class="plab">'+esc(l)+'</div><div class="pval">'+esc(v||'—')+'</div>'+(bn?'<div class="pvalbn">'+esc(bn)+'</div>':'')+'</div>';
   let photoTag='';
   const url=await ensurePhotoURL(e);
-  if(url)photoTag='<img src="'+url+'" style="width:120px;height:120px;border-radius:50%;object-fit:cover">';
-  $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;padding:8px">'+
-  '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+esc(brandName())+' — '+t('recTitle')+'</h2>'+
-  '<table style="width:100%;margin-top:10px"><tr><td style="width:130px">'+photoTag+'</td><td>'+
-  '<div style="font-size:22px;font-weight:800">'+esc(e.nameEn)+'</div>'+(e.nameBn?'<div style="font-size:16px">'+esc(e.nameBn)+'</div>':'')+
-  '<div style="margin-top:4px;font-weight:700">'+esc(e.code)+' · '+esc(e.desigEn||'')+'</div>'+
-  '<div>'+statusBadge(e)+(e.status==='resigned'?' · '+t('lastWork')+': '+fmtDate(e.resignDate):'')+'</div></td></tr></table>'+
-  '<div class="pgrid" style="margin-top:14px">'+
-  cell(t('fDesigEn'),e.desigEn,e.desigBn)+cell(t('fDeptEn'),e.deptEn,e.deptBn)+cell(t('fSecEn'),e.secEn,e.secBn)+
-  cell(t('fLocEn'),e.locEn,e.locBn)+cell(t('fJoin'),fmtDate(e.join),'')+cell(t('fDob'),fmtDate(e.dob),'')+
-  cell(t('fGender'),e.gender,'')+cell(t('fBlood'),e.blood,'')+cell(t('fMobile'),e.mobile,'')+cell(t('fNid'),e.nid,'')+cell(t('fEmail'),e.email,'')+cell(t('fBankAc'),e.bankAc,'')+cell(t('fRecType'),recLabel(e),'')+
-  cell(t('fFatherEn'),e.fatherEn,e.fatherBn)+cell(t('fMotherEn'),e.motherEn,e.motherBn)+cell(t('fAddress'),e.address,'')+
-  cell(t('fAddrP'),[e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', ')+(e.addrPvBn||e.addrPpBn||e.addrPsBn||e.addrPdBn?' | '+[e.addrPvBn,e.addrPpBn,e.addrPsBn,e.addrPdBn].filter(Boolean).join(', '):''),'')+
-  cell(t('fAddrV'),[e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', ')+(e.addrVvBn||e.addrVpBn||e.addrVsBn||e.addrVdBn?' | '+[e.addrVvBn,e.addrVpBn,e.addrVsBn,e.addrVdBn].filter(Boolean).join(', '):''),'')+
-  cell(t('nomName'),e.nomName,'')+cell(t('nomPhone'),e.nomPhone,'')+cell(t('nomRelation'),e.nomRel,'')+
-  cell(t('nomAddr'),[e.nomAv,e.nomAp,e.nomAs,e.nomAd].filter(Boolean).join(', ')+(e.nomAvBn||e.nomApBn||e.nomAsBn||e.nomAdBn?' | '+[e.nomAvBn,e.nomApBn,e.nomAsBn,e.nomAdBn].filter(Boolean).join(', '):'')||e.nomAddr,'')+
-  '</div><div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
+  if(url)photoTag='<img src="'+url+'" style="width:84px;height:84px;border-radius:12px;object-fit:cover">';
+  const gc=(l,v,bn)=>'<div><div style="font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:#64748b;font-weight:800">'+esc(l)+'</div><div style="font-weight:600;font-size:11px;margin-top:1px">'+esc(v||'—')+(bn?' <span style="color:#475569;font-weight:500">| '+esc(bn)+'</span>':'')+'</div></div>';
+  const sec=t=>'<div style="grid-column:1/-1;font-size:9.5px;font-weight:800;color:#1e5aa8;text-transform:uppercase;letter-spacing:.7px;border-bottom:1.5px solid #1e5aa8;margin-top:5px;padding-bottom:2px">'+esc(t)+'</div>';
+  const addr=(en,bn)=>[en,bn].filter(Boolean).join('  |  ')||'—';
+  $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;color:#17233b">'+
+  '<table style="width:100%;border-collapse:collapse"><tr><td style="width:96px;vertical-align:top">'+photoTag+'</td><td style="vertical-align:middle;padding-left:12px">'+
+  '<div style="font-size:11px;font-weight:800;color:#1e5aa8;text-transform:uppercase;letter-spacing:.6px">'+esc(brandName())+' — '+t('recTitle')+'</div>'+
+  '<div style="font-size:19px;font-weight:800;line-height:1.15;margin-top:2px">'+esc(e.nameEn)+(e.nameBn?' <span style="font-size:14px;font-weight:600">| '+esc(e.nameBn)+'</span>':'')+'</div>'+
+  '<div style="font-size:12px;font-weight:700;margin-top:2px">'+esc(e.code)+' · '+esc(e.desigEn||'')+(e.desigBn?' | '+esc(e.desigBn):'')+'</div>'+
+  '<div style="font-size:10.5px;margin-top:3px">'+statusBadge(e)+(e.status==='resigned'?' <b>· '+t('lastWork')+': '+fmtDate(e.resignDate)+'</b>':'')+' · <b>'+t('fRecType')+':</b> '+esc(recLabel(e))+'</div>'+
+  '</td></tr></table>'+
+  '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 16px;margin-top:8px;border-top:2px solid #1e5aa8;padding-top:7px">'+
+  sec(t('fsJob'))+
+  gc(t('fDeptEn'),e.deptEn,e.deptBn)+gc(t('fSecEn'),e.secEn,e.secBn)+gc(t('fLocEn'),e.locEn,e.locBn)+
+  gc(t('fJoin'),fmtDate(e.join),'')+gc(t('fDesigEn'),e.desigEn,e.desigBn)+gc(t('fRecType'),recLabel(e),'')+
+  sec(t('fsPersonal'))+
+  gc(t('fDob'),fmtDate(e.dob),'')+gc(t('fGender'),e.gender,'')+gc(t('fBlood'),e.blood,'')+
+  gc(t('fMobile'),e.mobile,'')+gc(t('fEmail'),e.email,'')+gc(t('fNid'),e.nid,'')+
+  gc(t('fBankAc'),e.bankAc,'')+gc(t('fFatherEn'),e.fatherEn,e.fatherBn)+gc(t('fMotherEn'),e.motherEn,e.motherBn)+
+  sec(t('fAddrP')+' / '+t('fAddrV'))+
+  '<div style="grid-column:span 2">'+gc(t('fAddrP'),addr([e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', '),[e.addrPvBn,e.addrPpBn,e.addrPsBn,e.addrPdBn].filter(Boolean).join(', ')),'')+'</div>'+
+  gc(t('fAddrV'),addr([e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', '),[e.addrVvBn,e.addrVpBn,e.addrVsBn,e.addrVdBn].filter(Boolean).join(', ')),'')+
+  sec(t('fsNominee'))+
+  gc(t('nomName'),e.nomName,'')+gc(t('nomPhone'),e.nomPhone,'')+gc(t('nomRelation'),e.nomRel,'')+
+  gc(t('nomAddr'),addr([e.nomAv,e.nomAp,e.nomAs,e.nomAd].filter(Boolean).join(', '),[e.nomAvBn,e.nomApBn,e.nomAsBn,e.nomAdBn].filter(Boolean).join(', '))||e.nomAddr,'')+
+  '</div>'+
+  '<div style="margin-top:10px;font-size:9px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
   window.print();
 }
 
@@ -2019,6 +2192,7 @@ function applyLang(){
   applyBrand();
   $('#brandSub').textContent=LANG==='bn'?'সুরক্ষিত এইচআর ইআরপি · কর্মী রেকর্ড':'Secure HR ERP · Employee Records';
   $('#q').placeholder=t('searchPh');
+  if(LISTS)fillDatalists();
   if(SESSION){$('#ucRole').textContent=t('role'+SESSION.role.charAt(0).toUpperCase()+SESSION.role.slice(1));}
   badgeState();
   if($('#appShell').style.display!=='none'){
@@ -2055,6 +2229,48 @@ function bindEvents(){
   $('#btnRepJoin').addEventListener('click',()=>genReport('join'));
   $('#btnRepResign').addEventListener('click',()=>genReport('resign'));
   $('#f_recNew').addEventListener('change',()=>{$('#replRow').style.display=$('#f_recNew').checked?'none':'';});
+  $('#segDist').addEventListener('click',ev=>{const b=ev.target.closest('button[data-dk]');if(!b)return;
+    distKey=b.dataset.dk;$$('#segDist button').forEach(x=>x.classList.toggle('on',x===b));renderDash();});
+  ['dept','sec','loc','desig'].forEach(k=>{
+    $('#ml_'+k+'_add').addEventListener('click',()=>addListVal(k));
+    $('#ml_'+k+'_in').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();addListVal(k);}});
+    $('#ml_'+k+'_bn').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();addListVal(k);}});
+  });
+  [['dept','f_deptEn'],['sec','f_secEn'],['loc','f_locEn'],['desig','f_desigEn']].forEach(a=>{
+    const k=a[0],sel=$('#'+a[1]);
+    sel.addEventListener('change',()=>{
+      if(sel.value==='__add__'){
+        const prev=sel.dataset.prev||'';
+        promptAdd(k,v=>{fillDatalists();sel.value=v;sel.dataset.prev=v;},()=>{sel.value=prev;});
+      }else sel.dataset.prev=sel.value;
+    });
+  });
+  $('#prOk').addEventListener('click',async()=>{
+    const k=window.__prk||'dept';const en=$('#pr_en').value.trim(),bn=$('#pr_bn').value.trim();
+    if(!en){$('#pr_en').focus();return;}
+    if((LISTS[k]||[]).some(x=>x.toLowerCase()===en.toLowerCase())){$('#pr_en').focus();return;}
+    (LISTS[k]=LISTS[k]||[]).push(en);if(bn)LISTS.bn[k][en]=bn;
+    $('#ovPrompt').classList.remove('on');$('#pr_en').value='';$('#pr_bn').value='';
+    const done=window.__pron;window.__pron=null;window.__prk=null;
+    if(done)done(en);
+    await saveLists();fillDatalists();if(VIEW==='settings')renderManageLists();
+    toast(t('savedGH'),'ok');
+  });
+  $('#prCancel').addEventListener('click',()=>{
+    $('#ovPrompt').classList.remove('on');$('#pr_en').value='';$('#pr_bn').value='';
+    const cancel=window.__prc;window.__prc=null;window.__prk=null;window.__pron=null;
+    if(cancel)cancel();
+  });
+  document.addEventListener('click',ev=>{
+    const mb=ev.target.closest('[data-mlk]');if(!mb)return;
+    const k=mb.dataset.mlk,i=+mb.dataset.mli,v=(LISTS[k]||[])[i];
+    if(v===undefined)return;
+    confirmDlg('🗑',v+' — remove from list?',async()=>{
+      LISTS[k].splice(i,1);
+      await saveLists();fillDatalists();renderManageLists();
+      toast(t('savedGH'),'ok');
+    });
+  });
   $('#btnTheme').addEventListener('click',()=>{const order=['light','dark','offwhite'];
     CFG.theme=order[(order.indexOf(CFG.theme||'light')+1)%3];saveCfg();applyTheme();
     toast((CFG.theme==='dark'?'🌙 Dark':CFG.theme==='offwhite'?'📄 Off-white':'☀️ Light')+' theme','ok');});
@@ -2071,6 +2287,7 @@ function bindEvents(){
   $('#btnCfgHow').addEventListener('click',()=>{const b=$('#cfgHowBox');b.textContent=t('howToken');b.style.display=b.style.display==='none'?'block':'none';});
   $('#expJson').addEventListener('click',exportJson);
   $('#expCsv').addEventListener('click',exportCsv);
+  $('#expXls').addEventListener('click',exportXlsx);
   $('#impFileBtn').addEventListener('click',()=>$('#impFile').click());
   $('#impFile').addEventListener('change',ev=>{const f=ev.target.files[0];if(f)handleImportFile(f);ev.target.value='';});
   $('#btnLogoPick').addEventListener('click',()=>$('#logoIn').click());
@@ -2127,13 +2344,20 @@ async function boot(){
   if(store.getItem('hr_local_sec'))renderLogin();else renderSetup();
 }
 function fillDatalists(){
+  if(!LISTS)LISTS=defaultLists();
   const uniq=k=>Array.from(new Set(EMP.map(e=>(e[k]||'').trim()).filter(Boolean))).sort();
-  const defaults={dlDept:Object.keys(DEPT_BN),dlSec:Object.keys(SEC_BN),dlLoc:Object.keys(LOC_BN),dlDesig:Object.keys(DESIG_BN)};
-  [['dlDept','deptEn'],['dlSec','secEn'],['dlLoc','locEn'],['dlDesig','desigEn']].forEach(([id,k])=>{
-    $('#'+id).innerHTML=Array.from(new Set(defaults[id].concat(uniq(k)))).map(v=>'<option value="'+esc(v)+'">').join('');});
+  [['dept','f_deptEn','deptEn'],['sec','f_secEn','secEn'],['loc','f_locEn','locEn'],['desig','f_desigEn','desigEn']].forEach(a=>{
+    const k=a[0],sel=$('#'+a[1]);
+    if(sel&&sel.tagName==='SELECT'){
+      const cur=sel.value;
+      const vals=Array.from(new Set((LISTS[k]||[]).concat(uniq(a[2])))).sort((x,y)=>x.localeCompare(y));
+      sel.innerHTML='<option value="">—</option>'+vals.map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('')+(isAdmin()?'<option value="__add__">➕ '+(LANG==='bn'?'নতুন যোগ করুন…':'Add new…')+'</option>':'');
+      if(cur)sel.value=cur;
+    }
+  });
   $('#dlCodes').innerHTML=EMP.map(e=>'<option value="'+esc(e.code)+'">').join('');
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f0dbc5bd33a25',t:'MTc4OTIxNzU5MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f6b589ec35d31',t:'MTc4OTIyMTQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
