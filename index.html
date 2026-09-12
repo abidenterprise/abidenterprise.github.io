@@ -451,11 +451,14 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn" id="impFileBtn">📊 <span data-i="impBtn">Choose Excel (.xlsx) or CSV file</span></button>
           <input type="file" id="impFile" accept=".xlsx,.csv" style="display:none">
+          <button class="btn" id="bulkPhotoBtn">🖼 <span data-i="bulkBtn">Upload Photos (multiple)</span></button>
+          <input type="file" id="bulkPhotoIn" accept="image/*" multiple style="display:none">
           <button class="btn o" id="expCsv">⬇ <span data-i="expCsv">Export CSV (Excel)</span></button>
           <button class="btn o" id="expJson">⬇ <span data-i="expJson">Export JSON backup</span></button>
           <button class="btn o" id="impJsonBtn">⬆ <span data-i="impJson">Restore JSON backup</span></button>
           <input type="file" id="impJson" accept=".json,application/json" style="display:none">
         </div>
+        <div class="hint" style="margin-top:10px" data-i="bulkNote"></div>
         <div class="note warn" style="margin:14px 0 0" data-i="setBackupNote"></div>
       </div>
 
@@ -600,10 +603,12 @@ en:{
   lgUseLocal:'Use this device only',lgForgot:'Forgot password?',
   forgotTitle:'Forgot password?',forgotMsg:'1) Another ADMIN can reset your password from "User Accounts". 2) If the only admin lost the password: the encrypted data cannot be opened again — delete data/security.json AND data/employees.json on github.com to restart, then restore your JSON backup (Settings → Restore JSON backup). Keep backups regularly!',
   setupTitle:'Initial Setup',setupSub:'Create the administrator account (one time)',
-  suUser:'Admin username',suPass:'Password (min 6 chars)',suPass2:'Repeat password',suToken:'GitHub Token (optional now)',
-  suTokenH:'Needed to save changes to GitHub. You can add it later in Settings.',suSamples:'Load 4 demo employees (for testing — skip for real use)',
+  suUser:'Admin username',suPass:'Password (min 6 chars)',suPass2:'Repeat password',suToken:'GitHub Token (required for first save)',
+  suTokenH:'Create it at github.com: Settings → Developer settings → Fine-grained tokens → Contents: Read and write. Then paste it here.',suSamples:'Load 4 demo employees (for testing — skip for real use)',
   suBtn:'Create Secure System',suLocalBtn:'Create (this device only)',passShort:'Password must be at least 6 characters',passMismatch:'Passwords do not match',
   userExists:'This username already exists',adminNeed:'Admin username and password required',secApplied:'✅ Secure system created',
+  tokReqSetup:'GitHub Token is required for the first save. Create it on github.com (see the hint below the field) and paste it above.',http401:'GitHub rejected the token (HTTP 401). Check that the token is correct and has Contents: Read and write permission.',
+  bulkBtn:'Upload Photos (multiple)',bulkNote:'📷 Bulk photos: select many photos at once. Each file name must be the employee code (e.g. "C 10006.jpg" or "10006.jpg") or exactly the employee name. Matched photos are compressed, encrypted and saved by code.',bulkDone:'Photos uploaded: ',bulkMiss:' · no match: ',
   logout:'Logout',signedAs:'Signed in',roleAdmin:'Admin',roleEditor:'Editor',roleViewer:'Viewer',
   usersTitle:'User Accounts',addUser:'Add User',nuName:'Username',nuPass:'Password',nuRole:'Role',btnCreate:'Create User',
   roleEditorL:'Editor — add / edit / resign',roleViewerL:'Viewer — see only',roleAdminL:'Admin — full control',
@@ -667,10 +672,12 @@ bn:{
   lgUseLocal:'শুধু এই ডিভাইস ব্যবহার করুন',lgForgot:'পাসওয়ার্ড ভুলে গেছেন?',
   forgotTitle:'পাসওয়ার্ড ভুলে গেছেন?',forgotMsg:'১) অন্য কোনো অ্যাডমিন "ইউজার একাউন্ট" থেকে পাসওয়ার্ড রিসেট করে দিতে পারবেন। ২) একমাত্র অ্যাডমিন পাসওয়ার্ড হারালে: এনক্রিপ্টেড ডেটা আর খোলা যাবে না — github.com-এ data/security.json ও data/employees.json মুছে দিয়ে নতুন করে শুরু করুন, তারপর JSON ব্যাকআপ পুনরুদ্ধার করুন (সেটিংস → Restore JSON backup)। নিয়মিত ব্যাকআপ রাখুন!',
   setupTitle:'প্রাথমিক সেটআপ',setupSub:'অ্যাডমিন একাউন্ট তৈরি করুন (একবারই)',
-  suUser:'অ্যাডমিন ইউজারনেম',suPass:'পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)',suPass2:'পাসওয়ার্ড আবার দিন',suToken:'গিটহাব টোকেন (এখন ঐচ্ছিক)',
-  suTokenH:'গিটহাবে সংরক্ষণের জন্য দরকার। পরে সেটিংসেও যোগ করতে পারবেন।',suSamples:'৪ জন ডেমো কর্মী লোড করুন (পরীক্ষার জন্য — আসল ব্যবহারে বাদ দিন)',
+  suUser:'অ্যাডমিন ইউজারনেম',suPass:'পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)',suPass2:'পাসওয়ার্ড আবার দিন',suToken:'গিটহাব টোকেন (প্রথম সেভের জন্য আবশ্যক)',
+  suTokenH:'github.com-এ: Settings → Developer settings → Fine-grained tokens → Contents: Read and write দিয়ে তৈরি করে এখানে পেস্ট করুন।',suSamples:'৪ জন ডেমো কর্মী লোড করুন (পরীক্ষার জন্য — আসল ব্যবহারে বাদ দিন)',
   suBtn:'সুরক্ষিত সিস্টেম তৈরি করুন',suLocalBtn:'তৈরি করুন (শুধু এই ডিভাইসে)',passShort:'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে',passMismatch:'পাসওয়ার্ড দুটি মেলে না',
   userExists:'এই ইউজারনেম আগে থেকেই আছে',adminNeed:'অ্যাডমিন ইউজারনেম ও পাসওয়ার্ড দিন',secApplied:'✅ সুরক্ষিত সিস্টেম তৈরি হয়েছে',
+  tokReqSetup:'প্রথম সেভের জন্য গিটহাব টোকেন আবশ্যক। github.com-এ টোকেন তৈরি করে (ঘরের নিচের নির্দেশনা দেখুন) উপরে পেস্ট করুন।',http401:'গিটহাব টোকেনটি গ্রহণ করেনি (HTTP 401)। টোকেন সঠিক আছে কি এবং Contents: Read and write অনুমতি আছে কি দেখুন।',
+  bulkBtn:'ছবি একসাথে আপলোড (একাধিক)',bulkNote:'📷 একসাথে অনেক ছবি: ফাইলের নাম হতে হবে কর্মী কোড (যেমন "C 10006.jpg" বা "10006.jpg") বা ঠিক কর্মীর নাম। মিলে যাওয়া ছবি ছোট করে এনক্রিপ্ট করে কোড নামে সেভ হবে।',bulkDone:'ছবি আপলোড হয়েছে: ',bulkMiss:' · মেলেনি: ',
   logout:'প্রস্থান',signedAs:'সাইন ইন',roleAdmin:'অ্যাডমিন',roleEditor:'সম্পাদক',roleViewer:'পর্যবেক্ষক',
   usersTitle:'ইউজার একাউন্ট',addUser:'ইউজার যোগ করুন',nuName:'ইউজারনেম',nuPass:'পাসওয়ার্ড',nuRole:'ভূমিকা',btnCreate:'ইউজার তৈরি করুন',
   roleEditorL:'সম্পাদক — যোগ / সম্পাদনা / ইস্তেফা',roleViewerL:'পর্যবেক্ষক — শুধু দেখবে',roleAdminL:'অ্যাডমিন — সম্পূর্ণ নিয়ন্ত্রণ',
@@ -887,7 +894,9 @@ function renderSetup(note){
     if(p.length<6)return show(t('passShort'));
     if(p!==p2)return show(t('passMismatch'));
     const tok=MODE==='gh'?$('#su_tok').value.trim():'';
-    try{await doSetup(u,p,tok,$('#su_samples').checked);}catch(e){show(t('parseErr')+(e.message||e));}
+    if(MODE==='gh'&&!tok)return show(t('tokReqSetup'));
+    try{await doSetup(u,p,tok,$('#su_samples').checked);}
+    catch(e){show(e&&e.status===401?t('http401'):t('parseErr')+(e.message||e));}
   });
 }
 async function makeUserRec(u,p,role,keyObj){
@@ -1533,6 +1542,30 @@ function importTable(rows){
     toast(t('importDone')+' '+added+' '+t('imported')+', '+updated+' '+t('updated'),'ok');
     if(canEditAnywhere())syncAll();})();
 }
+function codeFromFile(name){
+  let base=String(name).replace(/\.[^.]+$/,'');
+  let m=base.match(/C\s*(\d{3,6})/i);
+  if(!m)m=base.match(/^(\d{3,6})$/);
+  return m?('C '+m[1]):null;
+}
+async function handleBulkPhotos(files){
+  if(!canEd()||!files||!files.length)return;
+  let ok=0;const miss=[];
+  for(const f of files){
+    const code=codeFromFile(f.name);
+    let e=code?EMP.find(x=>normCode(x.code)===normCode(code)):null;
+    if(!e){
+      const nm=String(f.name).replace(/\.[^.]+$/,'').trim().toLowerCase();
+      e=EMP.find(x=>String(x.nameEn||'').trim().toLowerCase()===nm);
+    }
+    if(!e){miss.push(f.name);continue;}
+    try{e.photoData=await compressImage(f);e.photoDirty=true;e.updated=new Date().toISOString();ok++;}
+    catch(err){miss.push(f.name);}
+  }
+  await saveLocal();renderAll();
+  if(canEditAnywhere())syncAll();
+  toast(t('bulkDone')+ok+(miss.length?t('bulkMiss')+miss.slice(0,3).join(', ')+(miss.length>3?' +'+(miss.length-3):''):''),ok?'ok':'err');
+}
 function importJsonText(text){
   try{const d=JSON.parse(text);
     if(d&&Array.isArray(d.employees)){EMP=d.employees.map(fixEmp);saveLocal().then(()=>{renderAll();toast(EMP.length+' ✓','ok');if(canEditAnywhere())syncAll();});}
@@ -1637,6 +1670,8 @@ function bindEvents(){
   $('#expCsv').addEventListener('click',exportCsv);
   $('#impFileBtn').addEventListener('click',()=>$('#impFile').click());
   $('#impFile').addEventListener('change',ev=>{const f=ev.target.files[0];if(f)handleImportFile(f);ev.target.value='';});
+  $('#bulkPhotoBtn').addEventListener('click',()=>$('#bulkPhotoIn').click());
+  $('#bulkPhotoIn').addEventListener('change',ev=>{const fl=ev.target.files;if(fl&&fl.length)handleBulkPhotos(Array.from(fl));ev.target.value='';});
   $('#impJsonBtn').addEventListener('click',()=>$('#impJson').click());
   $('#impJson').addEventListener('change',ev=>{const f=ev.target.files[0];if(!f)return;
     const r=new FileReader();r.onload=()=>importJsonText(String(r.result));r.readAsText(f);ev.target.value='';});
