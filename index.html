@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abid Enterprise — HR ERP</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e5aa8'/%3E%3Ccircle cx='12' cy='9' r='3.4' fill='%23fff'/%3E%3Cpath d='M5.5 19c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p:#1e5aa8; --pd:#16406f; --acc:#0d9488; --bg:#f2f5f9; --card:#ffffff;
+  --tx:#17233b; --mut:#64748b; --line:#e2e8f0; --green:#16a34a; --red:#dc2626;
+  --shadow:0 1px 3px rgba(16,35,63,.08),0 4px 14px rgba(16,35,63,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans Bengali',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);font-size:15px;line-height:1.5}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:14.5px}
+a{color:var(--p)}
+body.r-viewer .ed-only{display:none!important}
+body:not(.r-admin) .ad-only{display:none!important}
+
+/* ---------- auth ---------- */
+#authView{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;z-index:80;background:linear-gradient(135deg,#0c1e3a,#16406f 55%,#0d7668);overflow:auto}
+.authcard{background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.45);width:100%;max-width:430px;padding:30px 28px;max-height:94vh;overflow:auto}
+.authlogo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--p),var(--acc));display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.authlogo svg{width:36px;height:36px}
+.acht{font-size:20px;font-weight:800;text-align:center}
+.achs{font-size:13px;color:var(--mut);text-align:center;margin:2px 0 18px;font-weight:600}
+.authcard .field{margin-bottom:12px}
+.autherr{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;border-radius:10px;padding:9px 13px;font-size:13.5px;font-weight:600;margin-bottom:12px;display:none}
+.authnote{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:10px;padding:9px 13px;font-size:12.5px;margin-bottom:12px}
+.authfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12.5px}
+.authfoot a{cursor:pointer;font-weight:600}
+.remrow{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#334155;margin:2px 0 14px;user-select:none}
+.remrow input{width:16px;height:16px;accent-color:var(--p)}
+.wide{width:100%;justify-content:center}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);height:60px;display:flex;align-items:center;gap:12px;padding:0 16px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.blogo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--acc));display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.blogo svg{width:22px;height:22px}
+.bname{font-weight:800;font-size:16.5px;line-height:1.15;white-space:nowrap}
+.bsub{font-size:11.5px;color:var(--mut);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.hspace{flex:1}
+#syncBadge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--mut);background:#f1f5f9;border:1px solid var(--line);padding:5px 11px;border-radius:99px;max-width:40vw;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#syncBadge .dot{width:8px;height:8px;border-radius:50%;background:#94a3b8;flex:0 0 auto}
+#syncBadge.ok .dot{background:var(--green)} #syncBadge.err .dot{background:var(--red)}
+#syncBadge.syncing .dot{background:#d97706;animation:pulse 1s infinite}
+#syncBadge.local .dot{background:#d97706}
+@keyframes pulse{50%{opacity:.3}}
+#userChip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:#334155;background:#f1f5f9;border:1px solid var(--line);padding:5px 11px;border-radius:99px;max-width:34vw;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#userChip .urole{font-size:10.5px;padding:1px 8px;border-radius:99px;background:var(--p);color:#fff;text-transform:uppercase;letter-spacing:.4px}
+.hbtn{background:#f1f5f9;border:1px solid var(--line);border-radius:10px;padding:8px 13px;font-weight:600;font-size:13.5px;color:var(--tx)}
+.hbtn:hover{background:#e8edf3}
+#btnMenu{display:none}
+
+/* ---------- layout ---------- */
+.wrap{display:flex;min-height:calc(100vh - 60px)}
+nav#side{width:220px;flex:0 0 220px;background:#10233f;padding:14px 10px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+.navbtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;color:#b9c6da;padding:11px 13px;border-radius:10px;font-size:14.5px;font-weight:600;margin-bottom:4px}
+.navbtn svg{width:19px;height:19px;flex:0 0 auto}
+.navbtn:hover{background:rgba(255,255,255,.07);color:#fff}
+.navbtn.on{background:var(--p);color:#fff}
+.nsection{font-size:11px;color:#5f7396;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 13px 6px}
+#backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:44}
+main{flex:1;padding:22px;min-width:0}
+.view{display:none}
+.view.on{display:block;animation:fadein .18s ease}
+@keyframes fadein{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+.vtitle{font-size:21px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* ---------- cards & kpis ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--kc,var(--p))}
+.kpi .kn{font-size:28px;font-weight:800;line-height:1.1}
+.kpi .kl{font-size:13px;color:var(--mut);font-weight:600;margin-top:2px}
+.kpi .ki{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:9px;background:color-mix(in srgb,var(--kc,var(--p)) 12%,#fff);display:flex;align-items:center;justify-content:center;color:var(--kc,var(--p))}
+.kpi .ki svg{width:19px;height:19px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card h3{font-size:15px;font-weight:700;margin-bottom:12px}
+
+/* ---------- bars ---------- */
+.brow{display:flex;align-items:center;gap:10px;margin:7px 0}
+.blabel{flex:0 0 150px;font-size:13px;font-weight:600;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btrack{flex:1;background:#eef2f7;border-radius:6px;height:20px;overflow:hidden}
+.bfill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2563eb,#0d9488);min-width:3px;transition:width .5s ease}
+.bval{flex:0 0 30px;text-align:right;font-size:13px;font-weight:700;color:#334155}
+.ywrap{display:flex;align-items:flex-end;gap:7px;height:150px;padding-top:6px}
+.ycol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;height:100%}
+.ybar{width:100%;max-width:36px;background:linear-gradient(180deg,#2563eb,#1e5aa8);border-radius:6px 6px 0 0;min-height:3px}
+.yval{font-size:11.5px;font-weight:700;color:#334155}
+.ylab{font-size:11px;color:var(--mut);font-weight:600}
+
+/* ---------- badges / avatars ---------- */
+.bg{display:inline-block;padding:2.5px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.bg.a{background:#dcfce7;color:#15803d}.bg.r{background:#fee2e2;color:#b91c1c}
+.rb{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.rb.admin{background:#ede9fe;color:#6d28d9}.rb.editor{background:#dbeafe;color:#1d4ed8}.rb.viewer{background:#f1f5f9;color:#475569}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;font-weight:700;object-fit:cover;flex:0 0 auto;user-select:none}
+.av.s{width:38px;height:38px;font-size:13px}
+.av.m{width:52px;height:52px;font-size:18px}
+.av.l{width:100px;height:100px;font-size:32px}
+.avw{position:relative;display:inline-flex;flex:0 0 auto}
+.avw .ini{width:100%;height:100%}
+.avw img.pasync{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ---------- table ---------- */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{position:relative;flex:1 1 220px;min-width:180px}
+.search input{width:100%;padding:10px 12px 10px 36px;border:1px solid var(--line);border-radius:10px;background:#fff;outline:none}
+.search input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(30,90,168,.12)}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--mut)}
+select.sel{padding:9.5px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;outline:none;font-weight:500;max-width:170px}
+select.sel:focus{border-color:var(--p)}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+table.tbl{width:100%;border-collapse:collapse;min-width:820px}
+.tbl th{font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut);text-align:left;padding:11px 12px;background:#f8fafc;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 12px;border-bottom:1px solid #eef2f7;font-size:14px;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tbody tr{cursor:pointer}
+.tbl tbody tr:hover{background:#f5f9ff}
+.tbl .cellname{display:flex;align-items:center;gap:10px;min-width:190px}
+.tbl .cn1{font-weight:600;line-height:1.25}
+.tbl .cn2{font-size:12.5px;color:var(--mut)}
+.tbl .sub{font-size:12.5px;color:var(--mut)}
+.mini{background:none;border:1px solid var(--line);border-radius:8px;padding:5.5px 9px;font-size:12.5px;font-weight:600;color:#334155}
+.mini:hover{background:#f1f5f9}
+.mini.d{color:var(--red)} .mini.d:hover{background:#fee2e2}
+.empty{padding:44px 16px;text-align:center;color:var(--mut)}
+.pager{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
+.pager .pinfo{font-size:13px;color:var(--mut)}
+.pbtns{display:flex;gap:6px}
+.pbtns button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font-weight:600;font-size:13px}
+.pbtns button:disabled{opacity:.45;cursor:default}
+.mobcard{display:none}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;color:#fff;background:var(--p)}
+.btn:hover{background:var(--pd)}
+.btn.g{background:var(--green)} .btn.g:hover{background:#15803d}
+.btn.r{background:var(--red)} .btn.r:hover{background:#b91c1c}
+.btn.o{background:#fff;color:var(--tx);border:1px solid var(--line)} .btn.o:hover{background:#f1f5f9}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:9px}
+.btn:disabled{opacity:.55;cursor:default}
+
+/* ---------- form ---------- */
+.fsection{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.fsection h3{font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.fgrid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12.5px;font-weight:700;color:#334155}
+.field label .req{color:var(--red)}
+.field input,.field select,.field textarea{padding:9.5px 11px;border:1px solid var(--line);border-radius:10px;outline:none;background:#fff;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(30,90,168,.12)}
+.field .hint{font-size:11.5px;color:var(--mut)}
+.formfoot{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.photobox{display:flex;gap:16px;align-items:center}
+.photoprev{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid #e2e8f0;background:#f1f5f9;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:12px;text-align:center;cursor:pointer;overflow:hidden}
+
+/* ---------- profile ---------- */
+.phead{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.phead .pt{min-width:200px}
+.phead h2{font-size:22px;font-weight:800;line-height:1.2}
+.pbn-name{font-size:16px;color:#334155;font-weight:600;margin-top:2px}
+.pmeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.pcode{font-size:13px;color:var(--mut);font-weight:700;background:#f1f5f9;padding:3px 10px;border-radius:99px}
+.tag{font-size:11.5px;background:#f1f5f9;border:1px solid var(--line);border-radius:6px;padding:1.5px 7px;color:#334155;font-weight:600}
+.pacts{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.resignbox{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:12px 16px;margin:14px 0;font-size:14px;color:#7f1d1d}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:14px}
+.pcell{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:10px 13px}
+.plab{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.pval{font-size:14.5px;font-weight:600;margin-top:3px;word-break:break-word}
+.pvalbn{font-size:13.5px;color:#475569;margin-top:1px}
+.sec-title{font-size:12.5px;font-weight:800;color:var(--p);margin:20px 0 4px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ---------- settings ---------- */
+.setrow{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.setrow label{font-size:13px;font-weight:700;color:#334155}
+.setrow input{padding:9.5px 11px;border:1px solid var(--line);border-radius:10px;outline:none;width:100%}
+.setrow input:focus{border-color:var(--p)}
+.setrow .hint{font-size:12px;color:var(--mut)}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:11px;padding:12px 15px;font-size:13.5px;color:#1e3a8a;margin-bottom:14px}
+.note.warn{background:#fffbeb;border-color:#fde68a;color:#78350f}
+.tokstat{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;padding:6px 12px;border-radius:99px}
+.tokstat.y{background:#dcfce7;color:#15803d}.tokstat.n{background:#fee2e2;color:#b91c1c}
+code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12.5px}
+
+/* ---------- modal / toast ---------- */
+.ov{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
+.ov.on{display:flex}
+.box{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:22px;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.box h3{font-size:17px;font-weight:800;margin-bottom:14px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);opacity:0;transition:.25s;background:#0f172a;color:#fff;padding:11px 20px;border-radius:11px;z-index:99;pointer-events:none;max-width:92vw;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.ok{background:#15803d}#toast.err{background:#b91c1c}
+
+/* ---------- print ---------- */
+#printArea{display:none}
+@media print{
+  body>*{display:none !important}
+  #printArea{display:block !important;font-size:13px}
+  .pcell{break-inside:avoid}
+}
+.ellip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .fgrid,.fgrid3{grid-template-columns:1fr}
+  #btnMenu{display:inline-flex}
+  nav#side{position:fixed;left:0;top:60px;bottom:0;z-index:45;transform:translateX(-105%);transition:.22s;height:auto}
+  nav#side.open{transform:none}
+  #backdrop.on{display:block}
+  main{padding:14px}
+  .tbl-wrap-desk{display:none}
+  .mobcard{display:block}
+  .mcard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px;display:flex;gap:12px;align-items:center}
+  .mcard .minfo{flex:1;min-width:0}
+  .mcard .mn{font-weight:700;font-size:15px}
+  .mcard .mb{font-size:13.5px;color:var(--mut)}
+  .mcard .mrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+  .pacts{margin-left:0;width:100%}
+  #userChip span.un{max-width:70px;overflow:hidden;text-overflow:ellipsis}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN / SETUP ============ -->
+<div id="authView">
+  <div class="authcard" id="authCard"></div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="appShell" style="display:none">
+<header>
+  <button class="hbtn" id="btnMenu" aria-label="Menu">☰</button>
+  <div class="brand">
+    <div class="blogo">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>
+    </div>
+    <div>
+      <div class="bname" id="brandName">Abid Enterprise</div>
+      <div class="bsub" id="brandSub">Secure HR ERP · Employee Records</div>
+    </div>
+  </div>
+  <div class="hspace"></div>
+  <span id="syncBadge"><span class="dot"></span><span id="syncTxt"></span></span>
+  <span id="userChip">👤 <span class="un" id="ucName"></span><span class="urole" id="ucRole"></span></span>
+  <button class="hbtn" id="btnLogout" title="Logout">⏻</button>
+  <button class="hbtn" id="btnLang" title="Language / ভাষা">বাংলা</button>
+</header>
+
+<div id="backdrop"></div>
+
+<div class="wrap">
+  <nav id="side">
+    <div class="nsection" data-i="menuMain">Main</div>
+    <button class="navbtn" data-nav="dash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg><span data-i="navDash">Dashboard</span></button>
+    <button class="navbtn" data-nav="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5 6.5-5s5.7 1.5 6.5 5"/><path d="M16 4.5a3.5 3.5 0 010 7M21.5 20c-.5-2.6-2-4.1-4.3-4.7"/></svg><span data-i="navList">Employees</span></button>
+    <button class="navbtn ed-only" data-nav="form"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span data-i="navAdd">Add Employee</span></button>
+    <div class="nsection ad-only" data-i="menuAdmin">Administration</div>
+    <button class="navbtn ad-only" data-nav="users"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 118 0v3"/><circle cx="12" cy="15" r="1.6"/></svg><span data-i="navUsers">User Accounts</span></button>
+    <button class="navbtn ad-only" data-nav="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M19 12a7 7 0 00-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 00-2-1.2L14 3h-4l-.5 2.6a7 7 0 00-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 005 12a7 7 0 00.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 002 1.2L10 21h4l.5-2.6a7 7 0 002-1.2l2.4 1 2-3.4-2-1.6A7 7 0 0019 12z"/></svg><span data-i="navSettings">Settings</span></button>
+  </nav>
+
+  <main>
+    <!-- DASHBOARD -->
+    <section id="v-dash" class="view">
+      <div class="vtitle"><span data-i="dashTitle">Dashboard</span></div>
+      <div class="kpis" id="kpis"></div>
+      <div class="grid2">
+        <div class="card"><h3 data-i="byDept">Employees by Department</h3><div id="chartDept"></div></div>
+        <div class="card"><h3 data-i="byLoc">Employees by Job Location</h3><div id="chartLoc"></div></div>
+        <div class="card"><h3 data-i="byYear">New Joining by Year</h3><div id="chartYear"></div></div>
+        <div class="card"><h3 data-i="bdayTitle">🎂 Birthdays this month</h3><div id="bdayList"></div></div>
+      </div>
+    </section>
+
+    <!-- EMPLOYEE LIST -->
+    <section id="v-list" class="view">
+      <div class="vtitle"><span data-i="listTitle">Employees</span>
+        <button class="btn sm ed-only" data-nav="form" style="margin-left:auto">＋ <span data-i="navAdd">Add Employee</span></button>
+      </div>
+      <div class="toolbar">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="q" type="search" data-ip="searchPh">
+        </div>
+        <select class="sel" id="fDept"><option value="" data-i="allDept">All departments</option></select>
+        <select class="sel" id="fLoc"><option value="" data-i="allLoc">All locations</option></select>
+        <select class="sel" id="fStatus">
+          <option value="" data-i="allSt">All status</option>
+          <option value="active" data-i="stActive">Active</option>
+          <option value="resigned" data-i="stResigned">Resigned</option>
+        </select>
+        <select class="sel" id="fSort">
+          <option value="code" data-i="sortCode">Sort: Emp Code</option>
+          <option value="name" data-i="sortName">Sort: Name</option>
+          <option value="joinDesc" data-i="sortJoin">Sort: Newest joined</option>
+          <option value="joinAsc" data-i="sortJoinA">Sort: Longest service</option>
+        </select>
+      </div>
+      <div id="listCount" style="margin-bottom:10px;font-size:13px;color:var(--mut)"></div>
+      <div class="tbl-wrap-desk"><div class="tscroll"><table class="tbl">
+        <thead><tr>
+          <th data-i="thEmp">Employee</th><th data-i="thCode">Code</th><th data-i="thDesig">Designation</th>
+          <th data-i="thDept">Department</th><th data-i="thLoc">Location</th><th data-i="thMobile">Mobile</th>
+          <th data-i="thJoin">Joined</th><th data-i="thStatus">Status</th><th></th>
+        </tr></thead>
+        <tbody id="tblBody"></tbody>
+      </table></div></div>
+      <div class="mobcard" id="mobCards"></div>
+      <div class="pager">
+        <span class="pinfo" id="pageInfo"></span>
+        <div class="pbtns">
+          <button id="pgPrev">‹ <span data-i="prev">Prev</span></button>
+          <button id="pgNext"><span data-i="next">Next</span> ›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="v-profile" class="view"><div id="profileBox"></div></section>
+
+    <!-- FORM -->
+    <section id="v-form" class="view">
+      <div class="vtitle"><span id="formTitle" data-i="formAdd">Add New Employee</span></div>
+      <form id="empForm" autocomplete="off">
+        <div class="fsection">
+          <h3>👤 <span data-i="fsBasic">Basic Information</span></h3>
+          <div class="fgrid">
+            <div class="field"><label><span data-i="fCode">Employee Code</span> <span class="req">*</span></label>
+              <div style="display:flex;gap:8px"><input id="f_code" required><button type="button" class="mini" id="codeAuto" title="Auto">⚡</button></div>
+            </div>
+            <div class="field"><label><span data-i="fStatusF">Status</span></label>
+              <select id="f_statusF"><option value="active" data-i="stActive">Active</option><option value="resigned" data-i="stResigned">Resigned</option></select>
+            </div>
+            <div class="field"><label><span data-i="fNameEn">Name (English)</span> <span class="req">*</span></label><input id="f_nameEn" required></div>
+            <div class="field"><label data-i="fNameBn">Name (Bangla)</label><input id="f_nameBn" lang="bn"></div>
+            <div class="field"><label><span data-i="fDesigEn">Designation (English)</span> <span class="req">*</span></label><input id="f_desigEn" list="dlDesig" required></div>
+            <div class="field"><label data-i="fDesigBn">Designation (Bangla)</label><input id="f_desigBn" lang="bn"></div>
+            <div class="field"><label><span data-i="fDeptEn">Department (English)</span> <span class="req">*</span></label><input id="f_deptEn" list="dlDept" required></div>
+            <div class="field"><label data-i="fDeptBn">Department (Bangla)</label><input id="f_deptBn" lang="bn"></div>
+            <div class="field"><label data-i="fSecEn">Section (English)</label><input id="f_secEn" list="dlSec"></div>
+            <div class="field"><label data-i="fSecBn">Section (Bangla)</label><input id="f_secBn" lang="bn"></div>
+            <div class="field"><label><span data-i="fLocEn">Job Location (English)</span> <span class="req">*</span></label><input id="f_locEn" list="dlLoc" required></div>
+            <div class="field"><label data-i="fLocBn">Job Location (Bangla)</label><input id="f_locBn" lang="bn"></div>
+          </div>
+        </div>
+        <div class="fsection">
+          <h3>📅 <span data-i="fsDates">Personal Details &amp; Dates</span></h3>
+          <div class="fgrid3">
+            <div class="field"><label data-i="fDob">Date of Birth</label><input type="date" id="f_dob"></div>
+            <div class="field"><label><span data-i="fJoin">Date of Joining</span> <span class="req">*</span></label><input type="date" id="f_join" required></div>
+            <div class="field"><label data-i="fGender">Gender</label>
+              <select id="f_gender"><option value="">—</option><option value="Male" data-i="male">Male</option><option value="Female" data-i="female">Female</option><option value="Other" data-i="other">Other</option></select>
+            </div>
+            <div class="field"><label data-i="fBlood">Blood Group</label>
+              <select id="f_blood"><option value="">—</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+            </div>
+            <div class="field"><label data-i="fMobile">Mobile Number</label><input id="f_mobile" type="tel" placeholder="01XXXXXXXXX"></div>
+            <div class="field"><label data-i="fNid">NID Number</label><input id="f_nid"></div>
+          </div>
+        </div>
+        <div class="fsection">
+          <h3>👨‍👩‍👧 <span data-i="fsFamily">Family &amp; Address</span></h3>
+          <div class="fgrid">
+            <div class="field"><label data-i="fFatherEn">Father's Name (English)</label><input id="f_fatherEn"></div>
+            <div class="field"><label data-i="fFatherBn">Father's Name (Bangla)</label><input id="f_fatherBn" lang="bn"></div>
+            <div class="field"><label data-i="fMotherEn">Mother's Name (English)</label><input id="f_motherEn"></div>
+            <div class="field"><label data-i="fMotherBn">Mother's Name (Bangla)</label><input id="f_motherBn" lang="bn"></div>
+            <div class="field" style="grid-column:1/-1"><label data-i="fAddress">Present Address</label><textarea id="f_address" rows="2"></textarea></div>
+          </div>
+        </div>
+        <div class="fsection">
+          <h3>📷 <span data-i="fsPhoto">Employee Photo</span></h3>
+          <div class="photobox">
+            <div class="photoprev" id="photoPrev"><span data-i="photoHint">Click to<br>add photo</span></div>
+            <div>
+              <input type="file" id="photoIn" accept="image/*" style="display:none">
+              <button type="button" class="btn o sm" id="btnPhotoPick" data-i="photoPick">Choose Photo</button>
+              <button type="button" class="mini d" id="btnPhotoRemove" style="margin-left:8px" data-i="photoRemove">Remove</button>
+              <div style="font-size:12px;color:var(--mut);margin-top:8px" data-i="photoNote">Photo is encrypted and saved to GitHub named by employee code.</div>
+            </div>
+          </div>
+        </div>
+        <div class="formfoot">
+          <button type="button" class="btn o" id="btnFormCancel" data-i="cancel">Cancel</button>
+          <button type="submit" class="btn g" id="btnFormSave">💾 <span data-i="saveEmp">Save Employee</span></button>
+        </div>
+      </form>
+    </section>
+
+    <!-- USERS (admin) -->
+    <section id="v-users" class="view">
+      <div class="vtitle"><span data-i="usersTitle">User Accounts</span></div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>➕ <span data-i="addUser">Add User</span></h3>
+        <div class="fgrid3">
+          <div class="field"><label data-i="nuName">Username</label><input id="nu_name" autocomplete="off"></div>
+          <div class="field"><label data-i="nuPass">Password</label><input id="nu_pass" autocomplete="new-password"></div>
+          <div class="field"><label data-i="nuRole">Role</label>
+            <select id="nu_role">
+              <option value="editor" data-i="roleEditor">Editor — add / edit / resign</option>
+              <option value="viewer" data-i="roleViewer">Viewer — see only</option>
+              <option value="admin" data-i="roleAdmin">Admin — full control</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn" id="btnAddUser" data-i="btnCreate">Create User</button>
+          <span id="nu_out" style="font-size:13px;font-weight:600"></span>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>👥 <span data-i="usersList">Existing Users</span></h3>
+        <div class="tscroll"><table class="tbl" style="min-width:520px">
+          <thead><tr><th data-i="uColUser">User</th><th data-i="uColRole">Role</th><th data-i="uColActions">Actions</th></tr></thead>
+          <tbody id="usersTbl"></tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <h3>🔑 <span data-i="myPw">Change My Password</span></h3>
+        <div class="fgrid3">
+          <div class="field"><label data-i="oldPw">Current password</label><input id="cp_old" type="password" autocomplete="current-password"></div>
+          <div class="field"><label data-i="newPw">New password</label><input id="cp_new" type="password" autocomplete="new-password"></div>
+          <div class="field" style="justify-content:flex-end"><label>&nbsp;</label><button class="btn o" id="btnChangePw" data-i="btnChangePw">Change Password</button></div>
+        </div>
+        <div id="cp_out" style="font-size:13px;font-weight:600;margin-top:8px"></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS (admin + import for editors) -->
+    <section id="v-settings" class="view">
+      <div class="vtitle"><span data-i="setTitle">Settings</span></div>
+
+      <div class="card ed-only" style="margin-bottom:16px">
+        <h3>📥 <span data-i="impTitle">Import from Excel / CSV &amp; Backup</span></h3>
+        <div class="note" data-i="impNote"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="impFileBtn">📊 <span data-i="impBtn">Choose Excel (.xlsx) or CSV file</span></button>
+          <input type="file" id="impFile" accept=".xlsx,.csv" style="display:none">
+          <button class="btn o" id="expCsv">⬇ <span data-i="expCsv">Export CSV (Excel)</span></button>
+          <button class="btn o" id="expJson">⬇ <span data-i="expJson">Export JSON backup</span></button>
+          <button class="btn o" id="impJsonBtn">⬆ <span data-i="impJson">Restore JSON backup</span></button>
+          <input type="file" id="impJson" accept=".json,application/json" style="display:none">
+        </div>
+        <div class="note warn" style="margin:14px 0 0" data-i="setBackupNote"></div>
+      </div>
+
+      <div class="card ad-only" style="margin-bottom:16px">
+        <h3>🔗 <span data-i="setGit">GitHub Connection &amp; Security</span></h3>
+        <div class="note" data-i="setGitNote"></div>
+        <div class="fgrid">
+          <div class="setrow"><label data-i="setOwner">GitHub username</label><input id="s_owner"><div class="hint" data-i="setOwnerH"></div></div>
+          <div class="setrow"><label data-i="setRepo">Repository name</label><input id="s_repo"><div class="hint" data-i="setRepoH"></div></div>
+          <div class="setrow"><label data-i="setBranch">Branch</label><input id="s_branch"></div>
+          <div class="setrow"><label data-i="setDataPath">Data file path</label><input id="s_dataPath"></div>
+          <div class="setrow"><label data-i="setSecPath">Security file path</label><input id="s_secPath"></div>
+          <div class="setrow"><label data-i="setPhotosDir">Photos folder</label><input id="s_photosDir"></div>
+        </div>
+        <div style="margin:6px 0 14px">
+          <span class="tokstat" id="tokStatus"></span>
+        </div>
+        <div class="setrow"><label data-i="tokNew">Replace GitHub token</label><input id="s_token" type="password" placeholder="github_pat_… / ghp_…"><div class="hint" data-i="setTokenH"></div></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn" id="btnCfgSave" data-i="setSave">Save Settings</button>
+          <button class="btn o" id="btnTokSave" data-i="btnTokSave">Save Token</button>
+          <button class="btn o" id="btnCfgTest" data-i="setTest">Test Connection</button>
+          <button class="btn o" id="btnCfgHow" data-i="setHow">How to get a token?</button>
+          <span id="cfgTestOut" style="font-size:13px;font-weight:600"></span>
+        </div>
+        <div class="note" id="cfgHowBox" style="display:none;margin-top:14px;line-height:1.8"></div>
+      </div>
+
+      <div class="card ad-only">
+        <h3>⚠️ <span data-i="setDanger">Maintenance</span></h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn o" id="btnReload" data-i="reloadBtn">⟳ Reload data from server</button>
+          <button class="btn r" id="btnResetLocal" data-i="setReset">Reset local device data</button>
+          <span id="statLocal" style="font-size:13px;color:var(--mut)"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- RESIGN MODAL -->
+<div class="ov" id="ovResign"><div class="box">
+  <h3>📤 <span data-i="resignTitle">Employee Resignation</span></h3>
+  <div id="resignWho" style="margin-bottom:14px;font-weight:700;color:var(--p)"></div>
+  <div class="setrow"><label data-i="resignDate">Resignation / Last working date</label><input type="date" id="r_date"></div>
+  <div class="setrow"><label data-i="resignReason">Reason</label>
+    <select id="r_reason">
+      <option value="Personal reason" data-i="rsPersonal">Personal reason</option>
+      <option value="Better opportunity" data-i="rsBetter">Better opportunity</option>
+      <option value="Contract ended" data-i="rsContract">Contract ended</option>
+      <option value="Terminated" data-i="rsTerminated">Terminated</option>
+      <option value="Other" data-i="rsOther">Other</option>
+    </select>
+  </div>
+  <div class="setrow"><label data-i="resignNote">Note (optional)</label><textarea id="r_note" rows="2"></textarea></div>
+  <div class="formfoot" style="margin-top:16px">
+    <button class="btn o" id="btnResignCancel" data-i="cancel">Cancel</button>
+    <button class="btn r" id="btnResignOk" data-i="confirmResign">Confirm Resignation</button>
+  </div>
+</div></div>
+
+<!-- RESET PASSWORD MODAL -->
+<div class="ov" id="ovPass"><div class="box">
+  <h3>🔑 <span data-i="resetPwTitle">Reset Password</span></h3>
+  <div id="rp_who" style="margin-bottom:14px;font-weight:700;color:var(--p)"></div>
+  <div class="setrow"><label data-i="newPw">New password</label><input id="rp_pass" autocomplete="new-password"></div>
+  <div class="formfoot" style="margin-top:16px">
+    <button class="btn o" id="btnRpCancel" data-i="cancel">Cancel</button>
+    <button class="btn" id="btnRpOk" data-i="btnReset">Reset Password</button>
+  </div>
+</div></div>
+
+<!-- CONFIRM MODAL -->
+<div class="ov" id="ovConfirm"><div class="box">
+  <h3 id="cfTitle">⚠️</h3>
+  <div id="cfMsg" style="margin-bottom:18px"></div>
+  <div class="formfoot">
+    <button class="btn o" id="btnCfNo" data-i="cancel">Cancel</button>
+    <button class="btn r" id="btnCfYes" data-i="cfYes">Yes, continue</button>
+  </div>
+</div></div>
+
+<div id="printArea"></div>
+<div id="toast"></div>
+<div><datalist id="dlDept"></datalist><datalist id="dlSec"></datalist><datalist id="dlLoc"></datalist><datalist id="dlDesig"></datalist></div>
+</div><!-- /appShell -->
+<script>
+'use strict';
+/* ================= SAFE STORAGE ================= */
+const store=(()=>{try{localStorage.setItem('__t','1');localStorage.removeItem('__t');return localStorage;}
+catch(e){const m={};return{getItem:k=>(k in m?m[k]:null),setItem:(k,v)=>{m[k]=String(v);},removeItem:k=>{delete m[k];}};}})();
+
+/* ================= I18N ================= */
+const I18N={
+en:{
+  menuMain:'Main',menuAdmin:'Administration',navDash:'Dashboard',navList:'Employees',navAdd:'Add Employee',navSettings:'Settings',navUsers:'User Accounts',
+  dashTitle:'Dashboard',listTitle:'Employees',formAdd:'Add New Employee',formEdit:'Edit Employee',setTitle:'Settings',
+  byDept:'Employees by Department',byLoc:'Employees by Job Location',byYear:'New Joining by Year',bdayTitle:'🎂 Birthdays this month',
+  kTotal:'Total Employees',kActive:'Active',kResigned:'Resigned',kNew:'Joined this year',
+  allDept:'All departments',allLoc:'All locations',allSt:'All status',stActive:'Active',stResigned:'Resigned',
+  sortCode:'Sort: Emp Code',sortName:'Sort: Name',sortJoin:'Sort: Newest joined',sortJoinA:'Sort: Longest service',
+  thEmp:'Employee',thCode:'Code',thDesig:'Designation',thDept:'Department',thLoc:'Location',thMobile:'Mobile',thJoin:'Joined',thStatus:'Status',
+  prev:'Prev',next:'Next',searchPh:'Search name, code, mobile, NID…',
+  fsBasic:'Basic Information',fsDates:'Personal Details & Dates',fsFamily:'Family & Address',fsPhoto:'Employee Photo',
+  fCode:'Employee Code',fStatusF:'Status',fNameEn:'Name (English)',fNameBn:'Name (Bangla)',fDesigEn:'Designation (English)',fDesigBn:'Designation (Bangla)',
+  fDeptEn:'Department (English)',fDeptBn:'Department (Bangla)',fSecEn:'Section (English)',fSecBn:'Section (Bangla)',
+  fLocEn:'Job Location (English)',fLocBn:'Job Location (Bangla)',fDob:'Date of Birth',fJoin:'Date of Joining',fGender:'Gender',
+  fBlood:'Blood Group',fMobile:'Mobile Number',fNid:'NID Number',fFatherEn:"Father's Name (English)",fFatherBn:"Father's Name (Bangla)",
+  fMotherEn:"Mother's Name (English)",fMotherBn:"Mother's Name (Bangla)",fAddress:'Present Address',
+  photoHint:'Click to<br>add photo',photoPick:'Choose Photo',photoRemove:'Remove',photoNote:'Photo is encrypted and saved to GitHub named by employee code (e.g. photos/C-10006.enc).',
+  cancel:'Cancel',saveEmp:'Save Employee',male:'Male',female:'Female',other:'Other',
+  setGit:'GitHub Connection & Security',setOwner:'GitHub username',setRepo:'Repository name',setBranch:'Branch',
+  setOwnerH:'Your GitHub username (e.g. abidenterprise)',setRepoH:'For abidenterprise.github.io → exactly this name',
+  setDataPath:'Data file path',setSecPath:'Security file path',setPhotosDir:'Photos folder',setToken:'GitHub Token (PAT)',setSave:'Save Settings',setTest:'Test Connection',
+  setHow:'How to get a token?',setBackup:'Backup · Import / Export',expJson:'Export JSON backup',expCsv:'Export CSV (Excel)',
+  impJson:'Restore JSON backup',setDanger:'Maintenance',setReset:'Reset local device data',
+  resignTitle:'Employee Resignation',resignDate:'Resignation / Last working date',resignReason:'Reason',resignNote:'Note (optional)',
+  confirmResign:'Confirm Resignation',rsPersonal:'Personal reason',rsBetter:'Better opportunity',rsContract:'Contract ended',rsTerminated:'Terminated',rsOther:'Other',
+  cfYes:'Yes, continue',
+  noData:'No employees found. Add your first employee or import from Excel (Settings → Import).',
+  noMatch:'No employees match your search/filters.',
+  savedGH:'✅ Saved & synced to GitHub',savedLocal:'✅ Saved on this device (local mode)',syncFail:'❌ Sync failed: ',
+  syncing:'Syncing…',synced:'Synced',localMode:'Local mode',readOnly:'Read-only (no token)',willCreate:'Connected · data file will be created on first save',
+  empSaved:'Employee saved',empResigned:'marked as resigned',empReinstated:'reinstated as active',empDeleted:'deleted',
+  cfDelTitle:'Delete employee?',cfDelMsg:'This permanently removes the record after sync. Resignation is usually better. Delete',
+  cfReinTitle:'Reinstate employee?',cfReinMsg:'This will make the employee active again. Continue for ',
+  dupCode:'This Employee Code already exists!',reqFields:'Please fill all required fields (*)',badMobile:'Mobile number looks invalid (use 01XXXXXXXXX)',
+  importDone:'Import complete:',imported:'added',updated:'updated',skipped:'skipped',
+  testOk:'✅ Repository connected',testFail:'❌ ',testNoToken:'⚠️ Connected for viewing. Save a token to enable editing.',
+  howToken:'HOW TO GET A TOKEN: 1) github.com → your photo → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token. 2) Name: hr-erp, Expiration: 1 year. 3) Resource owner: your username. Repository access: Only select repositories → abidenterprise.github.io. 4) Permissions → Repository permissions → Contents: Read and write. 5) Generate → copy (github_pat_…). 6) Paste above → Save Token. Done!',
+  tenure:'Service',age:'Age',y:'y',m:'m',lastWork:'Last working day',
+  printTitle:'Employee Record — Abid Enterprise',printGen:'Generated',
+  thPrint:'Print',editBt:'Edit',resignBt:'Resign',reinstateBt:'Reinstate',fsJob:'Job Information',fsPersonal:'Personal Information',fsFamilyL:'Family',
+  bdayNone:'No birthdays this month.',bdayDay:'day',
+  setGitNote:'All data is stored ENCRYPTED (AES-GCM) in your repository. Visitors see only the login screen. Only users you create can open the records. Writes use the encrypted GitHub token stored here.',
+  setBackupNote:'Excel: File → Save As → "CSV UTF-8" or upload the .xlsx directly. Columns are auto-matched (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…). Same Emp Code = update, new code = add. Keep a JSON backup at least monthly — if the admin password is ever lost, the backup is the only way to recover data!',
+  resetDone:'Local device data cleared.',localStat:'records cached on this device',
+  noTokenEdit:'No token saved — ask the admin to add one in Settings.',
+  /* --- auth --- */
+  loginTitle:'Employee Records',loginSub:'Sign in to continue',lgUser:'Username',lgPass:'Password',lgRemember:'Keep me signed in on this device',
+  lgBtn:'Sign In',lgErr:'Wrong username or password',lgGhNote:'🔒 Secure connection to GitHub — data is encrypted.',lgLocalNote:'📴 GitHub not reachable — using this device (local mode).',
+  lgUseLocal:'Use this device only',lgForgot:'Forgot password?',
+  forgotTitle:'Forgot password?',forgotMsg:'1) Another ADMIN can reset your password from "User Accounts". 2) If the only admin lost the password: the encrypted data cannot be opened again — delete data/security.json AND data/employees.json on github.com to restart, then restore your JSON backup (Settings → Restore JSON backup). Keep backups regularly!',
+  setupTitle:'Initial Setup',setupSub:'Create the administrator account (one time)',
+  suUser:'Admin username',suPass:'Password (min 6 chars)',suPass2:'Repeat password',suToken:'GitHub Token (optional now)',
+  suTokenH:'Needed to save changes to GitHub. You can add it later in Settings.',suSamples:'Load 4 demo employees (for testing — skip for real use)',
+  suBtn:'Create Secure System',suLocalBtn:'Create (this device only)',passShort:'Password must be at least 6 characters',passMismatch:'Passwords do not match',
+  userExists:'This username already exists',adminNeed:'Admin username and password required',secApplied:'✅ Secure system created',
+  logout:'Logout',signedAs:'Signed in',roleAdmin:'Admin',roleEditor:'Editor',roleViewer:'Viewer',
+  usersTitle:'User Accounts',addUser:'Add User',nuName:'Username',nuPass:'Password',nuRole:'Role',btnCreate:'Create User',
+  roleEditorL:'Editor — add / edit / resign',roleViewerL:'Viewer — see only',roleAdminL:'Admin — full control',
+  usersList:'Existing Users',uColUser:'User',uColRole:'Role',uColActions:'Actions',resetPw:'Reset PW',remove:'Remove',
+  resetPwTitle:'Reset Password',newPw:'New password',btnReset:'Reset Password',btnChangePw:'Change Password',myPw:'Change My Password',oldPw:'Current password',
+  lastAdmin:'Cannot remove the last admin!',cannotSelf:'You cannot remove your own account.',pwShort:'Password must be at least 6 characters',
+  userAdded:'User created: ',pwReset:'Password reset for ',userRemoved:'User removed: ',pwChanged:'✅ Password changed',wrongOld:'Current password is wrong',
+  tokSet:'● Token saved — editing enabled',tokNotSet:'● No token — view only',tokNew:'Replace GitHub token',btnTokSave:'Save Token',tokSaved:'✅ Token saved (encrypted)',
+  setTokenH:'Stored encrypted in the security file. Editors can then save changes without their own token.',
+  impTitle:'Import from Excel / CSV & Backup',impBtn:'Choose Excel (.xlsx) or CSV file',impNote:'Upload your Excel file (.xlsx) or a CSV — all rows are imported to the server. Existing Emp Codes are updated, new ones added.',
+  reloadBtn:'⟳ Reload data from server',noCrypto:'This browser is too old (no WebCrypto). Please use Chrome.',
+  parseErr:'Could not read the file: ',xlOld:'Browser cannot open .xlsx — please save as CSV UTF-8 and try again.',
+  dupUserSkip:'(user exists)'
+},
+bn:{
+  menuMain:'মূল মেনু',menuAdmin:'প্রশাসন',navDash:'ড্যাশবোর্ড',navList:'কর্মী তালিকা',navAdd:'নতুন কর্মী',navSettings:'সেটিংস',navUsers:'ইউজার একাউন্ট',
+  dashTitle:'ড্যাশবোর্ড',listTitle:'কর্মী তালিকা',formAdd:'নতুন কর্মী যোগ করুন',formEdit:'কর্মীর তথ্য সম্পাদনা',setTitle:'সেটিংস',
+  byDept:'বিভাগ অনুযায়ী কর্মী',byLoc:'কর্মস্থল অনুযায়ী কর্মী',byYear:'বছর অনুযায়ী নতুন যোগদান',bdayTitle:'🎂 এই মাসের জন্মদিন',
+  kTotal:'মোট কর্মী',kActive:'কর্মরত',kResigned:'ইস্তেফাপ্রাপ্ত',kNew:'এ বছর যোগ দিয়েছেন',
+  allDept:'সব বিভাগ',allLoc:'সব কর্মস্থল',allSt:'সব অবস্থা',stActive:'কর্মরত',stResigned:'ইস্তেফাপ্রাপ্ত',
+  sortCode:'সাজান: কর্মী কোড',sortName:'সাজান: নাম',sortJoin:'সাজান: নতুন যোগদান আগে',sortJoinA:'সাজান: দীর্ঘ চাকরি আগে',
+  thEmp:'কর্মী',thCode:'কোড',thDesig:'পদবি',thDept:'বিভাগ',thLoc:'কর্মস্থল',thMobile:'মোবাইল',thJoin:'যোগদান',thStatus:'অবস্থা',
+  prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',
+  fsBasic:'মৌলিক তথ্য',fsDates:'ব্যক্তিগত তথ্য ও তারিখ',fsFamily:'পারিবারিক তথ্য ও ঠিকানা',fsPhoto:'কর্মীর ছবি',
+  fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম (ইংরেজি)',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি (ইংরেজি)',fDesigBn:'পদবি (বাংলা)',
+  fDeptEn:'বিভাগ (ইংরেজি)',fDeptBn:'বিভাগ (বাংলা)',fSecEn:'শাখা (ইংরেজি)',fSecBn:'শাখা (বাংলা)',
+  fLocEn:'কর্মস্থল (ইংরেজি)',fLocBn:'কর্মস্থল (বাংলা)',fDob:'জন্ম তারিখ',fJoin:'যোগদানের তারিখ',fGender:'লিঙ্গ',
+  fBlood:'রক্তের গ্রুপ',fMobile:'মোবাইল নম্বর',fNid:'এনআইডি নম্বর',fFatherEn:'পিতার নাম (ইংরেজি)',fFatherBn:'পিতার নাম (বাংলা)',
+  fMotherEn:'মাতার নাম (ইংরেজি)',fMotherBn:'মাতার নাম (বাংলা)',fAddress:'বর্তমান ঠিকানা',
+  photoHint:'ছবি<br>যোগ করুন',photoPick:'ছবি নির্বাচন করুন',photoRemove:'মুছুন',photoNote:'ছবি এনক্রিপ্ট করে কর্মী কোড দিয়ে গিটহাবে সংরক্ষিত হয় (যেমন photos/C-10006.enc)।',
+  cancel:'বাতিল',saveEmp:'কর্মী সংরক্ষণ করুন',male:'পুরুষ',female:'মহিলা',other:'অন্যান্য',
+  setGit:'গিটহাব সংযোগ ও নিরাপত্তা',setOwner:'গিটহাব ইউজারনেম',setRepo:'রিপোজিটরির নাম',setBranch:'ব্রাঞ্চ',
+  setOwnerH:'আপনার গিটহাব ইউজারনেম (যেমন abidenterprise)',setRepoH:'abidenterprise.github.io হলে ঠিক এই নামটিই দিন',
+  setDataPath:'ডেটা ফাইলের পাথ',setSecPath:'সিকিউরিটি ফাইলের পাথ',setPhotosDir:'ছবির ফোল্ডার',setToken:'গিটহাব টোকেন (PAT)',setSave:'সেটিংস সংরক্ষণ',setTest:'সংযোগ পরীক্ষা',
+  setHow:'টোকেন কীভাবে পাবেন?',setBackup:'ব্যাকআপ · ইমপোর্ট / এক্সপোর্ট',expJson:'JSON ব্যাকআপ ডাউনলোড',expCsv:'CSV (এক্সেল) ডাউনলোড',
+  impJson:'JSON ব্যাকআপ পুনরুদ্ধার',setDanger:'রক্ষণাবেক্ষণ',setReset:'এই ডিভাইসের ডেটা রিসেট',
+  resignTitle:'কর্মীর ইস্তেফা',resignDate:'ইস্তেফা / শেষ কর্মদিবস',resignReason:'কারণ',resignNote:'নোট (ঐচ্ছিক)',
+  confirmResign:'ইস্তেফা নিশ্চিত করুন',rsPersonal:'ব্যক্তিগত কারণ',rsBetter:'আরও ভালো সুযোগ',rsContract:'চুক্তির মেয়াদ শেষ',rsTerminated:'চাকরিচ্যুত',rsOther:'অন্যান্য',
+  cfYes:'হ্যাঁ, এগিয়ে যান',
+  noData:'কোনো কর্মী নেই। প্রথম কর্মী যোগ করুন বা এক্সেল থেকে ইমপোর্ট করুন (সেটিংস → ইমপোর্ট)।',
+  noMatch:'আপনার সার্চ/ফিল্টারে কোনো কর্মী মেলেনি।',
+  savedGH:'✅ সংরক্ষিত ও গিটহাবে সিংক সম্পন্ন',savedLocal:'✅ এই ডিভাইসে সংরক্ষিত (লোকাল মোড)',syncFail:'❌ সিংক ব্যর্থ: ',
+  syncing:'সিংক হচ্ছে…',synced:'সিংক সম্পন্ন',localMode:'লোকাল মোড',readOnly:'শুধু দেখা যাবে (টোকেন নেই)',willCreate:'সংযুক্ত · প্রথম সেভে ডেটা ফাইল তৈরি হবে',
+  empSaved:'কর্মী সংরক্ষিত হয়েছে',empResigned:'ইস্তেফা হিসেবে চিহ্নিত হয়েছেন',empReinstated:'পুনরায় কর্মরত করা হয়েছে',empDeleted:'মুছে ফেলা হয়েছে',
+  cfDelTitle:'কর্মী মুছে ফেলবেন?',cfDelMsg:'সিংকের পর রেকর্ড স্থায়ীভাবে মুছে যাবে। সাধারণত ইস্তেফা দেখানোই ভালো। মুছবেন — ',
+  cfReinTitle:'পুনরায় কর্মরত করবেন?',cfReinMsg:'কর্মী আবার সক্রিয় হবে। নিশ্চিত — ',
+  dupCode:'এই কর্মী কোডটি ইতিমধ্যে আছে!',reqFields:'সব আবশ্যক ঘর (*) পূরণ করুন',badMobile:'মোবাইল নম্বরটি সঠিক নয় (01XXXXXXXXX)',
+  importDone:'ইমপোর্ট সম্পন্ন:',imported:'যোগ হয়েছে',updated:'আপডেট হয়েছে',skipped:'বাদ গেছে',
+  testOk:'✅ রিপোজিটরি সংযুক্ত',testFail:'❌ ',testNoToken:'⚠️ দেখার জন্য সংযুক্ত। সম্পাদনার জন্য টোকেন সেভ করুন।',
+  howToken:'টোকেন পাওয়ার নিয়ম: ১) github.com → আপনার ছবি → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token। ২) নাম: hr-erp, মেয়াদ: ১ বছর। ৩) Resource owner: আপনার ইউজারনেম। Repository access: Only select repositories → abidenterprise.github.io। ৪) Permissions → Repository permissions → Contents: Read and write। ৫) Generate → কপি করুন (github_pat_…)। ৬) উপরে পেস্ট করে Save Token চাপুন। ব্যস!',
+  tenure:'চাকরির মেয়াদ',age:'বয়স',y:'বছর',m:'মাস',lastWork:'শেষ কর্মদিবস',
+  printTitle:'কর্মী রেকর্ড — আবিদ এন্টারপ্রাইজ',printGen:'তৈরি',
+  thPrint:'প্রিন্ট',editBt:'সম্পাদনা',resignBt:'ইস্তেফা',reinstateBt:'পুনরায় কর্মরত',fsJob:'চাকরির তথ্য',fsPersonal:'ব্যক্তিগত তথ্য',fsFamilyL:'পরিবার',
+  bdayNone:'এই মাসে কোনো জন্মদিন নেই।',bdayDay:'তারিখ',
+  setGitNote:'সব ডেটা আপনার রিপোজিটরিতে এনক্রিপ্টেড (AES-GCM) অবস্থায় থাকে। বাইরের কেউ শুধু লগইন স্ক্রিন দেখতে পায়। শুধু আপনার তৈরি ইউজাররাই রেকর্ড খুলতে পারবে। সংরক্ষণের জন্য এখানে এনক্রিপ্টেড গিটহাব টোকেন ব্যবহৃত হয়।',
+  setBackupNote:'এক্সেল: File → Save As → "CSV UTF-8" অথবা সরাসরি .xlsx ফাইল আপলোড করুন। কলাম নিজে থেকেই মিলে যায় (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…)। একই Emp Code হলে আপডেট হবে, নতুন হলে যোগ হবে। অন্তত মাসে একবার JSON ব্যাকআপ নিন — অ্যাডমিন পাসওয়ার্ড হারালে ব্যাকআপই একমাত্র উপায়!',
+  resetDone:'এই ডিভাইসের ডেটা মুছে ফেলা হয়েছে।',localStat:'রেকর্ড এই ডিভাইসে ক্যাশে আছে',
+  noTokenEdit:'কোনো টোকেন সেভ নেই — অ্যাডমিকে সেটিংসে টোকেন যোগ করতে বলুন।',
+  loginTitle:'কর্মী রেকর্ডস',loginSub:'চালিয়ে যেতে সাইন ইন করুন',lgUser:'ইউজারনেম',lgPass:'পাসওয়ার্ড',lgRemember:'এই ডিভাইসে সাইন ইন থাকুন',
+  lgBtn:'সাইন ইন',lgErr:'ইউজারনেম বা পাসওয়ার্ড ভুল',lgGhNote:'🔒 গিটহাবের সাথে নিরাপদ সংযোগ — ডেটা এনক্রিপ্টেড।',lgLocalNote:'📴 গিটহাব পাওয়া যাচ্ছে না — এই ডিভাইস ব্যবহৃত হচ্ছে (লোকাল মোড)।',
+  lgUseLocal:'শুধু এই ডিভাইস ব্যবহার করুন',lgForgot:'পাসওয়ার্ড ভুলে গেছেন?',
+  forgotTitle:'পাসওয়ার্ড ভুলে গেছেন?',forgotMsg:'১) অন্য কোনো অ্যাডমিন "ইউজার একাউন্ট" থেকে পাসওয়ার্ড রিসেট করে দিতে পারবেন। ২) একমাত্র অ্যাডমিন পাসওয়ার্ড হারালে: এনক্রিপ্টেড ডেটা আর খোলা যাবে না — github.com-এ data/security.json ও data/employees.json মুছে দিয়ে নতুন করে শুরু করুন, তারপর JSON ব্যাকআপ পুনরুদ্ধার করুন (সেটিংস → Restore JSON backup)। নিয়মিত ব্যাকআপ রাখুন!',
+  setupTitle:'প্রাথমিক সেটআপ',setupSub:'অ্যাডমিন একাউন্ট তৈরি করুন (একবারই)',
+  suUser:'অ্যাডমিন ইউজারনেম',suPass:'পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)',suPass2:'পাসওয়ার্ড আবার দিন',suToken:'গিটহাব টোকেন (এখন ঐচ্ছিক)',
+  suTokenH:'গিটহাবে সংরক্ষণের জন্য দরকার। পরে সেটিংসেও যোগ করতে পারবেন।',suSamples:'৪ জন ডেমো কর্মী লোড করুন (পরীক্ষার জন্য — আসল ব্যবহারে বাদ দিন)',
+  suBtn:'সুরক্ষিত সিস্টেম তৈরি করুন',suLocalBtn:'তৈরি করুন (শুধু এই ডিভাইসে)',passShort:'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে',passMismatch:'পাসওয়ার্ড দুটি মেলে না',
+  userExists:'এই ইউজারনেম আগে থেকেই আছে',adminNeed:'অ্যাডমিন ইউজারনেম ও পাসওয়ার্ড দিন',secApplied:'✅ সুরক্ষিত সিস্টেম তৈরি হয়েছে',
+  logout:'প্রস্থান',signedAs:'সাইন ইন',roleAdmin:'অ্যাডমিন',roleEditor:'সম্পাদক',roleViewer:'পর্যবেক্ষক',
+  usersTitle:'ইউজার একাউন্ট',addUser:'ইউজার যোগ করুন',nuName:'ইউজারনেম',nuPass:'পাসওয়ার্ড',nuRole:'ভূমিকা',btnCreate:'ইউজার তৈরি করুন',
+  roleEditorL:'সম্পাদক — যোগ / সম্পাদনা / ইস্তেফা',roleViewerL:'পর্যবেক্ষক — শুধু দেখবে',roleAdminL:'অ্যাডমিন — সম্পূর্ণ নিয়ন্ত্রণ',
+  usersList:'বর্তমান ইউজার',uColUser:'ইউজার',uColRole:'ভূমিকা',uColActions:'কাজ',resetPw:'পাসওয়ার্ড রিসেট',remove:'মুছুন',
+  resetPwTitle:'পাসওয়ার্ড রিসেট',newPw:'নতুন পাসওয়ার্ড',btnReset:'রিসেট করুন',btnChangePw:'পাসওয়ার্ড বদলান',myPw:'আমার পাসওয়ার্ড বদলান',oldPw:'বর্তমান পাসওয়ার্ড',
+  lastAdmin:'শেষ অ্যাডমিনকে মুছা যাবে না!',cannotSelf:'নিজের একাউন্ট মুছতে পারবেন না।',pwShort:'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে',
+  userAdded:'ইউজার তৈরি হয়েছে: ',pwReset:'পাসওয়ার্ড রিসেট হয়েছে: ',userRemoved:'ইউজার মুছে ফেলা হয়েছে: ',pwChanged:'✅ পাসওয়ার্ড বদলানো হয়েছে',wrongOld:'বর্তমান পাসওয়ার্ড সঠিক নয়',
+  tokSet:'● টোকেন সেভ আছে — সম্পাদনা চালু',tokNotSet:'● টোকেন নেই — শুধু দেখা যাবে',tokNew:'গিটহাব টোকেন পরিবর্তন',btnTokSave:'টোকেন সেভ করুন',tokSaved:'✅ টোকেন সেভ হয়েছে (এনক্রিপ্টেড)',
+  setTokenH:'সিকিউরিটি ফাইলে এনক্রিপ্টেড অবস্থায় থাকে। এরপর সম্পাদকদের নিজের টোকেন লাগে না।',
+  impTitle:'এক্সেল / CSV থেকে ইমপোর্ট ও ব্যাকআপ',impBtn:'এক্সেল (.xlsx) বা CSV ফাইল বাছুন',impNote:'আপনার এক্সেল ফাইল (.xlsx) বা CSV আপলোড করুন — সব সারি সার্ভারে যোগ হবে। পুরোনো Emp Code আপডেট হবে, নতুনগুলো যোগ হবে।',
+  reloadBtn:'⟳ সার্ভার থেকে ডেটা আবার লোড করুন',noCrypto:'এই ব্রাউজার পুরোনো (WebCrypto নেই)। Chrome ব্যবহার করুন।',
+  parseErr:'ফাইলটি পড়া যায়নি: ',xlOld:'এই ব্রাউজারে .xlsx খোলা যায় না — CSV UTF-8 হিসেবে সেভ করে চেষ্টা করুন।',
+  dupUserSkip:'(ইউজার আছে)'
+}};
+
+/* auto Bangla for known values */
+const DEPT_BN={'HR & ADMIN':'এইচআর ও প্রশাসন','Manufacturing':'ম্যানুফ্যাকচারিং','Sales & Marketing':'সেলস ও মার্কেটিং','Supply Chain & IT':'সাপ্লাই চেইন ও আইটি'};
+const SEC_BN={'Administration':'প্রশাসন','Engineering':'ইঞ্জিনিয়ারিং','Sales':'সেলস','Warehouse':'ওয়্যারহাউস','Finishing':'ফিনিশিং'};
+const LOC_BN={'Head Office':'প্রধান কার্যালয়','Mawna Plant':'মাওনা প্ল্যান্ট','Chittagong':'চট্টগ্রাম'};
+const DESIG_BN={'Office Assistant':'অফিস সহকারী','Driver':'ড্রাইভার','Support Sales':'সাপোর্ট সেলস','Pool Car Driver':'পুল কার ড্রাইভার',
+'Material Handler':'মেটেরিয়াল হ্যান্ডলার','Delivery Assistant':'ডেলিভারি সহকারী','Color Management Assistant':'কালার ম্যানেজমেন্ট সহকারী','Winder':'ওয়াইন্ডার'};
+
+/* ================= SEED DATA (from your Excel sheet) ================= */
+const SEED=[
+{code:'C 00001',nameEn:'Demo Person One',nameBn:'ডেমো নমুনা এক',desigEn:'Office Assistant',deptEn:'HR & ADMIN',secEn:'Administration',locEn:'Head Office',join:'2020-01-01',dob:'1995-01-15',mobile:'01700000001',gender:'Male'},
+{code:'C 00002',nameEn:'Demo Person Two',nameBn:'ডেমো নমুনা দুই',desigEn:'Driver',deptEn:'Manufacturing',secEn:'Engineering',locEn:'Mawna Plant',join:'2021-02-02',dob:'1993-03-05',mobile:'01700000002',gender:'Male'},
+{code:'C 00003',nameEn:'Demo Person Three',nameBn:'ডেমো নমুনা তিন',desigEn:'Support Sales',deptEn:'Sales & Marketing',secEn:'Sales',locEn:'Head Office',join:'2022-03-03',dob:'1997-07-20',mobile:'01700000003',gender:'Female'},
+{code:'C 00004',nameEn:'Demo Person Four',nameBn:'ডেমো নমুনা চার',desigEn:'Material Handler',deptEn:'Supply Chain & IT',secEn:'Warehouse',locEn:'Chittagong',join:'2023-04-04',dob:'1999-11-30',mobile:'01700000004',gender:'Male'}
+].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,status:'active',resignDate:'',resignReason:'',created:'',updated:''},x));
+
+/* ================= STATE ================= */
+let LANG=store.getItem('hr_lang')||'en';
+let EMP=[];
+let MODE='local';           // 'gh' | 'local'
+let GHSEC=null;             // security file content (users, wrapped keys, enc token)
+let SESSION=null;           // {user,role,keyObj(CryptoKey),tok}
+let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',branch:'main',dataPath:'data/employees.json',secPath:'data/security.json',photosDir:'photos'},
+  JSON.parse(store.getItem('hr_cfg')||'{}'));
+let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
+let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
+let syncing=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
+let formPhoto='';let profileCode=null;
+const photoCache={};
+function saveCfg(){store.setItem('hr_cfg',JSON.stringify(CFG));}
+function clearSess(){store.removeItem('hr_sess');}
+
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+function t(k,fb){return (I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||fb||k;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function pad(n){return String(n).padStart(2,'0');}
+function normCode(c){return String(c||'').trim().replace(/\s+/g,' ').toLowerCase();}
+function slug(s){return String(s).trim().replace(/[^\w\u0980-\u09FF-]+/g,'-').replace(/-+/g,'-');}
+function todayISO(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function fmtDate(iso){if(!iso)return '—';const m=String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);if(!m)return String(iso);
+  const dt=new Date(+m[1],+m[2]-1,+m[3]);try{return dt.toLocaleDateString(LANG==='bn'?'bn-BD':'en-GB',{day:'numeric',month:'short',year:'numeric'});}catch(e){return iso;}}
+function tenure(fromISO,toISO){if(!fromISO)return null;const m=String(fromISO).match(/^(\d{4})-(\d{2})-(\d{2})/);if(!m)return null;
+  const from=new Date(+m[1],+m[2]-1,+m[3]);const to=toISO?new Date(String(toISO).slice(0,4),String(toISO).slice(5,7)-1,String(toISO).slice(8,10)):new Date();
+  let mo=(to.getFullYear()-from.getFullYear())*12+(to.getMonth()-from.getMonth());if(to.getDate()<from.getDate())mo--;if(mo<0)mo=0;
+  return{y:Math.floor(mo/12),m:mo%12};}
+function tenureStr(tr){if(!tr)return '—';if(!tr.y&&!tr.m)return '—';return (tr.y?tr.y+' '+t('y'):'')+(tr.y&&tr.m?' ':'')+(tr.m?tr.m+' '+t('m'):'');}
+function ageStr(dob){if(!dob)return '—';const tr=tenure(dob);return tr?tr.y+' '+t('y'):'—';}
+function toast(msg,cls){const el=$('#toast');el.textContent=msg;el.className=cls||'';el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),4200);}
+function confirmDlg(title,msg,onYes){$('#cfTitle').textContent=title;$('#cfMsg').textContent=msg;cfCallback=onYes;$('#ovConfirm').classList.add('on');}
+function initials(name){const p=String(name||'?').trim().split(/\s+/).filter(w=>/[A-Za-z\u0980-\u09FF]/.test(w));return ((p[0]||'?')[0]+(p.length>1?(p[p.length-1][0]||''):'')).toUpperCase();}
+function avColor(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;const hues=[210,168,262,20,340,190,130,280];return 'hsl('+hues[h%hues.length]+',55%,45%)';}
+function isAdmin(){return SESSION&&SESSION.role==='admin';}
+function canEd(){return SESSION&&(SESSION.role==='admin'||SESSION.role==='editor');}
+function fixEmp(e){return Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
+  address:'',photo:'',photoData:'',photoDirty:false,status:'active',resignDate:'',resignReason:'',created:'',updated:''},e);}
+
+/* ================= BASE64 / CRYPTO ================= */
+function b64FromU8(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
+function u8FromB64(b){const bin=atob(String(b).replace(/\s/g,''));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+function b64e(str){return b64FromU8(new TextEncoder().encode(str));}
+function b64d(b64){return new TextDecoder().decode(u8FromB64(b64));}
+const te=new TextEncoder(),td=new TextDecoder();
+function KDF_ITER(){return (GHSEC&&GHSEC.kdf&&GHSEC.kdf.iter)||150000;}
+async function kdfBits(pw,saltB64,iter){const km=await crypto.subtle.importKey('raw',te.encode(pw),'PBKDF2',false,['deriveBits']);
+  return crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:u8FromB64(saltB64),iterations:iter||150000},km,256);}
+async function impBits(bits){return crypto.subtle.importKey('raw',bits,'AES-GCM',true,['encrypt','decrypt']);}
+function randB64(n){return b64FromU8(crypto.getRandomValues(new Uint8Array(n)));}
+async function encPkg(key,obj){const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,te.encode(JSON.stringify(obj))));
+  return{iv:b64FromU8(iv),data:b64FromU8(ct)};}
+async function decPkg(key,pkg){const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u8FromB64(pkg.iv)},key,u8FromB64(pkg.data));
+  return JSON.parse(td.decode(pt));}
+async function encBytesPk(key,u8){const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,u8));
+  const out=new Uint8Array(12+ct.length);out.set(iv,0);out.set(ct,12);return out;}
+async function decBytesPk(key,u8){return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:u8.slice(0,12)},key,u8.slice(12)));}
+function u8FromDataURL(d){return u8FromB64(String(d).split(',')[1]||'');}
+function randomPassword(){const c='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789';let r='';const a=crypto.getRandomValues(new Uint8Array(8));for(let i=0;i<8;i++)r+=c[a[i]%c.length];return r;}
+
+/* ================= XLSX (Excel) PARSER — no libraries ================= */
+function colIdx(ref){let n=0;for(const ch of String(ref)){if(ch>='A'&&ch<='Z')n=n*26+(ch.charCodeAt(0)-64);else if(ch>='a'&&ch<='z')n=n*26+(ch.charCodeAt(0)-96);else break;}return n-1;}
+async function parseXlsx(u8){
+  const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength);
+  let eocd=-1;
+  for(let i=u8.length-22;i>=Math.max(0,u8.length-22-65558);i--){if(dv.getUint32(i,true)===0x06054b50){eocd=i;break;}}
+  if(eocd<0)throw new Error('Not a valid xlsx/zip file');
+  const cnt=dv.getUint16(eocd+10,true);let off=dv.getUint32(eocd+16,true);
+  const entries={};
+  for(let i=0;i<cnt;i++){
+    if(dv.getUint32(off,true)!==0x02014b50)break;
+    const method=dv.getUint16(off+10,true),csize=dv.getUint32(off+20,true);
+    const nlen=dv.getUint16(off+28,true),elen=dv.getUint16(off+30,true),clen=dv.getUint16(off+32,true);
+    const lho=dv.getUint32(off+42,true);
+    const name=td.decode(u8.slice(off+46,off+46+nlen));
+    entries[name]={method,csize,lho};
+    off+=46+nlen+elen+clen;
+  }
+  async function fileData(name){
+    const en=entries[name];if(!en)return null;
+    const nlen2=dv.getUint16(en.lho+26,true),elen2=dv.getUint16(en.lho+28,true);
+    const start=en.lho+30+nlen2+elen2;
+    const raw=u8.slice(start,start+en.csize);
+    if(en.method===0)return raw;
+    if(en.method===8){
+      if(typeof DecompressionStream==='undefined')throw new Error('OLD_BROWSER');
+      const ds=new DecompressionStream('deflate-raw');
+      const ab=await new Response(new Blob([raw]).stream().pipeThrough(ds)).arrayBuffer();
+      return new Uint8Array(ab);
+    }
+    throw new Error('Unsupported zip method');
+  }
+  const ss=[];
+  const ssRaw=await fileData('xl/sharedStrings.xml');
+  if(ssRaw){const doc=new DOMParser().parseFromString(td.decode(ssRaw),'text/xml');
+    Array.from(doc.getElementsByTagName('si')).forEach(si=>{ss.push(Array.from(si.getElementsByTagName('t')).map(x=>x.textContent).join(''));});}
+  const sheetName=Object.keys(entries).filter(n=>/^xl\/worksheets\/sheet\d+\.xml$/.test(n)).sort()[0];
+  if(!sheetName)throw new Error('No worksheet found in xlsx');
+  const shRaw=await fileData(sheetName);
+  const sh=new DOMParser().parseFromString(td.decode(shRaw),'text/xml');
+  const rows=[];
+  Array.from(sh.getElementsByTagName('row')).forEach(r=>{
+    const arr={};
+    Array.from(r.getElementsByTagName('c')).forEach(c=>{
+      const col=colIdx(c.getAttribute('r')||'');
+      const typ=c.getAttribute('t');let v='';
+      if(typ==='s'){const vi=c.querySelector('v');v=ss[vi?+vi.textContent:-1]||'';}
+      else if(typ==='inlineStr'){v=Array.from(c.getElementsByTagName('t')).map(x=>x.textContent).join('');}
+      else{const vi=c.querySelector('v');v=vi?vi.textContent:'';}
+      arr[col]=v;
+    });
+    rows.push(arr);
+  });
+  let maxC=0;rows.forEach(r=>{Object.keys(r).forEach(k=>{if(+k>maxC)maxC=+k;});});
+  return rows.map(r=>{const a=[];for(let i=0;i<=maxC;i++)a.push(r[i]!==undefined?r[i]:'');return a;});
+}
+
+/* ================= GITHUB API ================= */
+function ghHeaders(){const h={'Accept':'application/vnd.github+json'};if(SESSION&&SESSION.tok)h.Authorization='Bearer '+SESSION.tok;return h;}
+function ghURL(path,file){return 'https://api.github.com/repos/'+encodeURIComponent(CFG.owner)+'/'+encodeURIComponent(CFG.repo)+'/contents/'+path.split('/').map(encodeURIComponent).join('/')+(file?'?ref='+encodeURIComponent(CFG.branch):'');}
+async function ghGet(path){const r=await fetch(ghURL(path,true),{headers:ghHeaders()});if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e;}return r.json();}
+async function ghPut(path,b64,sha,message){const body={message:message,content:b64,branch:CFG.branch};if(sha)body.sha=sha;
+  const r=await fetch(ghURL(path,false),{method:'PUT',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify(body)});
+  if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;e.detail=await r.text().catch(()=>'' );throw e;}return r.json();}
+function rawURL(path){return 'https://raw.githubusercontent.com/'+CFG.owner+'/'+CFG.repo+'/'+CFG.branch+'/'+path.split('/').map(encodeURIComponent).join('/');}
+function hasRepoCfg(){return !!(CFG.owner&&CFG.repo);}
+function canEdit(){return MODE==='gh'&&SESSION&&!!SESSION.tok;}
+function canEditAnywhere(){return SESSION&&(MODE==='local'||!!SESSION.tok);}
+
+function setBadge(state,txt){const b=$('#syncBadge');b.className=state;$('#syncTxt').textContent=txt;}
+function badgeState(){
+  if(!SESSION)return;
+  if(MODE==='local'){setBadge('local',t('localMode'));return;}
+  if(SESSION.tok){if(LAST_SYNC)setBadge('ok',t('synced')+' · '+LAST_SYNC.toLocaleTimeString(LANG==='bn'?'bn-BD':'en-GB',{hour:'2-digit',minute:'2-digit'}));else setBadge('ok',t('synced'));}
+  else setBadge('err',t('readOnly'));
+}
+
+/* ================= AUTH SCREENS ================= */
+function logoSVG(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>';}
+function authHeader(title,sub){return '<div class="authlogo">'+logoSVG()+'</div><div class="acht">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';}
+function renderLogin(note){
+  const c=$('#authCard');
+  c.innerHTML=authHeader(t('loginTitle'),t('loginSub'))+
+  (note?'<div class="authnote">'+esc(note)+'</div>':
+    (MODE==='gh'?'<div class="authnote">'+t('lgGhNote')+'</div>':'<div class="authnote">'+t('lgLocalNote')+'</div>'))+
+  '<div class="autherr" id="lg_err"></div>'+
+  '<form id="loginForm"><div class="field"><label>'+t('lgUser')+'</label><input id="lg_u" autocomplete="username" required></div>'+
+  '<div class="field"><label>'+t('lgPass')+'</label><input id="lg_p" type="password" autocomplete="current-password" required></div>'+
+  '<label class="remrow"><input type="checkbox" id="lg_rem" checked>'+t('lgRemember')+'</label>'+
+  '<button class="btn wide" type="submit">🔐 '+t('lgBtn')+'</button></form>'+
+  '<div class="authfoot"><a id="lg_forgot">'+t('lgForgot')+'</a><a id="lg_local">'+t('lgUseLocal')+'</a></div>';
+  $('#loginForm').addEventListener('submit',async ev=>{ev.preventDefault();
+    const err=$('#lg_err');err.style.display='none';
+    try{await doLogin($('#lg_u').value,$('#lg_p').value,$('#lg_rem').checked);}
+    catch(e){err.textContent=t('lgErr');err.style.display='block';}
+  });
+  $('#lg_forgot').addEventListener('click',()=>confirmDlg(t('forgotTitle'),t('forgotMsg'),()=>{}));
+  $('#btnCfNo').textContent=t('cancel');
+  $('#lg_local').addEventListener('click',async()=>{
+    MODE='local';const ls=store.getItem('hr_local_sec');
+    if(ls){renderLogin(t('lgLocalNote'));}else renderSetup(t('lgLocalNote'));
+  });
+}
+function renderSetup(note){
+  const c=$('#authCard');
+  c.innerHTML=authHeader(t('setupTitle'),t('setupSub'))+
+  (note?'<div class="authnote">'+esc(note)+'</div>':'<div class="authnote">'+(MODE==='gh'?t('lgGhNote'):t('lgLocalNote'))+'</div>')+
+  '<div class="autherr" id="su_err"></div>'+
+  '<form id="setupForm">'+
+  '<div class="field"><label>'+t('suUser')+'</label><input id="su_u" autocomplete="username" required></div>'+
+  '<div class="field"><label>'+t('suPass')+'</label><input id="su_p" type="password" autocomplete="new-password" required></div>'+
+  '<div class="field"><label>'+t('suPass2')+'</label><input id="su_p2" type="password" autocomplete="new-password" required></div>'+
+  (MODE==='gh'?'<div class="field"><label>'+t('suToken')+'</label><input id="su_tok" type="password" placeholder="github_pat_…"><div class="hint">'+t('suTokenH')+'</div></div>':'')+
+  '<label class="remrow"><input type="checkbox" id="su_samples">'+t('suSamples')+'</label>'+
+  '<button class="btn wide" type="submit">🛡 '+t(MODE==='gh'?'suBtn':'suLocalBtn')+'</button></form>';
+  $('#setupForm').addEventListener('submit',async ev=>{ev.preventDefault();
+    const err=$('#su_err');err.style.display='none';
+    const show=m=>{err.textContent=m;err.style.display='block';};
+    const u=$('#su_u').value.trim(),p=$('#su_p').value,p2=$('#su_p2').value;
+    if(!u||!p)return show(t('adminNeed'));
+    if(p.length<6)return show(t('passShort'));
+    if(p!==p2)return show(t('passMismatch'));
+    const tok=MODE==='gh'?$('#su_tok').value.trim():'';
+    try{await doSetup(u,p,tok,$('#su_samples').checked);}catch(e){show(t('parseErr')+(e.message||e));}
+  });
+}
+async function makeUserRec(u,p,role,keyObj){
+  const salt=randB64(16);
+  const bits=await kdfBits(p,salt,KDF_ITER());
+  const kek=await impBits(bits);
+  const rawBits=new Uint8Array(await crypto.subtle.exportKey('raw',keyObj));
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},kek,rawBits));
+  return{u:u,role:role,salt:salt,iter:KDF_ITER(),wrap:{iv:b64FromU8(iv),data:b64FromU8(ct)}};
+}
+async function newDataKey(){const raw=crypto.getRandomValues(new Uint8Array(32));return impBits(raw);}
+async function doSetup(u,p,tok,samples){
+  const keyObj=await newDataKey();
+  const admin=await makeUserRec(u,p,'admin',keyObj);
+  GHSEC={v:1,kdf:{iter:150000},users:[admin],token:null};
+  if(tok)GHSEC.token=await encPkg(keyObj,{t:tok});
+  SESSION={user:u,role:'admin',keyObj:keyObj,tok:tok};
+  if(MODE==='gh'){
+    // adopt existing plaintext employees.json if present (from older version)
+    let adopted=null;
+    try{const j=await ghGet(CFG.dataPath);const obj=JSON.parse(b64d(j.content));
+      if(obj&&Array.isArray(obj.employees))adopted=obj.employees.map(fixEmp);}catch(e){}
+    EMP=adopted||(samples?SEED.map(x=>Object.assign({},x)):[]);
+    secSha=null;
+    await ghPut(CFG.secPath,b64e(JSON.stringify(GHSEC,null,2)),null,'Initial security setup');
+    await pushEmployees('Initial encrypted data');
+    saveCfg();saveSess(true);
+  }else{
+    EMP=samples?SEED.map(x=>Object.assign({},x)):[];
+    store.setItem('hr_local_sec',JSON.stringify(GHSEC));
+    saveLocal();
+  }
+  await enterApp();
+  toast(t('secApplied'),'ok');
+}
+async function doLogin(u,p,remember){
+  const sec=MODE==='gh'?GHSEC:JSON.parse(store.getItem('hr_local_sec')||'null');
+  if(!sec)throw new Error('no security');
+  const usr=(sec.users||[]).find(x=>x.u.toLowerCase()===String(u).trim().toLowerCase());
+  if(!usr)throw new Error('bad user');
+  const bits=await kdfBits(p,usr.salt,usr.iter);
+  const kek=await impBits(bits);
+  let rawBits;
+  try{rawBits=new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:u8FromB64(usr.wrap.iv)},kek,u8FromB64(usr.wrap.data)));}
+  catch(e){throw new Error('bad password');}
+  const keyObj=await impBits(rawBits);
+  SESSION={user:usr.u,role:usr.role||'viewer',keyObj:keyObj,tok:''};
+  if(MODE==='gh'&&sec.token){try{const tp=await decPkg(keyObj,sec.token);SESSION.tok=tp.t||'';}catch(e){}}
+  saveSess(remember);
+  await enterApp();
+}
+function saveSess(remember){
+  if(!remember)return;
+  (async()=>{try{
+    const raw=new Uint8Array(await crypto.subtle.exportKey('raw',SESSION.keyObj));
+    store.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.tok,mode:MODE}));
+  }catch(e){}})();
+}
+async function logout(){clearSess();SESSION=null;EMP=[];Object.keys(photoCache).forEach(k=>delete photoCache[k]);
+  $('#appShell').style.display='none';$('#authView').style.display='flex';
+  const ls=store.getItem('hr_local_sec');
+  if(MODE==='gh'&&GHSEC)renderLogin();else renderLogin();
+  $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
+}
+async function enterApp(){
+  $('#authView').style.display='none';
+  $('#appShell').style.display='block';
+  document.body.classList.remove('r-admin','r-editor','r-viewer');
+  document.body.classList.add('r-'+(SESSION?SESSION.role:'viewer'));
+  $('#ucName').textContent=SESSION.user;
+  $('#ucRole').textContent=t('role'+SESSION.role.charAt(0).toUpperCase()+SESSION.role.slice(1))||SESSION.role;
+  applyLang();
+  if(MODE==='gh'){await loadLocalCache();await pullData(true);}
+  else{const raw=store.getItem('hr_emp');EMP=raw?JSON.parse(raw).map(fixEmp):[];if(!EMP.length){EMP=SEED.map(x=>Object.assign({},x));saveLocal();}}
+  fillDatalists();nav('dash');badgeState();
+}
+async function loadLocalCache(){
+  const enc=store.getItem('hr_emp_enc');
+  if(enc&&SESSION){try{const pkg=JSON.parse(enc);const o=await decPkg(SESSION.keyObj,pkg);if(Array.isArray(o.employees))EMP=o.employees.map(fixEmp);}catch(e){}}
+}
+async function saveLocal(){
+  if(MODE==='gh'&&SESSION){
+    try{const pkg=await encPkg(SESSION.keyObj,{employees:EMP});store.setItem('hr_emp_enc',JSON.stringify(pkg));}catch(e){}
+  }else store.setItem('hr_emp',JSON.stringify(EMP));
+}
+
+/* ================= DATA SYNC ================= */
+async function pullData(silent){
+  if(MODE!=='gh')return;
+  if(!hasRepoCfg())return;
+  setBadge('syncing',t('syncing'));
+  try{
+    const j=await ghGet(CFG.dataPath);
+    const obj=JSON.parse(b64d(j.content));
+    if(obj&&obj.enc&&obj.iv){const o=await decPkg(SESSION.keyObj,obj);EMP=(o.employees||[]).map(fixEmp);}
+    else if(obj&&Array.isArray(obj.employees)){EMP=obj.employees.map(fixEmp);syncAll(true);}
+    else EMP=[];
+    await saveLocal();renderAll();
+    LAST_SYNC=new Date();badgeState();
+  }catch(e){
+    if(e.status===404)setBadge('ok',t('willCreate'));else badgeState();
+  }
+}
+async function pushEmployees(msg){
+  const pkg=await encPkg(SESSION.keyObj,{employees:EMP});
+  let sha=null;try{const j=await ghGet(CFG.dataPath);sha=j.sha;}catch(e){if(e.status!==404)throw e;}
+  await ghPut(CFG.dataPath,b64e(JSON.stringify(Object.assign({v:2,enc:true},pkg),null,2)),sha,msg);
+}
+async function pushSec(){
+  if(MODE==='gh'){const j=await ghGet(CFG.secPath);secSha=j.sha;
+    await ghPut(CFG.secPath,b64e(JSON.stringify(GHSEC,null,2)),secSha,'User accounts update');}
+  else store.setItem('hr_local_sec',JSON.stringify(GHSEC));
+}
+async function syncAll(silent){
+  if(!SESSION)return;
+  if(MODE==='local'){await saveLocal();if(!silent)toast(t('savedLocal'),'ok');return;}
+  if(!SESSION.tok){if(!silent)toast(t('noTokenEdit'),'err');badgeState();return false;}
+  if(syncing)return false;syncing=true;setBadge('syncing',t('syncing'));
+  try{
+    for(const em of EMP){
+      if(em.photoData&&em.photoDirty){
+        const p=(CFG.photosDir||'photos')+'/'+slug(em.code)+'.enc';
+        const enc=await encBytesPk(SESSION.keyObj,u8FromDataURL(em.photoData));
+        let sha=null;try{const j=await ghGet(p);sha=j.sha;}catch(e){if(e.status!==404)throw e;}
+        await ghPut(p,b64FromU8(enc),sha,'Photo: '+em.code+' ('+em.nameEn+')');
+        em.photo=p;em.photoDirty=false;em.photoData='';
+      }
+    }
+    await pushEmployees('HR data update — '+new Date().toISOString());
+    await saveLocal();LAST_SYNC=new Date();badgeState();
+    if(!silent)toast(t('savedGH'),'ok');
+    syncing=false;return true;
+  }catch(e){
+    syncing=false;badgeState();
+    if(!silent)toast(t('syncFail')+(e.message||'')+(e.status===401?' — token invalid':'')+(e.status===422?' — data changed elsewhere, reload page':''),'err');
+    return false;
+  }
+}
+
+/* ================= NAV ================= */
+function nav(v){
+  if((v==='form'||v==='users'||v==='settings')&&!canEd()){toast(t('lgErr'),'err');return;}
+  if(v==='users'&&!isAdmin())return;
+  VIEW=v;$$('.view').forEach(x=>x.classList.remove('on'));
+  const el=$('#v-'+v);if(el)el.classList.add('on');
+  $$('.navbtn').forEach(b=>b.classList.toggle('on',b.dataset.nav===v));
+  $('#side').classList.remove('open');$('#backdrop').classList.remove('on');
+  if(v==='dash')renderDash();if(v==='list')renderList();if(v==='settings')fillSettings();if(v==='users')renderUsers();
+  window.scrollTo(0,0);
+}
+function renderAll(){fillDatalists();if(VIEW==='dash')renderDash();if(VIEW==='list')renderList();if(VIEW==='profile'&&profileCode)renderProfile(profileCode);if(VIEW==='settings')fillSettings();if(VIEW==='users')renderUsers();badgeState();}
+
+/* ================= PHOTOS (encrypted, async) ================= */
+function photoPath(e){return e.photo||((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');}
+function ensurePhotoURL(e){
+  if(photoCache[e.code])return photoCache[e.code];
+  const pr=(async()=>{
+    try{
+      if(e.photoData)return e.photoData;
+      if(MODE!=='gh'||!SESSION)return null;
+      const r=await fetch(rawURL(photoPath(e)));
+      if(!r.ok)return null;
+      const u8=new Uint8Array(await r.arrayBuffer());
+      const pt=await decBytesPk(SESSION.keyObj,u8);
+      return URL.createObjectURL(new Blob([pt],{type:'image/jpeg'}));
+    }catch(err){return null;}
+  })();
+  photoCache[e.code]=pr;return pr;
+}
+function photoHTML(e,cls){
+  const ini='<span class="av ini '+cls+'" style="background:'+avColor(e.code||e.nameEn)+'">'+esc(initials(e.nameEn))+'</span>';
+  if(e.photoData)return '<span class="avw">'+ini+'<img class="av '+cls+'" src="'+e.photoData+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></span>';
+  return '<span class="avw">'+ini+'<img class="av '+cls+' pasync" data-pcode="'+esc(e.code)+'" alt="" style="visibility:hidden"></span>';
+}
+function hydratePhotos(){
+  $$('.pasync').forEach(img=>{
+    if(img._done)return;img._done=true;
+    const e=EMP.find(x=>x.code===img.getAttribute('data-pcode'));
+    if(!e){img.remove();return;}
+    ensurePhotoURL(e).then(url=>{if(url){img.src=url;img.style.visibility='visible';}else img.remove();});
+  });
+}
+
+/* ================= DASHBOARD ================= */
+function bnOf(v){return LOC_BN[v]||DEPT_BN[v]||SEC_BN[v]||DESIG_BN[v]||v;}
+function displayName(e){return LANG==='bn'&&(e.nameBn||'').trim()?e.nameBn:e.nameEn;}
+function displayDesig(e){return LANG==='bn'&&(e.desigBn||'').trim()?e.desigBn:(e.desigEn||'—');}
+function renderDash(){
+  const act=EMP.filter(e=>e.status!=='resigned');
+  const res=EMP.filter(e=>e.status==='resigned');
+  const yr=new Date().getFullYear();
+  const newThisYear=EMP.filter(e=>String(e.join||'').startsWith(String(yr))).length;
+  const kpiDef=[
+    {n:EMP.length,l:t('kTotal'),c:'#1e5aa8',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5 6.5-5s5.7 1.5 6.5 5"/><path d="M16 4.5a3.5 3.5 0 010 7M21.5 20c-.5-2.6-2-4.1-4.3-4.7"/></svg>'},
+    {n:act.length,l:t('kActive'),c:'#16a34a',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>'},
+    {n:res.length,l:t('kResigned'),c:'#dc2626',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 4h4a1 1 0 011 1v14a1 1 0 01-1 1h-4M10 17l5-5-5-5M15 12H3"/></svg>'},
+    {n:newThisYear,l:t('kNew'),c:'#d97706',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v8M8 12h8"/><circle cx="12" cy="12" r="9"/></svg>'}
+  ];
+  $('#kpis').innerHTML=kpiDef.map(k=>'<div class="kpi" style="--kc:'+k.c+'"><div class="ki">'+k.ic+'</div><div class="kn">'+k.n+'</div><div class="kl">'+esc(k.l)+'</div></div>').join('');
+  const cnt=key=>{const m={};EMP.forEach(e=>{const v=(e[key]||'').trim()||'—';m[v]=(m[v]||0)+1;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
+  const bars=data=>{const mx=Math.max(1,...data.map(d=>d[1]));
+    if(!data.length)return '<div class="empty">—</div>';
+    return data.map(d=>{const lab=(LANG==='bn')?bnOf(d[0]):d[0];
+      return '<div class="brow"><span class="blabel" title="'+esc(d[0])+'">'+esc(lab)+'</span><div class="btrack"><div class="bfill" style="width:'+Math.round(d[1]/mx*100)+'%"></div></div><span class="bval">'+d[1]+'</span></div>';}).join('');};
+  $('#chartDept').innerHTML=bars(cnt('deptEn'));
+  $('#chartLoc').innerHTML=bars(cnt('locEn'));
+  const yrs={};EMP.forEach(e=>{const y=String(e.join||'').slice(0,4);if(/^\d{4}$/.test(y))yrs[y]=(yrs[y]||0)+1;});
+  const yEntries=Object.entries(yrs).sort((a,b)=>a[0]<b[0]?-1:1).slice(-10);
+  const yMax=Math.max(1,...yEntries.map(d=>d[1]));
+  $('#chartYear').innerHTML=yEntries.length?'<div class="ywrap">'+yEntries.map(d=>'<div class="ycol"><span class="yval">'+d[1]+'</span><div class="ybar" style="height:'+Math.max(4,Math.round(d[1]/yMax*100))+'%"></div><span class="ylab">'+d[0].slice(2)+'</span></div>').join('')+'</div>':'<div class="empty">—</div>';
+  const mn=new Date().getMonth()+1;
+  const bd=act.filter(e=>+String(e.dob||'').slice(5,7)===mn).sort((a,b)=>(+String(a.dob).slice(8,10))-(+String(b.dob).slice(8,10)));
+  $('#bdayList').innerHTML=bd.length?bd.map(e=>'<div class="brow" style="cursor:pointer" data-act="profile" data-code="'+esc(e.code)+'">'+photoHTML(e,'s')+'<div style="flex:1;min-width:0"><div class="ellip" style="font-weight:700;font-size:14px">'+esc(displayName(e))+'</div><div class="sub">'+fmtDate(e.dob)+' · '+esc(displayDesig(e))+'</div></div><span class="bg" style="background:#fef3c7;color:#92400e">'+(+String(e.dob).slice(8,10))+' '+t('bdayDay')+'</span></div>').join(''):'<div class="empty">'+t('bdayNone')+'</div>';
+  hydratePhotos();
+}
+
+/* ================= LIST ================= */
+function filtered(){
+  let a=EMP.slice();
+  const q=filters.q.trim().toLowerCase();
+  if(q)a=a.filter(e=>[e.code,e.nameEn,e.nameBn,e.desigEn,e.desigBn,e.mobile,e.nid,e.fatherEn,e.locEn].join(' ').toLowerCase().includes(q));
+  if(filters.dept)a=a.filter(e=>e.deptEn===filters.dept);
+  if(filters.loc)a=a.filter(e=>e.locEn===filters.loc);
+  if(filters.status)a=a.filter(e=>(e.status||'active')===filters.status);
+  const cmp={code:(x,y)=>String(x.code).localeCompare(String(y.code),undefined,{numeric:true}),
+    name:(x,y)=>String(x.nameEn).localeCompare(String(y.nameEn)),
+    joinDesc:(x,y)=>String(y.join||'').localeCompare(String(x.join||'')),
+    joinAsc:(x,y)=>String(x.join||'').localeCompare(String(y.join||''))};
+  a.sort(cmp[filters.sort]||cmp.code);
+  return a;
+}
+function fillFilterOptions(){
+  const uniq=k=>Array.from(new Set(EMP.map(e=>(e[k]||'').trim()).filter(Boolean))).sort();
+  const fill=(id,arr,cur)=>{const s=$(id);const first=s.options[0];s.innerHTML='';s.appendChild(first);arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});s.value=cur;};
+  fill('#fDept',uniq('deptEn'),filters.dept);fill('#fLoc',uniq('locEn'),filters.loc);
+}
+function renderList(){
+  fillFilterOptions();
+  const a=filtered();
+  const pages=Math.max(1,Math.ceil(a.length/PAGE_SIZE));
+  if(page>pages)page=pages;
+  const slice=a.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE);
+  $('#listCount').textContent=a.length+' '+t('navList');
+  $('#tblBody').innerHTML=slice.length?slice.map(rowHTML).join(''):'<tr><td colspan="9"><div class="empty">'+(EMP.length?t('noMatch'):t('noData'))+'</div></td></tr>';
+  $('#mobCards').innerHTML=slice.length?slice.map(mobileCardHTML).join(''):'<div class="empty">'+(EMP.length?t('noMatch'):t('noData'))+'</div>';
+  $('#pageInfo').textContent=a.length?((page-1)*PAGE_SIZE+1)+'–'+Math.min(page*PAGE_SIZE,a.length)+' / '+a.length:'';
+  $('#pgPrev').disabled=page<=1;$('#pgNext').disabled=page>=pages;
+  hydratePhotos();
+}
+function statusBadge(e){return e.status==='resigned'?'<span class="bg r">'+t('stResigned')+'</span>':'<span class="bg a">'+t('stActive')+'</span>';}
+function rowHTML(e){
+  const res=e.status==='resigned';
+  return '<tr data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.62"':'')+'>'+
+    '<td><div class="cellname">'+photoHTML(e,'s')+'<div><div class="cn1">'+esc(displayName(e))+'</div><div class="cn2">'+esc(LANG==='bn'&&e.nameBn?e.nameEn:'')+'</div></div></div></td>'+
+    '<td class="sub">'+esc(e.code)+'</td>'+
+    '<td>'+esc(displayDesig(e))+'</td>'+
+    '<td class="sub">'+esc(LANG==='bn'?bnOf(e.deptEn)||e.deptEn:e.deptEn||'—')+'</td>'+
+    '<td class="sub">'+esc(LANG==='bn'?bnOf(e.locEn)||e.locEn:e.locEn||'—')+'</td>'+
+    '<td class="sub">'+esc(e.mobile||'—')+'</td>'+
+    '<td class="sub">'+fmtDate(e.join)+'</td>'+
+    '<td>'+statusBadge(e)+'</td>'+
+    '<td><div style="display:flex;gap:5px">'+
+    '<button class="mini ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏</button>'+
+    (res?'':'<button class="mini ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤</button>')+
+    '<button class="mini d ad-only" data-act="del" data-code="'+esc(e.code)+'">🗑</button>'+
+    '</div></td></tr>';
+}
+function mobileCardHTML(e){
+  const res=e.status==='resigned';
+  return '<div class="mcard" data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.65"':'')+'>'+photoHTML(e,'m')+
+  '<div class="minfo"><div class="mn">'+esc(displayName(e))+'</div><div class="mb">'+esc(displayDesig(e))+' · '+esc(e.code)+'</div>'+
+  '<div class="mrow"><span class="tag">'+esc(LANG==='bn'?bnOf(e.deptEn)||e.deptEn:e.deptEn||'—')+'</span><span class="tag">'+esc(LANG==='bn'?bnOf(e.locEn)||e.locEn:e.locEn||'—')+'</span><span class="tag">📞 '+esc(e.mobile||'—')+'</span>'+statusBadge(e)+'</div></div>'+
+  '<div style="display:flex;flex-direction:column;gap:6px"><button class="mini ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏</button>'+(res?'':'<button class="mini ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤</button>')+'</div></div>';
+}
+
+/* ================= PROFILE ================= */
+function renderProfile(code){
+  const e=EMP.find(x=>x.code===code);if(!e){nav('list');return;}
+  profileCode=code;
+  const tr=tenure(e.join,e.status==='resigned'?e.resignDate:null);
+  const bnRow=(l,v,bn)=>'<div class="pcell"><div class="plab">'+esc(l)+'</div><div class="pval">'+esc(v||'—')+'</div>'+(bn?'<div class="pvalbn">'+esc(bn)+'</div>':'')+'</div>';
+  $('#profileBox').innerHTML=
+  '<div class="card">'+
+    '<div class="phead">'+photoHTML(e,'l')+
+      '<div class="pt"><h2>'+esc(e.nameEn||'—')+'</h2>'+(e.nameBn?'<div class="pbn-name" lang="bn">'+esc(e.nameBn)+'</div>':'')+
+      '<div class="pmeta"><span class="pcode">'+esc(e.code)+'</span>'+statusBadge(e)+
+      (e.blood?'<span class="bg" style="background:#fee2e2;color:#b91c1c">🩸 '+esc(e.blood)+'</span>':'')+
+      (tr?'<span class="tag">'+t('tenure')+': '+tenureStr(tr)+'</span>':'')+
+      (e.dob?'<span class="tag">'+t('age')+': '+ageStr(e.dob)+'</span>':'')+
+      '</div></div>'+
+      '<div class="pacts">'+
+        '<button class="btn o sm" data-nav="list">← '+t('navList')+'</button>'+
+        '<button class="btn o sm" data-act="print" data-code="'+esc(e.code)+'">🖨 '+t('thPrint')+'</button>'+
+        '<button class="btn sm ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏ '+t('editBt')+'</button>'+
+        (e.status==='resigned'
+          ?'<button class="btn g sm ed-only" data-act="reinstate" data-code="'+esc(e.code)+'">↩ '+t('reinstateBt')+'</button>'
+          :'<button class="btn r sm ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤 '+t('resignBt')+'</button>')+
+      '</div>'+
+    '</div>'+
+    (e.status==='resigned'?'<div class="resignbox">📤 <b>'+t('stResigned')+'</b> — '+t('lastWork')+': '+fmtDate(e.resignDate)+(e.resignReason?' · '+esc(e.resignReason):'')+'</div>':'')+
+    '<div class="sec-title">'+t('fsJob')+'</div><div class="pgrid">'+
+      bnRow(t('fDesigEn'),e.desigEn,e.desigBn)+bnRow(t('fDeptEn'),e.deptEn,e.deptBn)+bnRow(t('fSecEn'),e.secEn,e.secBn)+bnRow(t('fLocEn'),e.locEn,e.locBn)+
+      bnRow(t('fJoin'),fmtDate(e.join),'')+'</div>'+
+    '<div class="sec-title">'+t('fsPersonal')+'</div><div class="pgrid">'+
+      bnRow(t('fDob'),fmtDate(e.dob),'')+bnRow(t('fGender'),e.gender?(LANG==='bn'?({Male:t('male'),Female:t('female'),Other:t('other')}[e.gender]||e.gender):e.gender):'','')+
+      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fAddress'),e.address,'')+'</div>'+
+    '<div class="sec-title">'+t('fsFamilyL')+'</div><div class="pgrid">'+
+      bnRow(t('fFatherEn'),e.fatherEn,e.fatherBn)+bnRow(t('fMotherEn'),e.motherEn,e.motherBn)+'</div>'+
+  '</div>';
+  hydratePhotos();
+}
+
+/* ================= FORM ================= */
+function nextCode(){
+  let mx=0;EMP.forEach(e=>{const m=String(e.code).match(/(\d+)\s*$/);if(m)mx=Math.max(mx,+m[1]);});
+  const m0=String(EMP[0]&&EMP[0].code||'C 10006').match(/^([^\d]*)(\d+)/);
+  const prefix=m0?m0[1]:'C ';
+  return prefix.trim()+' '+(mx+1);
+}
+function openForm(code){
+  if(!canEd())return;
+  editingCode=code||null;
+  const e=code?EMP.find(x=>x.code===code):null;
+  $('#formTitle').textContent=e?t('formEdit'):t('formAdd');
+  const set=(id,v)=>{$(id).value=v||'';};
+  set('#f_code',e?e.code:(nextCode()));
+  $('#f_statusF').value=e&&e.status==='resigned'?'resigned':'active';
+  set('#f_nameEn',e&&e.nameEn);set('#f_nameBn',e&&e.nameBn);
+  set('#f_desigEn',e&&e.desigEn);set('#f_desigBn',e&&e.desigBn);
+  set('#f_deptEn',e&&e.deptEn);set('#f_deptBn',e&&e.deptBn);
+  set('#f_secEn',e&&e.secEn);set('#f_secBn',e&&e.secBn);
+  set('#f_locEn',e&&e.locEn);set('#f_locBn',e&&e.locBn);
+  set('#f_dob',e&&e.dob);set('#f_join',e&&e.join);
+  set('#f_gender',e&&e.gender);set('#f_blood',e&&e.blood);set('#f_mobile',e&&e.mobile);set('#f_nid',e&&e.nid);
+  set('#f_fatherEn',e&&e.fatherEn);set('#f_fatherBn',e&&e.fatherBn);
+  set('#f_motherEn',e&&e.motherEn);set('#f_motherBn',e&&e.motherBn);
+  set('#f_address',e&&e.address);
+  formPhoto=e&&e.photoData?e.photoData:'';
+  renderPhotoPrev();
+  nav('form');
+}
+function renderPhotoPrev(){
+  const el=$('#photoPrev');
+  el.innerHTML=formPhoto?'<img src="'+formPhoto+'" style="width:100%;height:100%;object-fit:cover">':'<span>'+t('photoHint')+'</span>';
+}
+function compressImage(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>{const img=new Image();
+      img.onload=()=>{const M=480;let w=img.width,h=img.height;
+        if(w>M||h>M){const k=Math.min(M/w,M/h);w=Math.round(w*k);h=Math.round(h*k);}
+        const c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        res(c.toDataURL('image/jpeg',0.85));};
+      img.onerror=rej;img.src=r.result;};
+    r.onerror=rej;r.readAsDataURL(file);
+  });
+}
+function autoFillBn(){
+  const g=(a,b,map)=>{const en=$(a).value.trim();const bn=$(b);if(en&&!bn.value.trim()&&map[en])bn.value=map[en];};
+  g('#f_deptEn','#f_deptBn',DEPT_BN);g('#f_secEn','#f_secBn',SEC_BN);g('#f_locEn','#f_locBn',LOC_BN);g('#f_desigEn','#f_desigBn',DESIG_BN);
+}
+async function submitForm(ev){
+  ev.preventDefault();
+  if(!canEd())return;
+  const code=$('#f_code').value.trim();
+  if(!code||!$('#f_nameEn').value.trim()||!$('#f_desigEn').value.trim()||!$('#f_deptEn').value.trim()||!$('#f_locEn').value.trim()||!$('#f_join').value){toast(t('reqFields'),'err');return;}
+  if(EMP.some(e=>normCode(e.code)===normCode(code)&&e.code!==editingCode)){toast(t('dupCode'),'err');return;}
+  const mob=$('#f_mobile').value.trim();
+  if(mob&&!/^(?:\+?88)?0?\d{10,11}$/.test(mob.replace(/[\s-]/g,''))){toast(t('badMobile'),'err');return;}
+  autoFillBn();
+  const old=editingCode?EMP.find(x=>x.code===editingCode):null;
+  const e=old||fixEmp({});
+  e.code=code;e.status=$('#f_statusF').value;
+  e.nameEn=$('#f_nameEn').value.trim();e.nameBn=$('#f_nameBn').value.trim();
+  e.desigEn=$('#f_desigEn').value.trim();e.desigBn=$('#f_desigBn').value.trim();
+  e.deptEn=$('#f_deptEn').value.trim();e.deptBn=$('#f_deptBn').value.trim();
+  e.secEn=$('#f_secEn').value.trim();e.secBn=$('#f_secBn').value.trim();
+  e.locEn=$('#f_locEn').value.trim();e.locBn=$('#f_locBn').value.trim();
+  e.dob=$('#f_dob').value;e.join=$('#f_join').value;
+  e.gender=$('#f_gender').value;e.blood=$('#f_blood').value;e.mobile=mob;e.nid=$('#f_nid').value.trim();
+  e.fatherEn=$('#f_fatherEn').value.trim();e.fatherBn=$('#f_fatherBn').value.trim();
+  e.motherEn=$('#f_motherEn').value.trim();e.motherBn=$('#f_motherBn').value.trim();
+  e.address=$('#f_address').value.trim();
+  if(formPhoto){e.photoData=formPhoto;e.photoDirty=true;}
+  else{e.photoData='';e.photoDirty=false;}
+  e.updated=new Date().toISOString();if(!e.created)e.created=e.updated;
+  if(!old)EMP.push(e);
+  await saveLocal();
+  toast(canEditAnywhere()?t('syncing'):t('savedLocal'));
+  nav('list');
+  if(canEditAnywhere())syncAll();
+}
+
+/* ================= RESIGN / DELETE / REINSTATE ================= */
+function openResign(code){
+  if(!canEd())return;
+  resignTarget=EMP.find(x=>x.code===code);if(!resignTarget)return;
+  $('#resignWho').textContent=displayName(resignTarget)+' ('+resignTarget.code+')';
+  $('#r_date').value=todayISO();$('#r_note').value='';
+  $('#ovResign').classList.add('on');
+}
+async function doResign(){
+  const e=resignTarget;if(!e)return;
+  e.status='resigned';e.resignDate=$('#r_date').value||todayISO();
+  e.resignReason=($('#r_reason').value+($('#r_note').value.trim()?' — '+$('#r_note').value.trim():''));
+  e.updated=new Date().toISOString();
+  $('#ovResign').classList.remove('on');
+  await saveLocal();toast(e.nameEn+' '+t('empResigned'));
+  if(VIEW==='profile')renderProfile(e.code);else renderList();
+  if(canEditAnywhere())syncAll();
+}
+function reinstate(code){
+  if(!canEd())return;
+  const e=EMP.find(x=>x.code===code);if(!e)return;
+  confirmDlg(t('cfReinTitle'),t('cfReinMsg')+displayName(e)+'?',async()=>{
+    e.status='active';e.resignDate='';e.resignReason='';e.updated=new Date().toISOString();
+    await saveLocal();toast(displayName(e)+' '+t('empReinstated'),'ok');
+    if(VIEW==='profile')renderProfile(e.code);else renderList();
+    if(canEditAnywhere())syncAll();
+  });
+}
+function delEmp(code){
+  if(!isAdmin())return;
+  const e=EMP.find(x=>x.code===code);if(!e)return;
+  confirmDlg(t('cfDelTitle'),t('cfDelMsg')+' — '+displayName(e)+'?',async()=>{
+    EMP=EMP.filter(x=>x.code!==code);
+    await saveLocal();toast(displayName(e)+' '+t('empDeleted'));
+    nav('list');
+    if(canEditAnywhere())syncAll();
+  });
+}
+
+/* ================= USER MANAGEMENT (admin) ================= */
+function renderUsers(){
+  const sec=MODE==='gh'?GHSEC:JSON.parse(store.getItem('hr_local_sec')||'null');
+  const users=(sec&&sec.users)||[];
+  const roleLabel=r=>t('role'+r.charAt(0).toUpperCase()+r.slice(1));
+  $('#usersTbl').innerHTML=users.map(u=>'<tr style="cursor:default"><td><b>'+esc(u.u)+'</b>'+(SESSION&&u.u===SESSION.user?' <span class="tag">you</span>':'')+'</td>'+
+    '<td><span class="rb '+esc(u.role)+'">'+esc(roleLabel(u.role))+'</span></td>'+
+    '<td><div style="display:flex;gap:5px">'+
+    '<button class="mini" data-act="ureset" data-user="'+esc(u.u)+'">🔑 '+t('resetPw')+'</button>'+
+    '<button class="mini d" data-act="udel" data-user="'+esc(u.u)+'">🗑 '+t('remove')+'</button>'+
+    '</div></td></tr>').join('');
+}
+async function getSec(){
+  if(MODE==='gh'){if(!GHSEC){try{const j=await ghGet(CFG.secPath);GHSEC=JSON.parse(b64d(j.content));secSha=j.sha;}catch(e){return null;}}return GHSEC;}
+  if(!GHSEC)GHSEC=JSON.parse(store.getItem('hr_local_sec')||'null');
+  return GHSEC;
+}
+async function addUser(){
+  if(!isAdmin())return;
+  const out=$('#nu_out');out.textContent='';out.style.color='';
+  const u=$('#nu_name').value.trim(),p=$('#nu_pass').value,role=$('#nu_role').value;
+  if(!u||!p)return;
+  if(p.length<6){out.textContent=t('pwShort');out.style.color='#b91c1c';return;}
+  const sec=await getSec();if(!sec)return;
+  if(sec.users.some(x=>x.u.toLowerCase()===u.toLowerCase())){out.textContent=t('userExists');out.style.color='#b91c1c';return;}
+  try{
+    const keyObj=SESSION.keyObj;
+    const rec=await makeUserRec(u,p,role,keyObj);
+    sec.users.push(rec);
+    await pushSec();
+    out.textContent=t('userAdded')+u;out.style.color='#15803d';
+    $('#nu_name').value='';$('#nu_pass').value='';
+    renderUsers();
+    toast(t('userAdded')+u,'ok');
+  }catch(e){out.textContent=t('syncFail')+(e.message||e);out.style.color='#b91c1c';}
+}
+async function resetUserPass(u,newP){
+  const sec=await getSec();if(!sec)return;
+  const usr=sec.users.find(x=>x.u===u);if(!usr)return;
+  if(String(newP).length<6){toast(t('pwShort'),'err');return;}
+  const rec=await makeUserRec(u,newP,usr.role,SESSION.keyObj);
+  usr.salt=rec.salt;usr.iter=rec.iter;usr.wrap=rec.wrap;
+  await pushSec();
+  toast(t('pwReset')+u,'ok');renderUsers();
+}
+async function removeUser(u){
+  const sec=await getSec();if(!sec)return;
+  if(SESSION&&u===SESSION.user){toast(t('cannotSelf'),'err');return;}
+  const usr=sec.users.find(x=>x.u===u);
+  if(usr&&usr.role==='admin'&&sec.users.filter(x=>x.role==='admin').length<=1){toast(t('lastAdmin'),'err');return;}
+  confirmDlg(t('remove')+' — '+u,'',async()=>{
+    sec.users=sec.users.filter(x=>x.u!==u);
+    try{await pushSec();toast(t('userRemoved')+u,'ok');}catch(e){toast(t('syncFail')+(e.message||e),'err');}
+    renderUsers();
+  });
+}
+async function changeMyPw(){
+  if(!SESSION)return;
+  const out=$('#cp_out');out.textContent='';out.style.color='';
+  const oldP=$('#cp_old').value,newP=$('#cp_new').value;
+  if(newP.length<6){out.textContent=t('pwShort');out.style.color='#b91c1c';return;}
+  const sec=await getSec();if(!sec)return;
+  const usr=sec.users.find(x=>x.u===SESSION.user);if(!usr)return;
+  try{await kdfBits(oldP,usr.salt,usr.iter);
+    const kekCheck=await impBits(await kdfBits(oldP,usr.salt,usr.iter));
+    await crypto.subtle.decrypt({name:'AES-GCM',iv:u8FromB64(usr.wrap.iv)},kekCheck,u8FromB64(usr.wrap.data));
+  }catch(e){out.textContent=t('wrongOld');out.style.color='#b91c1c';return;}
+  const rec=await makeUserRec(usr.u,newP,usr.role,SESSION.keyObj);
+  usr.salt=rec.salt;usr.iter=rec.iter;usr.wrap=rec.wrap;
+  await pushSec();
+  clearSess();saveSess(true);
+  $('#cp_old').value='';$('#cp_new').value='';
+  out.textContent=t('pwChanged');out.style.color='#15803d';
+}
+
+/* ================= SETTINGS ================= */
+function fillSettings(){
+  $('#s_owner').value=CFG.owner;$('#s_repo').value=CFG.repo;$('#s_branch').value=CFG.branch;
+  $('#s_dataPath').value=CFG.dataPath;$('#s_secPath').value=CFG.secPath;$('#s_photosDir').value=CFG.photosDir;
+  $('#s_token').value='';
+  const ts=$('#tokStatus');
+  if(MODE==='local'){ts.className='tokstat n';ts.textContent='● '+t('localMode');}
+  else if(SESSION&&SESSION.tok){ts.className='tokstat y';ts.textContent=t('tokSet');}
+  else{ts.className='tokstat n';ts.textContent=t('tokNotSet');}
+  $('#statLocal').textContent=EMP.length+' '+t('localStat');
+  badgeState();
+}
+async function saveSettings(){
+  if(!isAdmin())return;
+  CFG.owner=$('#s_owner').value.trim();CFG.repo=$('#s_repo').value.trim();CFG.branch=$('#s_branch').value.trim()||'main';
+  CFG.dataPath=$('#s_dataPath').value.trim()||'data/employees.json';CFG.secPath=$('#s_secPath').value.trim()||'data/security.json';
+  CFG.photosDir=$('#s_photosDir').value.trim()||'photos';
+  store.setItem('hr_cfg',JSON.stringify(CFG));
+  secSha=null;Object.keys(photoCache).forEach(k=>delete photoCache[k]);
+  badgeState();toast(t('setTitle')+' ✓','ok');
+}
+async function saveToken(){
+  if(!isAdmin())return;
+  const tok=$('#s_token').value.trim();
+  if(!tok)return;
+  SESSION.tok=tok;
+  const sec=await getSec();if(!sec)return;
+  sec.token=await encPkg(SESSION.keyObj,{t:tok});
+  clearSess();saveSess(true);
+  try{await pushSec();toast(t('tokSaved'),'ok');}catch(e){toast(t('syncFail')+(e.message||e),'err');}
+  fillSettings();
+  if(canEdit())syncAll(true);
+}
+async function testConnection(){
+  const out=$('#cfgTestOut');out.textContent='…';
+  try{
+    const r=await fetch('https://api.github.com/repos/'+encodeURIComponent(CFG.owner)+'/'+encodeURIComponent(CFG.repo),{headers:ghHeaders()});
+    if(!r.ok){out.textContent=t('testFail')+'HTTP '+r.status+(r.status===404?' (repo not found)':'');out.style.color='#b91c1c';return;}
+    const j=await r.json();
+    if(SESSION&&SESSION.tok){out.textContent=t('testOk')+' — '+j.full_name;out.style.color='#15803d';}
+    else{out.textContent=t('testNoToken');out.style.color='#b45309';}
+  }catch(e){out.textContent=t('testFail')+e.message;out.style.color='#b91c1c';}
+}
+
+/* ================= IMPORT / EXPORT ================= */
+function download(name,content,type){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type:type||'application/octet-stream'}));
+  a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
+}
+function exportJson(){download('hr-backup-'+todayISO()+'.json',JSON.stringify({employees:EMP},null,2),'application/json');}
+function csvCell(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function exportCsv(){
+  const cols=[['Emp Code','code'],['Name','nameEn'],['Name (Bangla)','nameBn'],['Designation','desigEn'],['Designation (Bangla)','desigBn'],
+    ['Department','deptEn'],['Department (Bangla)','deptBn'],['Section','secEn'],['Section (Bangla)','secBn'],['Job Location','locEn'],['Job Location (Bangla)','locBn'],
+    ['Date Of Joining','join'],['Date Of Birth','dob'],['Mobile number','mobile'],['NID','nid'],['Blood Group','blood'],['Gender','gender'],
+    ["Father's Name",'fatherEn'],["Father's Name (Bangla)",'fatherBn'],["Mother's Name",'motherEn'],["Mother's Name (Bangla)",'motherBn'],
+    ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];
+  const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(EMP.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
+  download('employees-'+todayISO()+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
+}
+function parseCSV(text){
+  const rows=[];let row=[],cur='',inQ=false;
+  for(let i=0;i<text.length;i++){const ch=text[i];
+    if(inQ){if(ch==='"'){if(text[i+1]==='"'){cur+='"';i++;}else inQ=false;}else cur+=ch;}
+    else{if(ch==='"')inQ=true;else if(ch===','){row.push(cur);cur='';}
+      else if(ch==='\n'){row.push(cur);rows.push(row);row=[];cur='';}
+      else if(ch==='\r'){}else cur+=ch;}}
+  if(cur!==''||row.length){row.push(cur);rows.push(row);}
+  return rows.filter(r=>r.some(c=>String(c).trim()!==''));
+}
+function normHeader(h){return String(h).toLowerCase().replace(/[^a-z]/g,'');}
+const HDR_MAP={empcode:'code',code:'code',id:'code',name:'nameEn',nameenglish:'nameEn',employeename:'nameEn',
+  namebangla:'nameBn',designation:'desigEn',post:'desigEn',designationbangla:'desigBn',department:'deptEn',dept:'deptEn',
+  departmentbangla:'deptBn',section:'secEn',sectionbangla:'secBn',joblocation:'locEn',location:'locEn',locationbangla:'locBn',
+  dateofjoining:'join',joiningdate:'join',join:'join',doj:'join',dateofbirth:'dob',dob:'dob',birthdate:'dob',
+  mobilenumber:'mobile',mobile:'mobile',phone:'mobile',contact:'mobile',nid:'nid',nidno:'nid',bloodgroup:'blood',blood:'blood',
+  gender:'gender',sex:'gender',fathersname:'fatherEn',father:'fatherEn',fathersnamebangla:'fatherBn',mothersname:'motherEn',mother:'motherEn',mothersnamebangla:'motherBn',
+  address:'address',presentaddress:'address',status:'status'};
+function parseDateAny(s){
+  if(!s)return '';s=String(s).trim();if(!s)return '';
+  let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+pad(m[2])+'-'+pad(m[3]);
+  if(/^\d{5}(\.\d+)?$/.test(s)){const n=parseFloat(s);
+    if(n>20000&&n<80000){const d=new Date(Date.UTC(1899,11,30)+n*86400000);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());}}
+  m=s.match(/^(\d{1,2})[-.]([A-Za-z]{3,})[-.](\d{2,4})$/);
+  if(m){const mi={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12}[m[2].slice(0,3).toLowerCase()];
+    if(mi){let y=m[3];if(y.length===2)y=(+y>70?'19':'20')+y;return y+'-'+pad(mi)+'-'+pad(m[1]);}}
+  m=s.match(/^(\d{1,2})[\/](\d{1,2})[\/](\d{2,4})$/);
+  if(m){let d=m[1],mo=m[2],y=m[3];if(+mo>12){const tmp=d;d=mo;mo=tmp;}if(y.length===2)y=(+y>70?'19':'20')+y;return y+'-'+pad(mo)+'-'+pad(d);}
+  return s;
+}
+async function handleImportFile(file){
+  if(!canEd())return;
+  try{
+    let table;
+    if(/\.xlsx$/i.test(file.name)){
+      const u8=new Uint8Array(await file.arrayBuffer());
+      table=await parseXlsx(u8);
+    }else{
+      const text=await file.text();
+      table=parseCSV(text);
+    }
+    importTable(table);
+  }catch(e){
+    if(String(e.message).includes('OLD_BROWSER'))toast(t('xlOld'),'err');
+    else toast(t('parseErr')+(e.message||e),'err');
+  }
+}
+function importTable(rows){
+  if(!rows||rows.length<2){toast('0 rows','err');return;}
+  const head=rows[0].map(normHeader);const idx={};
+  head.forEach((h,i)=>{if(HDR_MAP[h]&&idx[HDR_MAP[h]]===undefined)idx[HDR_MAP[h]]=i;});
+  if(idx.nameEn===undefined||idx.code===undefined){toast('Import: Name / Emp Code column not found','err');return;}
+  let added=0,updated=0;
+  for(let r=1;r<rows.length;r++){
+    const c=rows[r];const get=k=>idx[k]!==undefined?String(c[idx[k]]==null?'':c[idx[k]]).trim():'';
+    const code=get('code');if(!code&&!get('nameEn'))continue;
+    const ex=code?EMP.find(e=>normCode(e.code)===normCode(code)):null;
+    const rec={code:code||('AUTO-'+(EMP.length+1+r))};
+    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address'].forEach(k=>{rec[k]=get(k);});
+    rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
+    const st=get('status').toLowerCase();rec.status=st.includes('resign')||st.includes('left')?'resigned':'active';
+    if(!rec.nameEn&&ex)rec.nameEn=ex.nameEn;
+    if(ex){
+      let ch=false;
+      Object.keys(rec).forEach(k=>{if(rec[k]!==''&&rec[k]!==undefined&&String(ex[k]||'')!==String(rec[k])){ex[k]=rec[k];ch=true;}});
+      if(ch){ex.updated=new Date().toISOString();updated++;}
+    }else{
+      const ne=fixEmp(rec);ne.created=ne.updated=new Date().toISOString();EMP.push(ne);added++;
+    }
+  }
+  (async()=>{await saveLocal();renderAll();
+    toast(t('importDone')+' '+added+' '+t('imported')+', '+updated+' '+t('updated'),'ok');
+    if(canEditAnywhere())syncAll();})();
+}
+function importJsonText(text){
+  try{const d=JSON.parse(text);
+    if(d&&Array.isArray(d.employees)){EMP=d.employees.map(fixEmp);saveLocal().then(()=>{renderAll();toast(EMP.length+' ✓','ok');if(canEditAnywhere())syncAll();});}
+    else toast('Invalid backup file','err');
+  }catch(e){toast('Invalid JSON','err');}
+}
+
+/* ================= PRINT ================= */
+async function printProfile(code){
+  const e=EMP.find(x=>x.code===code);if(!e)return;
+  const cell=(l,v,bn)=>'<div class="pcell"><div class="plab">'+esc(l)+'</div><div class="pval">'+esc(v||'—')+'</div>'+(bn?'<div class="pvalbn">'+esc(bn)+'</div>':'')+'</div>';
+  let photoTag='';
+  const url=await ensurePhotoURL(e);
+  if(url)photoTag='<img src="'+url+'" style="width:100px;height:100px;border-radius:50%;object-fit:cover">';
+  $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;padding:8px">'+
+  '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+t('printTitle')+'</h2>'+
+  '<table style="width:100%;margin-top:10px"><tr><td style="width:110px">'+photoTag+'</td><td>'+
+  '<div style="font-size:22px;font-weight:800">'+esc(e.nameEn)+'</div>'+(e.nameBn?'<div style="font-size:16px">'+esc(e.nameBn)+'</div>':'')+
+  '<div style="margin-top:4px;font-weight:700">'+esc(e.code)+' · '+esc(e.desigEn||'')+'</div>'+
+  '<div>'+statusBadge(e)+(e.status==='resigned'?' · '+t('lastWork')+': '+fmtDate(e.resignDate):'')+'</div></td></tr></table>'+
+  '<div class="pgrid" style="margin-top:14px">'+
+  cell(t('fDesigEn'),e.desigEn,e.desigBn)+cell(t('fDeptEn'),e.deptEn,e.deptBn)+cell(t('fSecEn'),e.secEn,e.secBn)+
+  cell(t('fLocEn'),e.locEn,e.locBn)+cell(t('fJoin'),fmtDate(e.join),'')+cell(t('fDob'),fmtDate(e.dob),'')+
+  cell(t('fGender'),e.gender,'')+cell(t('fBlood'),e.blood,'')+cell(t('fMobile'),e.mobile,'')+cell(t('fNid'),e.nid,'')+
+  cell(t('fFatherEn'),e.fatherEn,e.fatherBn)+cell(t('fMotherEn'),e.motherEn,e.motherBn)+cell(t('fAddress'),e.address,'')+
+  '</div><div style="margin-top:16px;font-size:11px;color:#64748b">'+t('printGen')+': '+new Date().toLocaleString()+' — abidenterprise.github.io</div></div>';
+  window.print();
+}
+
+/* ================= EVENTS ================= */
+document.addEventListener('click',ev=>{
+  const nb=ev.target.closest('[data-nav]');
+  if(nb){ev.preventDefault();if(nb.dataset.nav==='form')openForm(null);else nav(nb.dataset.nav);return;}
+  const ac=ev.target.closest('[data-act]');
+  if(ac){
+    const code=ac.getAttribute('data-code'),user=ac.getAttribute('data-user');
+    switch(ac.dataset.act){
+      case 'profile':nav('profile');renderProfile(code);break;
+      case 'edit':openForm(code);break;
+      case 'resign':openResign(code);break;
+      case 'reinstate':reinstate(code);break;
+      case 'del':delEmp(code);break;
+      case 'print':printProfile(code);break;
+      case 'ureset':{passTarget=user;$('#rp_who').textContent=user;$('#rp_pass').value='';$('#ovPass').classList.add('on');break;}
+      case 'udel':removeUser(user);break;
+    }
+    return;
+  }
+});
+function applyLang(){
+  $$('[data-i]').forEach(el=>{el.textContent=t(el.getAttribute('data-i'));});
+  document.documentElement.lang=LANG==='bn'?'bn':'en';
+  $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
+  $('#brandName').textContent=LANG==='bn'?'আবিদ এন্টারপ্রাইজ':'Abid Enterprise';
+  $('#brandSub').textContent=LANG==='bn'?'সুরক্ষিত এইচআর ইআরপি · কর্মী রেকর্ড':'Secure HR ERP · Employee Records';
+  $('#q').placeholder=t('searchPh');
+  if(SESSION){$('#ucRole').textContent=t('role'+SESSION.role.charAt(0).toUpperCase()+SESSION.role.slice(1));}
+  badgeState();
+  if($('#appShell').style.display!=='none'){
+    if(VIEW==='dash')renderDash();if(VIEW==='list')renderList();if(VIEW==='profile'&&profileCode)renderProfile(profileCode);
+    if(VIEW==='users')renderUsers();if(VIEW==='settings')fillSettings();
+  }
+}
+function bindEvents(){
+  $('#btnLang').addEventListener('click',()=>{LANG=LANG==='en'?'bn':'en';store.setItem('hr_lang',LANG);applyLang();});
+  $('#btnLogout').addEventListener('click',logout);
+  $('#btnMenu').addEventListener('click',()=>{$('#side').classList.add('open');$('#backdrop').classList.add('on');});
+  $('#backdrop').addEventListener('click',()=>{$('#side').classList.remove('open');$('#backdrop').classList.remove('on');});
+  let qT=null;
+  $('#q').addEventListener('input',()=>{clearTimeout(qT);qT=setTimeout(()=>{filters.q=$('#q').value;page=1;renderList();},180);});
+  $('#fDept').addEventListener('change',()=>{filters.dept=$('#fDept').value;page=1;renderList();});
+  $('#fLoc').addEventListener('change',()=>{filters.loc=$('#fLoc').value;page=1;renderList();});
+  $('#fStatus').addEventListener('change',()=>{filters.status=$('#fStatus').value;page=1;renderList();});
+  $('#fSort').addEventListener('change',()=>{filters.sort=$('#fSort').value;renderList();});
+  $('#pgPrev').addEventListener('click',()=>{if(page>1){page--;renderList();}});
+  $('#pgNext').addEventListener('click',()=>{page++;renderList();});
+  $('#empForm').addEventListener('submit',submitForm);
+  $('#btnFormCancel').addEventListener('click',()=>nav('list'));
+  $('#codeAuto').addEventListener('click',()=>{$('#f_code').value=nextCode();});
+  $('#btnPhotoPick').addEventListener('click',()=>$('#photoIn').click());
+  $('#photoPrev').addEventListener('click',()=>$('#photoIn').click());
+  $('#photoIn').addEventListener('change',async ev=>{
+    const f=ev.target.files[0];if(!f)return;
+    try{formPhoto=await compressImage(f);renderPhotoPrev();}catch(e){toast('Photo error','err');}
+    ev.target.value='';
+  });
+  $('#btnPhotoRemove').addEventListener('click',()=>{formPhoto='';renderPhotoPrev();});
+  $('#btnResignCancel').addEventListener('click',()=>{$('#ovResign').classList.remove('on');});
+  $('#btnResignOk').addEventListener('click',doResign);
+  $('#ovResign').addEventListener('click',ev=>{if(ev.target.id==='ovResign')$('#ovResign').classList.remove('on');});
+  $('#btnRpCancel').addEventListener('click',()=>{$('#ovPass').classList.remove('on');});
+  $('#btnRpOk').addEventListener('click',()=>{if(passTarget){resetUserPass(passTarget,$('#rp_pass').value);$('#ovPass').classList.remove('on');}});
+  $('#btnCfNo').addEventListener('click',()=>{$('#ovConfirm').classList.remove('on');cfCallback=null;});
+  $('#btnCfYes').addEventListener('click',()=>{$('#ovConfirm').classList.remove('on');if(cfCallback){const cb=cfCallback;cfCallback=null;cb();}});
+  $('#btnAddUser').addEventListener('click',addUser);
+  $('#btnChangePw').addEventListener('click',changeMyPw);
+  $('#btnCfgSave').addEventListener('click',saveSettings);
+  $('#btnTokSave').addEventListener('click',saveToken);
+  $('#btnCfgTest').addEventListener('click',testConnection);
+  $('#btnCfgHow').addEventListener('click',()=>{const b=$('#cfgHowBox');b.textContent=t('howToken');b.style.display=b.style.display==='none'?'block':'none';});
+  $('#expJson').addEventListener('click',exportJson);
+  $('#expCsv').addEventListener('click',exportCsv);
+  $('#impFileBtn').addEventListener('click',()=>$('#impFile').click());
+  $('#impFile').addEventListener('change',ev=>{const f=ev.target.files[0];if(f)handleImportFile(f);ev.target.value='';});
+  $('#impJsonBtn').addEventListener('click',()=>$('#impJson').click());
+  $('#impJson').addEventListener('change',ev=>{const f=ev.target.files[0];if(!f)return;
+    const r=new FileReader();r.onload=()=>importJsonText(String(r.result));r.readAsText(f);ev.target.value='';});
+  $('#btnReload').addEventListener('click',async()=>{Object.keys(photoCache).forEach(k=>delete photoCache[k]);if(MODE==='gh'){GHSEC=null;await pullData();toast(t('synced'),'ok');}else toast(t('localMode'));});
+  $('#btnResetLocal').addEventListener('click',()=>{
+    confirmDlg('⚠️',t('setReset')+'?',()=>{
+      if(MODE==='local'){store.removeItem('hr_local_sec');store.removeItem('hr_emp');}
+      store.removeItem('hr_emp_enc');clearSess();
+      location.reload();
+    });
+  });
+}
+
+/* ================= INIT ================= */
+async function boot(){
+  if(!window.crypto||!crypto.subtle){$('#authCard').innerHTML='<div class="autherr" style="display:block">'+t('noCrypto')+'</div>';return;}
+  bindEvents();
+  $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
+  $('#authView').style.display='flex';
+  // remembered session?
+  const sess=store.getItem('hr_sess');
+  if(sess){
+    try{
+      const s=JSON.parse(sess);
+      MODE=s.mode||'local';
+      const keyObj=await impBits(u8FromB64(s.key));
+      SESSION={user:s.u,role:s.role,keyObj:keyObj,tok:s.tok||''};
+      if(MODE==='gh'){try{const j=await ghGet(CFG.secPath);GHSEC=JSON.parse(b64d(j.content));}catch(e){}}
+      await enterApp();return;
+    }catch(e){clearSess();}
+  }
+  // detect mode: try GitHub security file
+  if(hasRepoCfg()){
+    try{
+      const j=await ghGet(CFG.secPath);
+      GHSEC=JSON.parse(b64d(j.content));secSha=j.sha;MODE='gh';
+      renderLogin();return;
+    }catch(e){
+      if(e.status===404){MODE='gh';renderSetup();return;}
+    }
+  }
+  MODE='local';
+  if(store.getItem('hr_local_sec'))renderLogin();else renderSetup();
+}
+function fillDatalists(){
+  const uniq=k=>Array.from(new Set(EMP.map(e=>(e[k]||'').trim()).filter(Boolean))).sort();
+  const defaults={dlDept:Object.keys(DEPT_BN),dlSec:Object.keys(SEC_BN),dlLoc:Object.keys(LOC_BN),dlDesig:Object.keys(DESIG_BN)};
+  [['dlDept','deptEn'],['dlSec','secEn'],['dlLoc','locEn'],['dlDesig','desigEn']].forEach(([id,k])=>{
+    $('#'+id).innerHTML=Array.from(new Set(defaults[id].concat(uniq(k)))).map(v=>'<option value="'+esc(v)+'">').join('');
+  });
+}
+boot();
+</script>
+</body>
+</html>
