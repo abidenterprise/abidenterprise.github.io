@@ -1182,7 +1182,9 @@ async function syncAll(silent){
       }
     }
     await pushEmployees('HR data update — '+new Date().toISOString());
-    await saveLocal();LAST_SYNC=new Date();badgeState();
+    await saveLocal();
+    Object.keys(photoCache).forEach(k=>{if(photoCache[k]&&!photoCache[k].ok)delete photoCache[k];});
+    LAST_SYNC=new Date();badgeState();renderAll();
     if(!silent)toast(t('savedGH'),'ok');
     syncing=false;return true;
   }catch(e){
@@ -1208,19 +1210,30 @@ function renderAll(){fillDatalists();if(VIEW==='dash')renderDash();if(VIEW==='li
 /* ================= PHOTOS (encrypted, async) ================= */
 function photoPath(e){return e.photo||((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');}
 function ensurePhotoURL(e){
-  if(photoCache[e.code])return photoCache[e.code];
+  const cached=photoCache[e.code];
+  if(cached&&cached.ok)return cached.pr;
+  if(cached&&!cached.ok&&Date.now()-cached.ts<5000)return cached.pr;
   const pr=(async()=>{
     try{
       if(e.photoData)return e.photoData;
       if(MODE!=='gh'||!SESSION)return null;
-      const r=await fetch(rawURL(photoPath(e)));
-      if(!r.ok)return null;
-      const u8=new Uint8Array(await r.arrayBuffer());
-      const pt=await decBytesPk(SESSION.keyObj,u8);
-      return URL.createObjectURL(new Blob([pt],{type:'image/jpeg'}));
+      const p=photoPath(e);
+      for(let i=0;i<4;i++){
+        try{
+          const r=await fetch(rawURL(p)+(p.indexOf('?')>-1?'&':'?')+'t='+Date.now());
+          if(!r.ok)throw new Error('http '+r.status);
+          const u8=new Uint8Array(await r.arrayBuffer());
+          const pt=await decBytesPk(SESSION.keyObj,u8);
+          try{return URL.createObjectURL(new Blob([pt],{type:'image/jpeg'}));}
+          catch(e){return 'data:image/jpeg;base64,'+b64FromU8(pt);}
+        }catch(err){if(i<3)await new Promise(res=>setTimeout(res,2000*(i+1)));}
+      }
+      return null;
     }catch(err){return null;}
   })();
-  photoCache[e.code]=pr;return pr;
+  photoCache[e.code]={pr:pr,ok:false,ts:Date.now()};
+  pr.then(url=>{photoCache[e.code]={pr:Promise.resolve(url),ok:!!url,ts:Date.now()};if(url)hydratePhotos();});
+  return pr;
 }
 function photoHTML(e,cls){
   const ini='<span class="av ini '+cls+'" style="background:'+avColor(e.code||e.nameEn)+'">'+esc(initials(e.nameEn))+'</span>';
@@ -1232,7 +1245,7 @@ function hydratePhotos(){
     if(img._done)return;img._done=true;
     const e=EMP.find(x=>x.code===img.getAttribute('data-pcode'));
     if(!e){img.remove();return;}
-    ensurePhotoURL(e).then(url=>{if(url){img.src=url;img.style.visibility='visible';}else img.remove();});
+    ensurePhotoURL(e).then(url=>{if(url){img.src=url;img.style.visibility='visible';}});
   });
 }
 
@@ -1362,14 +1375,17 @@ function renderProfile(code){
       (e.address?bnRow(t('fAddress'),e.address,''):'')+'</div>'+
     '<div class="sec-title">'+t('fAddrP')+'</div><div class="pgrid">'+
       bnRow(t('aVill'),e.addrPv,'')+bnRow(t('aPost'),e.addrPp,'')+bnRow(t('aPs'),e.addrPs,'')+bnRow(t('aDist'),e.addrPd,'')+
-      (e.addrPvBn||e.addrPpBn||e.addrPsBn||e.addrPdBn?bnRow(t('aVillBn')+' · '+t('aPostBn'),[e.addrPvBn,e.addrPpBn].filter(Boolean).join(', '),'')+bnRow(t('aPsBn')+' · '+t('aDistBn'),[e.addrPsBn,e.addrPdBn].filter(Boolean).join(', '),''):'')+'</div>'+
+      '<div class="sec-title" lang="bn" style="margin-top:8px">'+t('fAddrP')+' (বাংলা)</div>'+
+      bnRow(t('aVillBn'),e.addrPvBn,'')+bnRow(t('aPostBn'),e.addrPpBn,'')+bnRow(t('aPsBn'),e.addrPsBn,'')+bnRow(t('aDistBn'),e.addrPdBn,'')+'</div>'+
     '<div class="sec-title">'+t('fAddrV')+'</div><div class="pgrid">'+
       bnRow(t('aVill'),e.addrVv,'')+bnRow(t('aPost'),e.addrVp,'')+bnRow(t('aPs'),e.addrVs,'')+bnRow(t('aDist'),e.addrVd,'')+
-      (e.addrVvBn||e.addrVpBn||e.addrVsBn||e.addrVdBn?bnRow(t('aVillBn')+' · '+t('aPostBn'),[e.addrVvBn,e.addrVpBn].filter(Boolean).join(', '),'')+bnRow(t('aPsBn')+' · '+t('aDistBn'),[e.addrVsBn,e.addrVdBn].filter(Boolean).join(', '),''):'')+'</div>'+
+      '<div class="sec-title" lang="bn" style="margin-top:8px">'+t('fAddrV')+' (বাংলা)</div>'+
+      bnRow(t('aVillBn'),e.addrVvBn,'')+bnRow(t('aPostBn'),e.addrVpBn,'')+bnRow(t('aPsBn'),e.addrVsBn,'')+bnRow(t('aDistBn'),e.addrVdBn,'')+'</div>'+
     '<div class="sec-title">'+t('fsNominee')+'</div><div class="pgrid">'+
       bnRow(t('nomName'),e.nomName,'')+bnRow(t('nomPhone'),e.nomPhone,'')+bnRow(t('nomRelation'),e.nomRel,'')+
       bnRow(t('aVill'),e.nomAv,'')+bnRow(t('aPost'),e.nomAp,'')+bnRow(t('aPs'),e.nomAs,'')+bnRow(t('aDist'),e.nomAd,'')+
-      (e.nomAvBn||e.nomApBn||e.nomAsBn||e.nomAdBn?bnRow(t('aVillBn')+' · '+t('aPostBn'),[e.nomAvBn,e.nomApBn].filter(Boolean).join(', '),'')+bnRow(t('aPsBn')+' · '+t('aDistBn'),[e.nomAsBn,e.nomAdBn].filter(Boolean).join(', '),''):'')+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
+      '<div class="sec-title" lang="bn" style="margin-top:8px">'+t('nomAddr')+' (বাংলা)</div>'+
+      bnRow(t('aVillBn'),e.nomAvBn,'')+bnRow(t('aPostBn'),e.nomApBn,'')+bnRow(t('aPsBn'),e.nomAsBn,'')+bnRow(t('aDistBn'),e.nomAdBn,'')+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
     '<div class="sec-title">'+t('fsFamilyL')+'</div><div class="pgrid">'+
       bnRow(t('fFatherEn'),e.fatherEn,e.fatherBn)+bnRow(t('fMotherEn'),e.motherEn,e.motherBn)+'</div>'+
   '</div>';
