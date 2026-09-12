@@ -1,0 +1,22 @@
+{
+  "v": 1,
+  "kdf": {
+    "iter": 150000
+  },
+  "users": [
+    {
+      "u": "arifuzzamanshaon",
+      "role": "admin",
+      "salt": "1pGZYihfkxqd3IaSkuxblA==",
+      "iter": 150000,
+      "wrap": {
+        "iv": "Wlu3XVMPBXAy7qQz",
+        "data": "9PbONeROLU5yEqu6wiGbAbqCO99SMB6KlJ7XVxTReMTgYP2MFTMHFsDxFe/WPgWn"
+      }
+    }
+  ],
+  "token": {
+    "iv": "Z7YqGGyGA4Azs2tw",
+    "data": "jCN5tvByEMHVeXLNk5MDGbJcLzXlDLlhZSrxOM7vTRNriZjA4gHnQB0bJscJbiQuejVwujg150GpAv1aO399p2e+e6b+pFlimbTpBKRKFUYe7iyaDpFf2/KYct7tYExipg+bvYxs7QP+4pc3SVwjFKUUSyQa"
+  }
+}
