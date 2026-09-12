@@ -203,6 +203,24 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.ok{background:#15803d}#toast.err{background:#b91c1c}
 
+/* ---------- new: address grid, big avatar ---------- */
+.fgrid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fgrid4 .field{min-width:0}
+.av.xl{width:140px;height:140px;font-size:46px;border:4px solid #e2e8f0;box-shadow:var(--shadow)}
+@media (max-width:960px){
+  input,select,textarea{font-size:16px}
+  .bsub{display:none}
+  header{gap:8px;padding:0 10px}
+  #syncBadge{max-width:28vw;font-size:11.5px;padding:4px 9px}
+  #userChip{max-width:30vw;font-size:11.5px}
+  .fsection{padding:14px;border-radius:12px}
+  .vtitle{font-size:18px}
+  .av.xl{width:118px;height:118px;font-size:40px}
+  .fgrid4{grid-template-columns:1fr 1fr}
+  .pacts .btn{flex:1;justify-content:center}
+  .photobox{flex-direction:row}
+}
+
 /* ---------- print ---------- */
 #printArea{display:none}
 @media print{
@@ -246,7 +264,7 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 <header>
   <button class="hbtn" id="btnMenu" aria-label="Menu">☰</button>
   <div class="brand">
-    <div class="blogo">
+    <div class="blogo" id="brandLogo">
       <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>
     </div>
     <div>
@@ -338,6 +356,18 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
       <div class="vtitle"><span id="formTitle" data-i="formAdd">Add New Employee</span></div>
       <form id="empForm" autocomplete="off">
         <div class="fsection">
+          <h3>📷 <span data-i="fsPhoto">Employee Photo</span></h3>
+          <div class="photobox">
+            <div class="photoprev" id="photoPrev"><span data-i="photoHint">Click to<br>add photo</span></div>
+            <div>
+              <input type="file" id="photoIn" accept="image/*" style="display:none">
+              <button type="button" class="btn o sm" id="btnPhotoPick" data-i="photoPick">Choose Photo</button>
+              <button type="button" class="mini d" id="btnPhotoRemove" style="margin-left:8px" data-i="photoRemove">Remove</button>
+              <div style="font-size:12px;color:var(--mut);margin-top:8px" data-i="photoNote">Photo is encrypted and saved to GitHub named by employee code.</div>
+            </div>
+          </div>
+        </div>
+                <div class="fsection">
           <h3>👤 <span data-i="fsBasic">Basic Information</span></h3>
           <div class="fgrid">
             <div class="field"><label><span data-i="fCode">Employee Code</span> <span class="req">*</span></label>
@@ -380,19 +410,32 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
             <div class="field"><label data-i="fFatherBn">Father's Name (Bangla)</label><input id="f_fatherBn" lang="bn"></div>
             <div class="field"><label data-i="fMotherEn">Mother's Name (English)</label><input id="f_motherEn"></div>
             <div class="field"><label data-i="fMotherBn">Mother's Name (Bangla)</label><input id="f_motherBn" lang="bn"></div>
-            <div class="field" style="grid-column:1/-1"><label data-i="fAddress">Present Address</label><textarea id="f_address" rows="2"></textarea></div>
+            <div class="field" style="grid-column:1/-1"><label data-i="fContact">Contact Number (Emergency)</label><input id="f_contact" type="tel"></div>
+            <div class="field" style="grid-column:1/-1"><label data-i="fAddrP">Present Address</label>
+              <div class="fgrid4">
+                <div class="field"><input id="f_addrPv" data-ip="aVill"></div>
+                <div class="field"><input id="f_addrPp" data-ip="aPost"></div>
+                <div class="field"><input id="f_addrPs" data-ip="aPs"></div>
+                <div class="field"><input id="f_addrPd" data-ip="aDist"></div>
+              </div>
+            </div>
+            <div class="field" style="grid-column:1/-1"><label data-i="fAddrV">Permanent Address</label>
+              <div class="fgrid4">
+                <div class="field"><input id="f_addrVv" data-ip="aVill"></div>
+                <div class="field"><input id="f_addrVp" data-ip="aPost"></div>
+                <div class="field"><input id="f_addrVs" data-ip="aPs"></div>
+                <div class="field"><input id="f_addrVd" data-ip="aDist"></div>
+              </div>
+            </div>
+            <div class="field" style="grid-column:1/-1"><label data-i="nomAddr">Nominee Address</label><textarea id="f_nomAddr" rows="2"></textarea></div>
           </div>
         </div>
         <div class="fsection">
-          <h3>📷 <span data-i="fsPhoto">Employee Photo</span></h3>
-          <div class="photobox">
-            <div class="photoprev" id="photoPrev"><span data-i="photoHint">Click to<br>add photo</span></div>
-            <div>
-              <input type="file" id="photoIn" accept="image/*" style="display:none">
-              <button type="button" class="btn o sm" id="btnPhotoPick" data-i="photoPick">Choose Photo</button>
-              <button type="button" class="mini d" id="btnPhotoRemove" style="margin-left:8px" data-i="photoRemove">Remove</button>
-              <div style="font-size:12px;color:var(--mut);margin-top:8px" data-i="photoNote">Photo is encrypted and saved to GitHub named by employee code.</div>
-            </div>
+          <h3>🧑‍🤝‍🧑 <span data-i="fsNominee">Nominee Information</span></h3>
+          <div class="fgrid3">
+            <div class="field"><label data-i="nomName">Nominee Name</label><input id="f_nomName"></div>
+            <div class="field"><label data-i="nomPhone">Nominee Phone Number</label><input id="f_nomPhone" type="tel"></div>
+            <div class="field"><label data-i="nomRelation">Relation with Nominee</label><input id="f_nomRel"></div>
           </div>
         </div>
         <div class="formfoot">
@@ -460,6 +503,25 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
         </div>
         <div class="hint" style="margin-top:10px" data-i="bulkNote"></div>
         <div class="note warn" style="margin:14px 0 0" data-i="setBackupNote"></div>
+      </div>
+
+      <div class="card ad-only" style="margin-bottom:16px">
+        <h3>🏢 <span data-i="brandT">Company Brand</span></h3>
+        <div class="note" data-i="brandNote"></div>
+        <div class="fgrid">
+          <div class="setrow"><label data-i="brandNameL">Company name (English)</label><input id="s_cname"></div>
+          <div class="setrow"><label data-i="brandNameB">Company name (Bangla)</label><input id="s_cnameBn"></div>
+        </div>
+        <div class="photobox" style="margin:6px 0 14px">
+          <div class="photoprev" id="logoPrev" style="width:80px;height:80px;border-radius:16px">🏢</div>
+          <div>
+            <button type="button" class="btn o sm" id="btnLogoPick" data-i="logoPick">Choose Logo</button>
+            <button type="button" class="mini d" id="btnLogoRemove" style="margin-left:8px" data-i="logoRemove">Remove</button>
+            <input type="file" id="logoIn" accept="image/*" style="display:none">
+            <div style="font-size:12px;color:var(--mut);margin-top:8px" data-i="logoNote"></div>
+          </div>
+        </div>
+        <button class="btn" id="btnBrandSave" data-i="brandSave">Save Brand</button>
       </div>
 
       <div class="card ad-only" style="margin-bottom:16px">
@@ -621,7 +683,13 @@ en:{
   impTitle:'Import from Excel / CSV & Backup',impBtn:'Choose Excel (.xlsx) or CSV file',impNote:'Upload your Excel file (.xlsx) or a CSV — all rows are imported to the server. Existing Emp Codes are updated, new ones added.',
   reloadBtn:'⟳ Reload data from server',noCrypto:'This browser is too old (no WebCrypto). Please use Chrome.',
   parseErr:'Could not read the file: ',xlOld:'Browser cannot open .xlsx — please save as CSV UTF-8 and try again.',
-  dupUserSkip:'(user exists)'
+  dupUserSkip:'(user exists)',
+  aVill:'Village / House',aPost:'Post Office',aPs:'Police Station',aDist:'District',
+  fAddrP:'Present Address',fAddrV:'Permanent Address',fContact:'Contact Number (Emergency)',
+  fsNominee:'Nominee Information',nomName:'Nominee Name',nomPhone:'Nominee Phone Number',nomAddr:'Nominee Address',nomRelation:'Relation with Nominee',
+  recTitle:'Employee Record',
+  brandT:'Company Brand',brandNote:'Company name and logo appear on the login screen and in the header. The logo is stored as a public image file (it is not sensitive).',
+  brandNameL:'Company name (English)',brandNameB:'Company name (Bangla)',logoPick:'Choose Logo',logoRemove:'Remove',logoNote:'Square image recommended. Auto-compressed.',brandSave:'Save Brand',brandSaved:'✅ Brand saved'
 },
 bn:{
   menuMain:'মূল মেনু',menuAdmin:'প্রশাসন',navDash:'ড্যাশবোর্ড',navList:'কর্মী তালিকা',navAdd:'নতুন কর্মী',navSettings:'সেটিংস',navUsers:'ইউজার একাউন্ট',
@@ -690,7 +758,13 @@ bn:{
   impTitle:'এক্সেল / CSV থেকে ইমপোর্ট ও ব্যাকআপ',impBtn:'এক্সেল (.xlsx) বা CSV ফাইল বাছুন',impNote:'আপনার এক্সেল ফাইল (.xlsx) বা CSV আপলোড করুন — সব সারি সার্ভারে যোগ হবে। পুরোনো Emp Code আপডেট হবে, নতুনগুলো যোগ হবে।',
   reloadBtn:'⟳ সার্ভার থেকে ডেটা আবার লোড করুন',noCrypto:'এই ব্রাউজার পুরোনো (WebCrypto নেই)। Chrome ব্যবহার করুন।',
   parseErr:'ফাইলটি পড়া যায়নি: ',xlOld:'এই ব্রাউজারে .xlsx খোলা যায় না — CSV UTF-8 হিসেবে সেভ করে চেষ্টা করুন।',
-  dupUserSkip:'(ইউজার আছে)'
+  dupUserSkip:'(ইউজার আছে)',
+  aVill:'গ্রাম / বাড়ি',aPost:'ডাকঘর',aPs:'থানা',aDist:'জেলা',
+  fAddrP:'বর্তমান ঠিকানা',fAddrV:'স্থায়ী ঠিকানা',fContact:'জরুরি যোগাযোগ নম্বর',
+  fsNominee:'নমিনির তথ্য',nomName:'নমিনির নাম',nomPhone:'নমিনির ফোন নম্বর',nomAddr:'নমিনির ঠিকানা',nomRelation:'নমিনির সাথে সম্পর্ক',
+  recTitle:'কর্মী রেকর্ড',
+  brandT:'কোম্পানি ব্র্যান্ড',brandNote:'কোম্পানির নাম ও লোগো লগইন স্ক্রিনে এবং হেডারে দেখা যাবে। লোগো একটি পাবলিক ফাইল হিসেবে থাকে (সংবেদনশীল নয়)।',
+  brandNameL:'কোম্পানির নাম (ইংরেজি)',brandNameB:'কোম্পানির নাম (বাংলা)',logoPick:'লোগো বাছুন',logoRemove:'মুছুন',logoNote:'বর্গাকার ছবি ভালো। স্বয়ংক্রিয়ভাবে ছোট করা হয়।',brandSave:'ব্র্যান্ড সংরক্ষণ',brandSaved:'✅ ব্র্যান্ড সংরক্ষিত'
 }};
 
 /* auto Bangla for known values */
@@ -706,7 +780,7 @@ const SEED=[
 {code:'C 00002',nameEn:'Demo Person Two',nameBn:'ডেমো নমুনা দুই',desigEn:'Driver',deptEn:'Manufacturing',secEn:'Engineering',locEn:'Mawna Plant',join:'2021-02-02',dob:'1993-03-05',mobile:'01700000002',gender:'Male'},
 {code:'C 00003',nameEn:'Demo Person Three',nameBn:'ডেমো নমুনা তিন',desigEn:'Support Sales',deptEn:'Sales & Marketing',secEn:'Sales',locEn:'Head Office',join:'2022-03-03',dob:'1997-07-20',mobile:'01700000003',gender:'Female'},
 {code:'C 00004',nameEn:'Demo Person Four',nameBn:'ডেমো নমুনা চার',desigEn:'Material Handler',deptEn:'Supply Chain & IT',secEn:'Warehouse',locEn:'Chittagong',join:'2023-04-04',dob:'1999-11-30',mobile:'01700000004',gender:'Male'}
-].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,status:'active',resignDate:'',resignReason:'',created:'',updated:''},x));
+].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAddr:'',contact:''},x));
 
 /* ================= STATE ================= */
 let LANG=store.getItem('hr_lang')||'en';
@@ -719,7 +793,7 @@ let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',br
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
 let syncing=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
-let formPhoto='';let profileCode=null;
+let formPhoto='',formHadPhoto=false;let profileCode=null;
 const photoCache={};
 function saveCfg(){store.setItem('hr_cfg',JSON.stringify(CFG));}
 function clearSess(){store.removeItem('hr_sess');}
@@ -746,7 +820,7 @@ function avColor(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>
 function isAdmin(){return SESSION&&SESSION.role==='admin';}
 function canEd(){return SESSION&&(SESSION.role==='admin'||SESSION.role==='editor');}
 function fixEmp(e){return Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
-  address:'',photo:'',photoData:'',photoDirty:false,status:'active',resignDate:'',resignReason:'',created:'',updated:''},e);}
+  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',nomName:'',nomPhone:'',nomRel:'',nomAddr:'',contact:''},e);}
 
 /* ================= BASE64 / CRYPTO ================= */
 function b64FromU8(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
@@ -835,6 +909,8 @@ async function ghGet(path){const r=await fetch(ghURL(path,true),{headers:ghHeade
 async function ghPut(path,b64,sha,message){const body={message:message,content:b64,branch:CFG.branch};if(sha)body.sha=sha;
   const r=await fetch(ghURL(path,false),{method:'PUT',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify(body)});
   if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;e.detail=await r.text().catch(()=>'' );throw e;}return r.json();}
+async function ghDel(path,sha,message){const r=await fetch(ghURL(path,false),{method:'DELETE',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify({sha:sha,branch:CFG.branch,message:message})});
+  if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e;}return r.json();}
 function rawURL(path){return 'https://raw.githubusercontent.com/'+CFG.owner+'/'+CFG.repo+'/'+CFG.branch+'/'+path.split('/').map(encodeURIComponent).join('/');}
 function hasRepoCfg(){return !!(CFG.owner&&CFG.repo);}
 function canEdit(){return MODE==='gh'&&SESSION&&!!SESSION.tok;}
@@ -850,10 +926,10 @@ function badgeState(){
 
 /* ================= AUTH SCREENS ================= */
 function logoSVG(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>';}
-function authHeader(title,sub){return '<div class="authlogo">'+logoSVG()+'</div><div class="acht">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';}
+function authHeader(title,sub){return '<div class="authlogo">'+(BRAND.logo?'<img src="'+BRAND.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:16px">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';}
 function renderLogin(note){
   const c=$('#authCard');
-  c.innerHTML=authHeader(t('loginTitle'),t('loginSub'))+
+  c.innerHTML=authHeader(brandName(),t('loginSub'))+
   (note?'<div class="authnote">'+esc(note)+'</div>':
     (MODE==='gh'?'<div class="authnote">'+t('lgGhNote')+'</div>':'<div class="authnote">'+t('lgLocalNote')+'</div>'))+
   '<div class="autherr" id="lg_err"></div>'+
@@ -965,6 +1041,7 @@ async function logout(){clearSess();SESSION=null;EMP=[];Object.keys(photoCache).
 async function enterApp(){
   $('#authView').style.display='none';
   $('#appShell').style.display='block';
+  loadBrand();
   document.body.classList.remove('r-admin','r-editor','r-viewer');
   document.body.classList.add('r-'+(SESSION?SESSION.role:'viewer'));
   $('#ucName').textContent=SESSION.user;
@@ -1018,6 +1095,10 @@ async function syncAll(silent){
   if(syncing)return false;syncing=true;setBadge('syncing',t('syncing'));
   try{
     for(const em of EMP){
+      if(em.photoDel&&em.photoDelPath){
+        try{const pj=await ghGet(em.photoDelPath);await ghDel(em.photoDelPath,pj.sha,'Delete photo '+em.code);}catch(err){if(err.status!==404)throw err;}
+        em.photoDel=false;em.photoDelPath='';
+      }
       if(em.photoData&&em.photoDirty){
         const p=(CFG.photosDir||'photos')+'/'+slug(em.code)+'.enc';
         const enc=await encBytesPk(SESSION.keyObj,u8FromDataURL(em.photoData));
@@ -1181,7 +1262,7 @@ function renderProfile(code){
   const bnRow=(l,v,bn)=>'<div class="pcell"><div class="plab">'+esc(l)+'</div><div class="pval">'+esc(v||'—')+'</div>'+(bn?'<div class="pvalbn">'+esc(bn)+'</div>':'')+'</div>';
   $('#profileBox').innerHTML=
   '<div class="card">'+
-    '<div class="phead">'+photoHTML(e,'l')+
+    '<div class="phead">'+photoHTML(e,'xl')+
       '<div class="pt"><h2>'+esc(e.nameEn||'—')+'</h2>'+(e.nameBn?'<div class="pbn-name" lang="bn">'+esc(e.nameBn)+'</div>':'')+
       '<div class="pmeta"><span class="pcode">'+esc(e.code)+'</span>'+statusBadge(e)+
       (e.blood?'<span class="bg" style="background:#fee2e2;color:#b91c1c">🩸 '+esc(e.blood)+'</span>':'')+
@@ -1203,7 +1284,14 @@ function renderProfile(code){
       bnRow(t('fJoin'),fmtDate(e.join),'')+'</div>'+
     '<div class="sec-title">'+t('fsPersonal')+'</div><div class="pgrid">'+
       bnRow(t('fDob'),fmtDate(e.dob),'')+bnRow(t('fGender'),e.gender?(LANG==='bn'?({Male:t('male'),Female:t('female'),Other:t('other')}[e.gender]||e.gender):e.gender):'','')+
-      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fAddress'),e.address,'')+'</div>'+
+      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fContact'),e.contact,'')+
+      (e.address?bnRow(t('fAddress'),e.address,''):'')+'</div>'+
+    '<div class="sec-title">'+t('fAddrP')+'</div><div class="pgrid">'+
+      bnRow(t('aVill'),e.addrPv,'')+bnRow(t('aPost'),e.addrPp,'')+bnRow(t('aPs'),e.addrPs,'')+bnRow(t('aDist'),e.addrPd,'')+'</div>'+
+    '<div class="sec-title">'+t('fAddrV')+'</div><div class="pgrid">'+
+      bnRow(t('aVill'),e.addrVv,'')+bnRow(t('aPost'),e.addrVp,'')+bnRow(t('aPs'),e.addrVs,'')+bnRow(t('aDist'),e.addrVd,'')+'</div>'+
+    '<div class="sec-title">'+t('fsNominee')+'</div><div class="pgrid">'+
+      bnRow(t('nomName'),e.nomName,'')+bnRow(t('nomPhone'),e.nomPhone,'')+bnRow(t('nomRelation'),e.nomRel,'')+bnRow(t('nomAddr'),e.nomAddr,'')+'</div>'+
     '<div class="sec-title">'+t('fsFamilyL')+'</div><div class="pgrid">'+
       bnRow(t('fFatherEn'),e.fatherEn,e.fatherBn)+bnRow(t('fMotherEn'),e.motherEn,e.motherBn)+'</div>'+
   '</div>';
@@ -1234,8 +1322,12 @@ function openForm(code){
   set('#f_gender',e&&e.gender);set('#f_blood',e&&e.blood);set('#f_mobile',e&&e.mobile);set('#f_nid',e&&e.nid);
   set('#f_fatherEn',e&&e.fatherEn);set('#f_fatherBn',e&&e.fatherBn);
   set('#f_motherEn',e&&e.motherEn);set('#f_motherBn',e&&e.motherBn);
-  set('#f_address',e&&e.address);
+  set('#f_contact',e&&e.contact);
+  set('#f_addrPv',e&&e.addrPv);set('#f_addrPp',e&&e.addrPp);set('#f_addrPs',e&&e.addrPs);set('#f_addrPd',e&&e.addrPd);
+  set('#f_addrVv',e&&e.addrVv);set('#f_addrVp',e&&e.addrVp);set('#f_addrVs',e&&e.addrVs);set('#f_addrVd',e&&e.addrVd);
+  set('#f_nomName',e&&e.nomName);set('#f_nomPhone',e&&e.nomPhone);set('#f_nomRel',e&&e.nomRel);set('#f_nomAddr',e&&e.nomAddr);
   formPhoto=e&&e.photoData?e.photoData:'';
+  formHadPhoto=!!(e&&(e.photoData||e.photo));
   renderPhotoPrev();
   nav('form');
 }
@@ -1243,11 +1335,12 @@ function renderPhotoPrev(){
   const el=$('#photoPrev');
   el.innerHTML=formPhoto?'<img src="'+formPhoto+'" style="width:100%;height:100%;object-fit:cover">':'<span>'+t('photoHint')+'</span>';
 }
-function compressImage(file){
+function compressImage(file,M){
+  M=M||480;
   return new Promise((res,rej)=>{
     const r=new FileReader();
     r.onload=()=>{const img=new Image();
-      img.onload=()=>{const M=480;let w=img.width,h=img.height;
+      img.onload=()=>{let w=img.width,h=img.height;
         if(w>M||h>M){const k=Math.min(M/w,M/h);w=Math.round(w*k);h=Math.round(h*k);}
         const c=document.createElement('canvas');c.width=w;c.height=h;
         c.getContext('2d').drawImage(img,0,0,w,h);
@@ -1281,9 +1374,16 @@ async function submitForm(ev){
   e.gender=$('#f_gender').value;e.blood=$('#f_blood').value;e.mobile=mob;e.nid=$('#f_nid').value.trim();
   e.fatherEn=$('#f_fatherEn').value.trim();e.fatherBn=$('#f_fatherBn').value.trim();
   e.motherEn=$('#f_motherEn').value.trim();e.motherBn=$('#f_motherBn').value.trim();
-  e.address=$('#f_address').value.trim();
+  e.contact=$('#f_contact').value.trim();
+  e.addrPv=$('#f_addrPv').value.trim();e.addrPp=$('#f_addrPp').value.trim();e.addrPs=$('#f_addrPs').value.trim();e.addrPd=$('#f_addrPd').value.trim();
+  e.addrVv=$('#f_addrVv').value.trim();e.addrVp=$('#f_addrVp').value.trim();e.addrVs=$('#f_addrVs').value.trim();e.addrVd=$('#f_addrVd').value.trim();
+  e.nomName=$('#f_nomName').value.trim();e.nomPhone=$('#f_nomPhone').value.trim();e.nomRel=$('#f_nomRel').value.trim();e.nomAddr=$('#f_nomAddr').value.trim();
   if(formPhoto){e.photoData=formPhoto;e.photoDirty=true;}
-  else{e.photoData='';e.photoDirty=false;}
+  else{
+    if(old&&formHadPhoto&&!e.photoDel){e.photoDel=true;e.photoDelPath=e.photo||((CFG.photosDir||'photos')+'/'+slug(old.code)+'.enc');}
+    if(old&&String(old.code)!==String(e.code)&&old.photo&&!e.photoDel){e.photoDel=true;e.photoDelPath=old.photo;}
+    e.photoData='';e.photoDirty=false;e.photo='';
+  }
   e.updated=new Date().toISOString();if(!e.created)e.created=e.updated;
   if(!old)EMP.push(e);
   await saveLocal();
@@ -1324,9 +1424,12 @@ function delEmp(code){
   if(!isAdmin())return;
   const e=EMP.find(x=>x.code===code);if(!e)return;
   confirmDlg(t('cfDelTitle'),t('cfDelMsg')+' — '+displayName(e)+'?',async()=>{
+    const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
     EMP=EMP.filter(x=>x.code!==code);
+    delete photoCache[code];
     await saveLocal();toast(displayName(e)+' '+t('empDeleted'));
     nav('list');
+    if(MODE==='gh'&&SESSION&&SESSION.tok){try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){}}
     if(canEditAnywhere())syncAll();
   });
 }
@@ -1416,6 +1519,7 @@ function fillSettings(){
   else if(SESSION&&SESSION.tok){ts.className='tokstat y';ts.textContent=t('tokSet');}
   else{ts.className='tokstat n';ts.textContent=t('tokNotSet');}
   $('#statLocal').textContent=EMP.length+' '+t('localStat');
+  $('#s_cname').value=BRAND.name||'';$('#s_cnameBn').value=BRAND.nameBn||'';renderLogoPrev();
   badgeState();
 }
 async function saveSettings(){
@@ -1450,6 +1554,40 @@ async function testConnection(){
   }catch(e){out.textContent=t('testFail')+e.message;out.style.color='#b91c1c';}
 }
 
+/* ================= BRAND (company name & logo) ================= */
+let BRAND={name:'',nameBn:'',logo:''};let pendingLogo=null;
+function brandName(){return (LANG==='bn'&&(BRAND.nameBn||'').trim())?BRAND.nameBn:(BRAND.name||'Abid Enterprise');}
+function applyBrand(){
+  const bn=$('#brandName');if(bn)bn.textContent=brandName();
+  const at=$('#achtTitle');if(at&&$('#loginForm'))at.textContent=brandName();
+  const lg=$('#brandLogo');
+  if(lg)lg.innerHTML=BRAND.logo?'<img src="'+BRAND.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px">':logoSVG();
+}
+async function loadBrand(){
+  try{
+    if(MODE==='gh'){const r=await fetch(rawURL('data/brand.json'));if(r.ok)BRAND=Object.assign(BRAND,await r.json());}
+    else{const st=store.getItem('hr_brand');if(st)BRAND=Object.assign(BRAND,JSON.parse(st));}
+  }catch(e){}
+  applyBrand();
+}
+function renderLogoPrev(){
+  const el=$('#logoPrev');if(!el)return;
+  const src=pendingLogo!==null?pendingLogo:BRAND.logo;
+  el.innerHTML=src?'<img src="'+src+'" style="width:100%;height:100%;object-fit:cover;border-radius:16px">':'🏢';
+}
+async function saveBrand(){
+  if(!isAdmin())return;
+  BRAND.name=$('#s_cname').value.trim();BRAND.nameBn=$('#s_cnameBn').value.trim();
+  if(pendingLogo!==null)BRAND.logo=pendingLogo;
+  if(MODE==='gh'){
+    if(!SESSION.tok){toast(t('noTokenEdit'),'err');return;}
+    try{let sha=null;try{const bj=await ghGet('data/brand.json');sha=bj.sha;}catch(e){}
+      await ghPut('data/brand.json',b64e(JSON.stringify(BRAND)),sha,'Brand update');
+    }catch(e){toast(t('syncFail')+(e.message||e),'err');return;}
+  }else store.setItem('hr_brand',JSON.stringify(BRAND));
+  applyBrand();toast(t('brandSaved'),'ok');
+}
+
 /* ================= IMPORT / EXPORT ================= */
 function download(name,content,type){
   const a=document.createElement('a');
@@ -1464,6 +1602,10 @@ function exportCsv(){
     ['Department','deptEn'],['Department (Bangla)','deptBn'],['Section','secEn'],['Section (Bangla)','secBn'],['Job Location','locEn'],['Job Location (Bangla)','locBn'],
     ['Date Of Joining','join'],['Date Of Birth','dob'],['Mobile number','mobile'],['NID','nid'],['Blood Group','blood'],['Gender','gender'],
     ["Father's Name",'fatherEn'],["Father's Name (Bangla)",'fatherBn'],["Mother's Name",'motherEn'],["Mother's Name (Bangla)",'motherBn'],
+    ['Contact Number (Emergency)','contact'],
+    ['Village / House','addrPv'],['Post Office','addrPp'],['Police Station','addrPs'],['District','addrPd'],
+    ['Permanent Village / House','addrVv'],['Permanent Post Office','addrVp'],['Permanent Police Station','addrVs'],['Permanent District','addrVd'],
+    ['Nominee Name','nomName'],['Nominee Phone','nomPhone'],['Relation with Nominee','nomRel'],['Nominee Address','nomAddr'],
     ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];
   const lines=[cols.map(c=>csvCell(c[0])).join(',')].concat(EMP.map(e=>cols.map(c=>csvCell(e[c[1]])).join(',')));
   download('employees-'+todayISO()+'.csv','\ufeff'+lines.join('\r\n'),'text/csv;charset=utf-8');
@@ -1485,7 +1627,11 @@ const HDR_MAP={empcode:'code',code:'code',id:'code',name:'nameEn',nameenglish:'n
   dateofjoining:'join',joiningdate:'join',join:'join',doj:'join',dateofbirth:'dob',dob:'dob',birthdate:'dob',
   mobilenumber:'mobile',mobile:'mobile',phone:'mobile',contact:'mobile',nid:'nid',nidno:'nid',bloodgroup:'blood',blood:'blood',
   gender:'gender',sex:'gender',fathersname:'fatherEn',father:'fatherEn',fathersnamebangla:'fatherBn',mothersname:'motherEn',mother:'motherEn',mothersnamebangla:'motherBn',
-  address:'address',presentaddress:'address',status:'status'};
+  address:'address',presentaddress:'address',status:'status',
+  village:'addrPv',house:'addrPv',villagehouse:'addrPv',postoffice:'addrPp',policestation:'addrPs',district:'addrPd',
+  permanentvillage:'addrVv',permanenthouse:'addrVv',permanentvillagehouse:'addrVv',permanentpostoffice:'addrVp',permanentpolicestation:'addrVs',permanentdistrict:'addrVd',
+  nomineename:'nomName',nominee:'nomName',nomineephone:'nomPhone',nomineemobile:'nomPhone',nomineerelation:'nomRel',nomineeaddress:'nomAddr',
+  contactnumber:'contact',emergencycontact:'contact',contact:'contact'};
 function parseDateAny(s){
   if(!s)return '';s=String(s).trim();if(!s)return '';
   let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+pad(m[2])+'-'+pad(m[3]);
@@ -1526,7 +1672,7 @@ function importTable(rows){
     const code=get('code');if(!code&&!get('nameEn'))continue;
     const ex=code?EMP.find(e=>normCode(e.code)===normCode(code)):null;
     const rec={code:code||('AUTO-'+(EMP.length+1+r))};
-    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address'].forEach(k=>{rec[k]=get(k);});
+    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrVv','addrVp','addrVs','addrVd','nomName','nomPhone','nomRel','nomAddr'].forEach(k=>{rec[k]=get(k);});
     rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
     const st=get('status').toLowerCase();rec.status=st.includes('resign')||st.includes('left')?'resigned':'active';
     if(!rec.nameEn&&ex)rec.nameEn=ex.nameEn;
@@ -1579,10 +1725,10 @@ async function printProfile(code){
   const cell=(l,v,bn)=>'<div class="pcell"><div class="plab">'+esc(l)+'</div><div class="pval">'+esc(v||'—')+'</div>'+(bn?'<div class="pvalbn">'+esc(bn)+'</div>':'')+'</div>';
   let photoTag='';
   const url=await ensurePhotoURL(e);
-  if(url)photoTag='<img src="'+url+'" style="width:100px;height:100px;border-radius:50%;object-fit:cover">';
+  if(url)photoTag='<img src="'+url+'" style="width:120px;height:120px;border-radius:50%;object-fit:cover">';
   $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;padding:8px">'+
-  '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+t('printTitle')+'</h2>'+
-  '<table style="width:100%;margin-top:10px"><tr><td style="width:110px">'+photoTag+'</td><td>'+
+  '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+esc(brandName())+' — '+t('recTitle')+'</h2>'+
+  '<table style="width:100%;margin-top:10px"><tr><td style="width:130px">'+photoTag+'</td><td>'+
   '<div style="font-size:22px;font-weight:800">'+esc(e.nameEn)+'</div>'+(e.nameBn?'<div style="font-size:16px">'+esc(e.nameBn)+'</div>':'')+
   '<div style="margin-top:4px;font-weight:700">'+esc(e.code)+' · '+esc(e.desigEn||'')+'</div>'+
   '<div>'+statusBadge(e)+(e.status==='resigned'?' · '+t('lastWork')+': '+fmtDate(e.resignDate):'')+'</div></td></tr></table>'+
@@ -1619,7 +1765,7 @@ function applyLang(){
   $$('[data-i]').forEach(el=>{el.textContent=t(el.getAttribute('data-i'));});
   document.documentElement.lang=LANG==='bn'?'bn':'en';
   $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
-  $('#brandName').textContent=LANG==='bn'?'আবিদ এন্টারপ্রাইজ':'Abid Enterprise';
+  applyBrand();
   $('#brandSub').textContent=LANG==='bn'?'সুরক্ষিত এইচআর ইআরপি · কর্মী রেকর্ড':'Secure HR ERP · Employee Records';
   $('#q').placeholder=t('searchPh');
   if(SESSION){$('#ucRole').textContent=t('role'+SESSION.role.charAt(0).toUpperCase()+SESSION.role.slice(1));}
@@ -1670,6 +1816,12 @@ function bindEvents(){
   $('#expCsv').addEventListener('click',exportCsv);
   $('#impFileBtn').addEventListener('click',()=>$('#impFile').click());
   $('#impFile').addEventListener('change',ev=>{const f=ev.target.files[0];if(f)handleImportFile(f);ev.target.value='';});
+  $('#btnLogoPick').addEventListener('click',()=>$('#logoIn').click());
+  $('#logoIn').addEventListener('change',async ev=>{const f=ev.target.files[0];if(!f)return;
+    try{pendingLogo=await compressImage(f,170);renderLogoPrev();}catch(e){}
+    ev.target.value='';});
+  $('#btnLogoRemove').addEventListener('click',()=>{pendingLogo='';renderLogoPrev();});
+  $('#btnBrandSave').addEventListener('click',saveBrand);
   $('#bulkPhotoBtn').addEventListener('click',()=>$('#bulkPhotoIn').click());
   $('#bulkPhotoIn').addEventListener('change',ev=>{const fl=ev.target.files;if(fl&&fl.length)handleBulkPhotos(Array.from(fl));ev.target.value='';});
   $('#impJsonBtn').addEventListener('click',()=>$('#impJson').click());
@@ -1708,12 +1860,13 @@ async function boot(){
     try{
       const j=await ghGet(CFG.secPath);
       GHSEC=JSON.parse(b64d(j.content));secSha=j.sha;MODE='gh';
-      renderLogin();return;
+      loadBrand();renderLogin();return;
     }catch(e){
-      if(e.status===404){MODE='gh';renderSetup();return;}
+      if(e.status===404){MODE='gh';loadBrand();renderSetup();return;}
     }
   }
   MODE='local';
+  loadBrand();
   if(store.getItem('hr_local_sec'))renderLogin();else renderSetup();
 }
 function fillDatalists(){
