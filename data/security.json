@@ -13,6 +13,16 @@
         "iv": "Wlu3XVMPBXAy7qQz",
         "data": "9PbONeROLU5yEqu6wiGbAbqCO99SMB6KlJ7XVxTReMTgYP2MFTMHFsDxFe/WPgWn"
       }
+    },
+    {
+      "u": "admin",
+      "role": "admin",
+      "salt": "M13zreFOC64pVZ1JXDvFBw==",
+      "iter": 150000,
+      "wrap": {
+        "iv": "5BPSW3gvVEVTj5C0",
+        "data": "2WQEXvkPKSX72DwnOAx/uq8imnWyOC1RhKh05qd45NRmd0WR43uLCv97eOqg9qhR"
+      }
     }
   ],
   "token": {
