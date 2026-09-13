@@ -31,15 +31,6 @@ body:not(.r-admin) .ad-only{display:none!important}
 .acht{font-size:20px;font-weight:800;text-align:center}
 .achs{font-size:13px;color:var(--mut);text-align:center;margin:2px 0 18px;font-weight:600}
 .authcard .field{margin-bottom:12px}
-.authlogo,.blogo{background:linear-gradient(135deg,var(--p),var(--acc))!important}
-.authlogo.has-image{width:auto;min-width:64px;max-width:200px;padding:0 10px}
-.authlogo.has-image img{background:transparent;border-radius:12px}
-.password-wrap{position:relative}
-.password-wrap input{padding-right:48px!important}
-.pass-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:var(--mut);font-size:18px;display:flex;align-items:center;justify-content:center}
-.pass-toggle:hover{background:#f1f5f9;color:var(--p)}
-.authcard .pass-toggle:focus-visible{outline:2px solid var(--p);outline-offset:1px}
-.hbtn svg{width:18px;height:18px;display:block}
 .autherr{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;border-radius:10px;padding:9px 13px;font-size:13.5px;font-weight:600;margin-bottom:12px;display:none}
 .authnote{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:10px;padding:9px 13px;font-size:12.5px;margin-bottom:12px}
 .authfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12.5px}
@@ -240,6 +231,8 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
   .kpi{padding:10px 12px}
 }
 
+.bulkbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.pwwrap{position:relative;flex:1}.pwwrap input{padding-right:42px!important;width:100%}.pweye{position:absolute;right:7px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:17px;cursor:pointer;color:var(--mut);padding:4px;line-height:1}body.theme-dark .pweye{color:#8fa0b8}
 /* ---------- professional polish ---------- */
 .card h3,.fsection h3{padding-bottom:9px;border-bottom:1px solid var(--line);margin-bottom:14px}
 .btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(16,35,63,.14)}
@@ -254,8 +247,6 @@ code.k{background:#f1f5f9;border:1px solid var(--line);border-radius:5px;padding
 .mlchips{min-height:26px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:3.5px 6px 3.5px 11px;font-size:12.5px;font-weight:600;margin:0 6px 6px 0}
 .chip button{background:#fee2e2;border:none;color:#b91c1c;width:18px;height:18px;border-radius:50%;font-size:10.5px;line-height:1;cursor:pointer;flex:0 0 auto}
-.chip button.chip-edit{background:#dbeafe;color:#1d4ed8}
-body.theme-dark .chip button.chip-edit{background:#183b68;color:#b7d3f8}
 .mlbox input{flex:1;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:9px;outline:none}
 .mlbox input:focus{border-color:var(--p)}
 body.theme-dark .mlbox{background:#0d1730}
@@ -276,6 +267,7 @@ body.theme-dark .seg button.on{background:var(--p);color:#fff}
 .authcard .field input{padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:15px}
 .authcard .btn.wide{background:linear-gradient(135deg,var(--p),var(--acc));border:none;color:#fff;padding:13px;border-radius:12px;font-size:15px;font-weight:800;box-shadow:0 10px 26px rgba(30,90,168,.38);margin-top:4px}
 .authcard .btn.wide:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(30,90,168,.45)}
+.authbrand{position:relative;z-index:1;text-align:center;margin-top:16px;font-size:11px;color:rgba(255,255,255,.75);font-weight:600;letter-spacing:.4px}
 
 /* ---------- themes (admin): light / dark / off-white ---------- */
 body,.card,.kpi,.tscroll,.box,header,.field input,.field select,.field textarea,.setrow input,.search input,select.sel,.addrsub,.pcell,.fsection,.btn,.hbtn{transition:background .25s ease,color .25s ease,border-color .25s ease}
@@ -327,99 +319,6 @@ body.theme-dark .mini.d:hover{background:#3a1212}
 @media (max-width:430px){
   body{zoom:.6}
 }
-
-
-/* ---------- bilingual form fields ---------- */
-.bilingual-field{min-width:0}
-.bilingual-field>label{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.bi-sep{color:var(--mut);font-weight:500}
-.bi-inputs{display:grid;grid-template-columns:1fr;gap:8px}
-.bi-inputs input,.bi-inputs select{min-width:0}
-.bi-inputs input[lang="bn"]{font-family:'Noto Sans Bengali',inherit}
-.bi-value .bi-en{font-weight:600;line-height:1.25}
-.bi-value .bi-bn{font-size:12px;color:var(--mut);line-height:1.25;margin-top:2px}
-.bi-tag{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.2}
-.bi-tag .bi-bn{font-family:'Noto Sans Bengali',inherit;color:var(--mut);font-size:10.5px}
-.lang-en .bi-bn-label,.lang-en .bi-sep{display:none}
-
-/* ---------- employee bulk selection ---------- */
-.bulkbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px;margin:-4px 0 12px;box-shadow:var(--shadow)}
-.bulk-select{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#334155;user-select:none;cursor:pointer}
-.bulk-select input,.empCheck,.mselect input{width:17px;height:17px;accent-color:var(--p);cursor:pointer}
-.selected-count{font-size:12.5px;color:var(--mut);font-weight:700}
-.bulk-actions{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
-.selcell{width:42px;text-align:center}
-.mselect{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
-body.theme-dark .bulk-select{color:#c9d4e8}
-@media (max-width:760px){
-  .bulkbar{padding:9px;gap:8px}
-  .bulk-actions{width:100%;margin-left:0}
-  .bulk-actions .btn{flex:1;justify-content:center}
-}
-
-/* ---------- refined responsive layout ---------- */
-
-body.write-locked .ed-only{display:none!important}
-
-@media (max-width:760px){
-  header{height:58px;padding:0 8px;gap:6px}
-  #btnMenu{display:inline-flex;align-items:center;justify-content:center;padding:7px 10px}
-  .brand{min-width:0}
-  .bname{font-size:14px;overflow:hidden;text-overflow:ellipsis}
-  .bsub{display:none}
-  #syncBadge{max-width:28vw;font-size:10.5px;padding:4px 7px}
-  #userChip{max-width:28vw;font-size:10.5px;padding:4px 7px}
-  #userChip .urole{display:none}
-  #btnTheme{display:none}
-  #btnLang,#btnLogout{padding:7px 9px}
-  .wrap{min-height:calc(100vh - 58px)}
-  nav#side{
-    position:fixed;left:0;top:58px;bottom:0;width:min(280px,86vw);height:calc(100vh - 58px);
-    transform:translateX(-105%);transition:transform .22s ease;z-index:50;
-    box-shadow:12px 0 30px rgba(15,23,42,.22)
-  }
-  nav#side.open{transform:translateX(0)}
-  #backdrop.on{display:block}
-  main{width:100%;padding:14px 10px}
-  .kpis{grid-template-columns:repeat(2,1fr);gap:8px}
-  .kpi{padding:12px}
-  .kpi .kn{font-size:23px}
-  .grid2{grid-template-columns:1fr}
-  .fgrid,.fgrid3,.fgrid4{grid-template-columns:1fr}
-  .addrwrap{grid-template-columns:1fr}
-  .phead{align-items:flex-start}
-  .pacts{margin-left:0;width:100%}
-  .pacts .btn{flex:1;justify-content:center}
-  .tbl-wrap-desk{display:none}
-  .mobcard{display:grid;gap:9px}
-  .mcard{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px;box-shadow:var(--shadow)}
-  .mcard .minfo{flex:1;min-width:0}
-  .mcard .mn{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mcard .mb{font-size:12.5px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mcard .mrow{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:7px}
-  .mcard .mrow .tag{font-size:10.5px;padding:1px 5px}
-  .mcard .mini{padding:5px 7px}
-  body.theme-dark .mcard{background:var(--card)}
-}
-@media (max-width:620px){
-  body{zoom:1!important}
-  .vtitle{font-size:18px;margin-bottom:12px}
-  .toolbar{gap:7px}
-  .toolbar .search{flex-basis:100%}
-  select.sel{max-width:none;flex:1 1 45%}
-  .photobox{align-items:flex-start;flex-direction:column}
-  .bi-inputs{grid-template-columns:1fr}
-  .formfoot .btn{flex:1;justify-content:center}
-}
-@media (max-width:430px){
-  body{zoom:1!important}
-  .kpis{grid-template-columns:1fr 1fr}
-  .kpi .kl{font-size:11.5px}
-  .kpi .ki{display:none}
-  #syncBadge{display:none}
-  .vtitle{font-size:17px}
-}
-
 </style>
 </head>
 <body>
@@ -445,7 +344,7 @@ body.write-locked .ed-only{display:none!important}
   <div class="hspace"></div>
   <span id="syncBadge"><span class="dot"></span><span id="syncTxt"></span></span>
   <span id="userChip">👤 <span class="un" id="ucName"></span><span class="urole" id="ucRole"></span></span>
-  <button class="hbtn" id="btnLogout" title="Logout" aria-label="Logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v9"/><path d="M6.2 6.2a8 8 0 1 0 11.6 0"/></svg></button>
+  <button class="hbtn" id="btnLogout" title="Logout">⏻</button>
   <button class="hbtn ad-only" id="btnTheme" title="Theme / থিম">☀️</button>
   <button class="hbtn" id="btnLang" title="Language / ভাষা">বাংলা</button>
 </header>
@@ -510,18 +409,15 @@ body.write-locked .ed-only{display:none!important}
           <option value="joinAsc" data-i="sortJoinA">Sort: Longest service</option>
         </select>
       </div>
-      <div class="bulkbar ad-only" id="bulkBar">
-        <label class="bulk-select"><input type="checkbox" id="selectAllEmp"><span data-i="selectAll">Select all</span></label>
-        <span id="selectedCount" class="selected-count"></span>
-        <div class="bulk-actions">
-          <button class="btn r sm" id="btnDeleteSelected">🗑 <span data-i="deleteSelected">Delete selected</span></button>
-          <button class="btn r sm" id="btnDeleteAll">⚠ <span data-i="deleteAll">Delete all employees</span></button>
-        </div>
+      <div class="bulkbar ad-only" id="bulkBar" style="display:none">
+        <button class="btn r sm" id="btnDelSel" disabled>🗑 <span data-i="bulkDelSel">Delete Selected</span> (<span id="delSelN">0</span>)</button>
+        <button class="btn r sm" id="btnDelAll">🗑️ <span data-i="bulkDelAll">Delete All</span></button>
       </div>
       <div id="listCount" style="margin-bottom:10px;font-size:13px;color:var(--mut)"></div>
       <div class="tbl-wrap-desk"><div class="tscroll"><table class="tbl">
         <thead><tr>
-          <th class="ad-only" aria-label="Select"></th><th data-i="thCode">Code</th><th data-i="thEmp">Employee</th><th data-i="thDesig">Designation</th>
+          <th class="ad-only" style="width:34px"><input type="checkbox" id="chkAll" style="width:15px;height:15px;accent-color:var(--p)"></th>
+          <th data-i="thCode">Code</th><th data-i="thEmp">Employee</th><th data-i="thDesig">Designation</th>
           <th data-i="thDept">Department</th><th data-i="thLoc">Location</th><th data-i="thMobile">Mobile</th>
           <th data-i="thJoin">Joined</th><th data-i="thStatus">Status</th><th></th>
         </tr></thead>
@@ -538,7 +434,7 @@ body.write-locked .ed-only{display:none!important}
     </section>
 
     <!-- PROFILE -->
-    <section id="v-profile" class="view"><div id="profileBox"></div></section>
+    <section id="v-profile" class="view"><input type="file" id="profPhotoIn" accept="image/*,.heic,.heif,.avif,.bmp,.gif,.webp" style="display:none"><div id="profileBox"></div></section>
 
     <!-- FORM -->
     <section id="v-form" class="view">
@@ -565,11 +461,16 @@ body.write-locked .ed-only{display:none!important}
             <div class="field"><label><span data-i="fStatusF">Status</span></label>
               <select id="f_statusF"><option value="active" data-i="stActive">Active</option><option value="resigned" data-i="stResigned">Resigned</option></select>
             </div>
-            <div class="field bilingual-field"><label><span data-i="fNameEn">Name (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fNameBn">Name (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><input id="f_nameEn" required placeholder="English"><input id="f_nameBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fDesigEn">Designation (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fDesigBn">Designation (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_desigEn" required><option value="">—</option></select><input id="f_desigBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fDeptEn">Department (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fDeptBn">Department (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_deptEn" required><option value="">—</option></select><input id="f_deptBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fSecEn">Section (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fSecBn">Section (Bangla)</span></label><div class="bi-inputs"><select id="f_secEn"><option value="">—</option></select><input id="f_secBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fLocEn">Job Location (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fLocBn">Job Location (Bangla)</span> <span class="req">*</span></label><div class="bi-inputs"><select id="f_locEn" required><option value="">—</option></select><input id="f_locBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field"><label><span data-i="fNameEn">Name (English)</span> <span class="req">*</span></label><input id="f_nameEn" required></div>
+            <div class="field"><label data-i="fNameBn">Name (Bangla)</label><input id="f_nameBn" lang="bn"></div>
+            <div class="field"><label><span data-i="fDesigEn">Designation (English)</span> <span class="req">*</span></label><select id="f_desigEn" required><option value="">—</option></select></div>
+            <div class="field"><label data-i="fDesigBn">Designation (Bangla)</label><input id="f_desigBn" lang="bn"></div>
+            <div class="field"><label><span data-i="fDeptEn">Department (English)</span> <span class="req">*</span></label><select id="f_deptEn" required><option value="">—</option></select></div>
+            <div class="field"><label data-i="fDeptBn">Department (Bangla)</label><input id="f_deptBn" lang="bn"></div>
+            <div class="field"><label data-i="fSecEn">Section (English)</label><select id="f_secEn"><option value="">—</option></select></div>
+            <div class="field"><label data-i="fSecBn">Section (Bangla)</label><input id="f_secBn" lang="bn"></div>
+            <div class="field"><label><span data-i="fLocEn">Job Location (English)</span> <span class="req">*</span></label><select id="f_locEn" required><option value="">—</option></select></div>
+            <div class="field"><label data-i="fLocBn">Job Location (Bangla)</label><input id="f_locBn" lang="bn"></div>
             <div class="field" style="grid-column:1/-1">
               <label data-i="fRecType">Recruitment Type</label>
               <label style="display:flex;align-items:center;gap:9px;font-weight:600;font-size:13.5px;color:#334155;user-select:none;cursor:pointer;padding:4px 0"><input type="checkbox" id="f_recNew" style="width:17px;height:17px;accent-color:var(--p);flex:0 0 auto"> <span data-i="fRecNew">New Approved Employee</span></label>
@@ -588,17 +489,19 @@ body.write-locked .ed-only{display:none!important}
             <div class="field"><label data-i="fBlood">Blood Group</label>
               <select id="f_blood"><option value="">—</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
             </div>
-            <div class="field"><label data-i="fMobile">Mobile Number</label><input id="f_mobile" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX"></div>
+            <div class="field"><label data-i="fMobile">Mobile Number</label><input id="f_mobile" type="tel" placeholder="01XXXXXXXXX"></div>
             <div class="field"><label data-i="fNid">NID Number</label><input id="f_nid"></div>
             <div class="field"><label data-i="fEmail">Email</label><input id="f_email" type="email"></div>
-            <div class="field"><label data-i="fBankAc">Rocket Account Number</label><input id="f_rocketAc" inputmode="numeric" maxlength="12"></div>
+            <div class="field"><label data-i="fBankAc">Bank Account Number</label><input id="f_bankAc"></div>
           </div>
         </div>
         <div class="fsection">
           <h3>👨‍👩‍👧 <span data-i="fsFamily">Family &amp; Address</span></h3>
           <div class="fgrid">
-            <div class="field bilingual-field"><label><span data-i="fFatherEn">Father's Name (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fFatherBn">Father's Name (Bangla)</span></label><div class="bi-inputs"><input id="f_fatherEn" placeholder="English"><input id="f_fatherBn" lang="bn" placeholder="বাংলা"></div></div>
-            <div class="field bilingual-field"><label><span data-i="fMotherEn">Mother's Name (English)</span><span class="bi-sep">/</span><span class="bi-bn-label" data-i="fMotherBn">Mother's Name (Bangla)</span></label><div class="bi-inputs"><input id="f_motherEn" placeholder="English"><input id="f_motherBn" lang="bn" placeholder="বাংলা"></div></div>
+            <div class="field"><label data-i="fFatherEn">Father's Name (English)</label><input id="f_fatherEn"></div>
+            <div class="field"><label data-i="fFatherBn">Father's Name (Bangla)</label><input id="f_fatherBn" lang="bn"></div>
+            <div class="field"><label data-i="fMotherEn">Mother's Name (English)</label><input id="f_motherEn"></div>
+            <div class="field"><label data-i="fMotherBn">Mother's Name (Bangla)</label><input id="f_motherBn" lang="bn"></div>
             <div class="field" style="grid-column:1/-1"><label data-i="fContact">Contact Number (Emergency)</label><input id="f_contact" type="tel"></div>
 <div class="field" style="grid-column:1/-1"><label data-i="fAddrP">Present Address</label>
             <div class="addrwrap">
@@ -690,7 +593,7 @@ body.write-locked .ed-only{display:none!important}
         <h3>➕ <span data-i="addUser">Add User</span></h3>
         <div class="fgrid3">
           <div class="field"><label data-i="nuName">Username</label><input id="nu_name" autocomplete="off"></div>
-          <div class="field"><label data-i="nuPass">Password</label><input id="nu_pass" autocomplete="new-password"></div>
+          <div class="field"><label data-i="nuPass">Password</label><div class="pwwrap"><input id="nu_pass" type="password" autocomplete="new-password"><button type="button" class="pweye" data-eye="nu_pass" tabindex="-1">👁</button></div></div>
           <div class="field"><label data-i="nuRole">Role</label>
             <select id="nu_role">
               <option value="editor" data-i="roleEditor">Editor — add / edit / resign</option>
@@ -714,8 +617,8 @@ body.write-locked .ed-only{display:none!important}
       <div class="card">
         <h3>🔑 <span data-i="myPw">Change My Password</span></h3>
         <div class="fgrid3">
-          <div class="field"><label data-i="oldPw">Current password</label><input id="cp_old" type="password" autocomplete="current-password"></div>
-          <div class="field"><label data-i="newPw">New password</label><input id="cp_new" type="password" autocomplete="new-password"></div>
+          <div class="field"><label data-i="oldPw">Current password</label><div class="pwwrap"><input id="cp_old" type="password" autocomplete="current-password"><button type="button" class="pweye" data-eye="cp_old" tabindex="-1">👁</button></div></div>
+          <div class="field"><label data-i="newPw">New password</label><div class="pwwrap"><input id="cp_new" type="password" autocomplete="new-password"><button type="button" class="pweye" data-eye="cp_new" tabindex="-1">👁</button></div></div>
           <div class="field" style="justify-content:flex-end"><label>&nbsp;</label><button class="btn o" id="btnChangePw" data-i="btnChangePw">Change Password</button></div>
         </div>
         <div id="cp_out" style="font-size:13px;font-weight:600;margin-top:8px"></div>
@@ -776,7 +679,6 @@ body.write-locked .ed-only{display:none!important}
       <div class="card ad-only" style="margin-bottom:16px">
         <h3>🔗 <span data-i="setGit">GitHub Connection &amp; Security</span></h3>
         <div class="note" data-i="setGitNote"></div>
-        <div class="note warn" data-i="staticSecurityNote"></div>
         <div class="fgrid">
           <div class="setrow"><label data-i="setOwner">GitHub username</label><input id="s_owner"><div class="hint" data-i="setOwnerH"></div></div>
           <div class="setrow"><label data-i="setRepo">Repository name</label><input id="s_repo"><div class="hint" data-i="setRepoH"></div></div>
@@ -836,7 +738,7 @@ body.write-locked .ed-only{display:none!important}
 <div class="ov" id="ovPass"><div class="box">
   <h3>🔑 <span data-i="resetPwTitle">Reset Password</span></h3>
   <div id="rp_who" style="margin-bottom:14px;font-weight:700;color:var(--p)"></div>
-  <div class="setrow"><label data-i="newPw">New password</label><input id="rp_pass" autocomplete="new-password"></div>
+  <div class="setrow"><label data-i="newPw">New password</label><div class="pwwrap"><input id="rp_pass" type="password" autocomplete="new-password"><button type="button" class="pweye" data-eye="rp_pass" tabindex="-1">👁</button></div></div>
   <div class="formfoot" style="margin-top:16px">
     <button class="btn o" id="btnRpCancel" data-i="cancel">Cancel</button>
     <button class="btn" id="btnRpOk" data-i="btnReset">Reset Password</button>
@@ -877,23 +779,23 @@ const I18N={
 en:{
   menuMain:'Main',menuAdmin:'Administration',navDash:'Dashboard',navList:'Employees',navAdd:'Add Employee',navSettings:'Settings',navUsers:'User Accounts',
   dashTitle:'Dashboard',listTitle:'Employees',formAdd:'Add New Employee',formEdit:'Edit Employee',setTitle:'Settings',
-  byDept:'Employees by Department',byLoc:'Employees by Office Location',byYear:'New Joining by Year',bdayTitle:'🎂 Birthdays this week',
+  byDept:'Employees by Department',byLoc:'Employees by Job Location',byYear:'New Joining by Year',bdayTitle:'🎂 Birthdays this week',
   kTotal:'Total Employees',kActive:'Active',kResigned:'Resigned',kNew:'Joined this year',
   allDept:'All departments',allLoc:'All locations',allSt:'All status',stActive:'Active',stResigned:'Resigned',
   sortCode:'Sort: Emp Code',sortName:'Sort: Name',sortJoin:'Sort: Newest joined',sortJoinA:'Sort: Longest service',
   thEmp:'Employee',thCode:'Code',thDesig:'Designation',thDept:'Department',thLoc:'Location',thMobile:'Mobile',thJoin:'Joined',thStatus:'Status',thSec:'Section',
-  mlTitle:'Manage Dropdown Lists',mlNote:'Add or remove the options shown in the Add Employee dropdowns. You can also add directly from the form dropdown ("\u2795 Add new\u2026"). Bangla names are optional \u2014 they auto-fill the Bangla fields and show in Bangla mode. Existing employees are not affected.',mlDept:'Department',mlSec:'Section',mlLoc:'Office Location',mlDesig:'Designation',mlPh:'Add new value…',
+  mlTitle:'Manage Dropdown Lists',mlNote:'Add or remove the options shown in the Add Employee dropdowns. You can also add directly from the form dropdown ("\u2795 Add new\u2026"). Bangla names are optional \u2014 they auto-fill the Bangla fields and show in Bangla mode. Existing employees are not affected.',mlDept:'Department',mlSec:'Section',mlLoc:'Job Location',mlDesig:'Designation',mlPh:'Add new value…',
   expXls:'Export Excel (.xlsx)',prTitle:'Add to Dropdown List',prEn:'English value',prBn:'Bangla name (optional — used for auto-fill & Bangla display)',prAdd:'Add',
-  prev:'Prev',next:'Next',searchPh:'Search name, code, mobile, NID…',selectAll:'Select all',selectedCount:'selected',deleteSelected:'Delete selected',deleteAll:'Delete all employees',noSelected:'Select at least one employee first.',bulkDeleteTitle:'Delete selected employees?',bulkDeleteMsg:'Are you sure you want to permanently delete the selected employees?',bulkDeleteAllTitle:'Delete all employees?',bulkDeleteAllMsg:'Are you sure you want to permanently delete ALL employee records? This cannot be undone.',bulkDeleted:'Deleted',
+  prev:'Prev',next:'Next',searchPh:'Search name, code, mobile, NID…',
   fsBasic:'Basic Information',fsDates:'Personal Details & Dates',fsFamily:'Family & Address',fsPhoto:'Employee Photo',
   fCode:'Employee Code',fStatusF:'Status',fNameEn:'Name (English)',fNameBn:'Name (Bangla)',fDesigEn:'Designation (English)',fDesigBn:'Designation (Bangla)',
   fDeptEn:'Department (English)',fDeptBn:'Department (Bangla)',fSecEn:'Section (English)',fSecBn:'Section (Bangla)',
-  fLocEn:'Office Location (English)',fLocBn:'Office Location (Bangla)',fDob:'Date of Birth',fJoin:'Date of Joining',fGender:'Gender',
+  fLocEn:'Job Location (English)',fLocBn:'Job Location (Bangla)',fDob:'Date of Birth',fJoin:'Date of Joining',fGender:'Gender',
   fBlood:'Blood Group',fMobile:'Mobile Number',fNid:'NID Number',fFatherEn:"Father's Name (English)",fFatherBn:"Father's Name (Bangla)",
   fMotherEn:"Mother's Name (English)",fMotherBn:"Mother's Name (Bangla)",fAddress:'Present Address',
   photoHint:'Click to<br>add photo',photoPick:'Choose Photo',photoRemove:'Remove',photoNote:'Photo is encrypted and saved to GitHub named by employee code (e.g. photos/C-10006.enc).',
   cancel:'Cancel',saveEmp:'Save Employee',male:'Male',female:'Female',other:'Other',
-  fRecType:'Recruitment Type',fRecNew:'New Approved Employee',fReplCode:'Replacement For (Employee Code)',recNew:'New Approved',recRepl:'Replacement',fEmail:'Email',fBankAc:'Rocket Account Number',
+  fRecType:'Recruitment Type',fRecNew:'New Approved Employee',fReplCode:'Replacement For (Employee Code)',recNew:'New Approved',recRepl:'Replacement',fEmail:'Email',fBankAc:'Bank Account Number',
   repTitle:'Monthly Report — Joiners & Resignations',repMonth:'Month',repYear:'Year',repJoinBtn:'New Joiners List',repResignBtn:'Resignation List',repJoinTitle:'New Joiners List',repResignTitle:'Resignation List',repDJoin:'Joining Date',repDResign:'Resignation Date',repTotal:'Total',repEmpty:'No records found for this month.',
   setGit:'GitHub Connection & Security',setOwner:'GitHub username',setRepo:'Repository name',setBranch:'Branch',
   setOwnerH:'Your GitHub username (e.g. abidenterprise)',setRepoH:'For abidenterprise.github.io → exactly this name',
@@ -910,23 +812,22 @@ en:{
   empSaved:'Employee saved',empResigned:'marked as resigned',empReinstated:'reinstated as active',empDeleted:'deleted',
   cfDelTitle:'Delete employee?',cfDelMsg:'This permanently removes the record after sync. Resignation is usually better. Delete',
   cfReinTitle:'Reinstate employee?',cfReinMsg:'This will make the employee active again. Continue for ',
-  dupCode:'This Employee Code already exists!',reqFields:'Please fill all required fields (*)',badMobile:'Mobile number looks invalid (use 01XXXXXXXXX)',badRocket:'Rocket account number must contain exactly 12 digits',badDates:'Date of birth must be earlier than date of joining',futureJoin:'Date of joining cannot be in the future',dupMobile:'This mobile number already belongs to another employee',dupNid:'This NID number already belongs to another employee',
+  dupCode:'This Employee Code already exists!',reqFields:'Please fill all required fields (*)',badMobile:'Mobile number looks invalid (use 01XXXXXXXXX)',
   importDone:'Import complete:',imported:'added',updated:'updated',skipped:'skipped',
   testOk:'✅ Repository connected',testFail:'❌ ',testNoToken:'⚠️ Connected for viewing. Save a token to enable editing.',
   howToken:'HOW TO GET A TOKEN: 1) github.com → your photo → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token. 2) Name: hr-erp, Expiration: 1 year. 3) Resource owner: your username. Repository access: Only select repositories → abidenterprise.github.io. 4) Permissions → Repository permissions → Contents: Read and write. 5) Generate → copy (github_pat_…). 6) Paste above → Save Token. Done!',
   tenure:'Service',age:'Age',y:'y',m:'m',lastWork:'Last working day',
   printTitle:'Employee Record — Abid Enterprise',printGen:'Generated',
-  thPrint:'Print',editBt:'Edit',resignBt:'Resign',reinstateBt:'Reinstate',fsJob:'Job Information',fsPersonal:'Personal Information',fsFamilyL:'Family',
+  thPrint:'Print',editBt:'Edit',resignBt:'Resign',reinstateBt:'Reinstate',updateBt:'Update Details',photoUpBt:'Update Photo',bulkDelSel:'Delete Selected',bulkDelAll:'Delete All',bulkDelMsg:'employees will be PERMANENTLY deleted (including photos). Continue?',fsJob:'Job Information',fsPersonal:'Personal Information',fsFamilyL:'Family',
   bdayNone:'No birthdays this week.',bdayDay:'day',bdayToday:'Today',bdayTmrw:'Tomorrow',
   setGitNote:'All data is stored ENCRYPTED (AES-GCM) in your repository. Visitors see only the login screen. Only users you create can open the records. Writes use the encrypted GitHub token stored here.',
-  staticSecurityNote:'Static-browser limitation: administrator and editor sessions can receive the repository write token, while viewers remain read-only. For production HR data, use a backend or serverless API so the token and role checks never reach the browser.',
   setBackupNote:'Excel: File → Save As → "CSV UTF-8" or upload the .xlsx directly. Columns are auto-matched (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…). Same Emp Code = update, new code = add. Keep a JSON backup at least monthly — if the admin password is ever lost, the backup is the only way to recover data!',
   resetDone:'Local device data cleared.',localStat:'records cached on this device',
   noTokenEdit:'No token saved — ask the admin to add one in Settings.',
   /* --- auth --- */
   loginTitle:'Employee Records',loginSub:'Sign in to continue',lgUser:'Username',lgPass:'Password',lgRemember:'Keep me signed in on this device',
-  lgBtn:'Sign In',lgErr:'Wrong username or password',showPassword:'Show password',hidePassword:'Hide password',showUsername:'Show username',hideUsername:'Hide username',
-  lgForgot:'Forgot password?',
+  lgBtn:'Sign In',lgErr:'Wrong username or password',lgGhNote:'🔒 Secure connection to GitHub — data is encrypted.',lgLocalNote:'📴 GitHub not reachable — using this device (local mode).',
+  lgUseLocal:'Use this device only',lgForgot:'Forgot password?',
   forgotTitle:'Forgot password?',forgotMsg:'1) Another ADMIN can reset your password from "User Accounts". 2) If the only admin lost the password: the encrypted data cannot be opened again — delete data/security.json AND data/employees.json on github.com to restart, then restore your JSON backup (Settings → Restore JSON backup). Keep backups regularly!',
   setupTitle:'Initial Setup',setupSub:'Create the administrator account (one time)',
   suUser:'Admin username',suPass:'Password (min 6 chars)',suPass2:'Repeat password',suToken:'GitHub Token (required for first save)',
@@ -959,23 +860,23 @@ en:{
 bn:{
   menuMain:'মূল মেনু',menuAdmin:'প্রশাসন',navDash:'ড্যাশবোর্ড',navList:'কর্মী তালিকা',navAdd:'নতুন কর্মী',navSettings:'সেটিংস',navUsers:'ইউজার একাউন্ট',
   dashTitle:'ড্যাশবোর্ড',listTitle:'কর্মী তালিকা',formAdd:'নতুন কর্মী যোগ করুন',formEdit:'কর্মীর তথ্য সম্পাদনা',setTitle:'সেটিংস',
-  byDept:'বিভাগ অনুযায়ী কর্মী',byLoc:'অফিসের অবস্থান অনুযায়ী কর্মী',byYear:'বছর অনুযায়ী নতুন যোগদান',bdayTitle:'🎂 এই সপ্তাহের জন্মদিন',
+  byDept:'বিভাগ অনুযায়ী কর্মী',byLoc:'কর্মস্থল অনুযায়ী কর্মী',byYear:'বছর অনুযায়ী নতুন যোগদান',bdayTitle:'🎂 এই সপ্তাহের জন্মদিন',
   kTotal:'মোট কর্মী',kActive:'কর্মরত',kResigned:'ইস্তেফাপ্রাপ্ত',kNew:'এ বছর যোগ দিয়েছেন',
   allDept:'সব বিভাগ',allLoc:'সব কর্মস্থল',allSt:'সব অবস্থা',stActive:'কর্মরত',stResigned:'ইস্তেফাপ্রাপ্ত',
   sortCode:'সাজান: কর্মী কোড',sortName:'সাজান: নাম',sortJoin:'সাজান: নতুন যোগদান আগে',sortJoinA:'সাজান: দীর্ঘ চাকরি আগে',
   thEmp:'কর্মী',thCode:'কোড',thDesig:'পদবি',thDept:'বিভাগ',thLoc:'কর্মস্থল',thMobile:'মোবাইল',thJoin:'যোগদান',thStatus:'অবস্থা',thSec:'সেকশন',
-  mlTitle:'ড্রপডাউন তালিকা ব্যবস্থাপনা',mlNote:'Add Employee ফর্মের ড্রপডাউনে অপশন যোগ বা মুছে ফেলুন। ফর্মের ড্রপডাউন থেকেও সরাসরি ("➕ নতুন যোগ করুন…") যোগ করা যায়। বাংলা নাম দিলে বাংলা ফিল্ড অ্যাটো-ফিল হবে ও বাংলা মোডে দেখাবে। বিদ্যমান কর্মীদের তথ্য অপরিবর্তিত থাকবে।',mlDept:'বিভাগ',mlSec:'সেকশন',mlLoc:'অফিসের অবস্থান',mlDesig:'পদবি',mlPh:'নতুন মান লিখুন…',
+  mlTitle:'ড্রপডাউন তালিকা ব্যবস্থাপনা',mlNote:'Add Employee ফর্মের ড্রপডাউনে অপশন যোগ বা মুছে ফেলুন। ফর্মের ড্রপডাউন থেকেও সরাসরি ("➕ নতুন যোগ করুন…") যোগ করা যায়। বাংলা নাম দিলে বাংলা ফিল্ড অ্যাটো-ফিল হবে ও বাংলা মোডে দেখাবে। বিদ্যমান কর্মীদের তথ্য অপরিবর্তিত থাকবে।',mlDept:'বিভাগ',mlSec:'সেকশন',mlLoc:'কর্মস্থল',mlDesig:'পদবি',mlPh:'নতুন মান লিখুন…',
   expXls:'এক্সেল (.xlsx) ডাউনলোড',prTitle:'ড্রপডাউন তালিকায় যোগ করুন',prEn:'ইংরেজি মান',prBn:'বাংলা নাম (ঐচ্ছিক — অ্যাটো-ফিল ও বাংলা দেখানোর জন্য)',prAdd:'যোগ করুন',
-  prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',selectAll:'সব নির্বাচন করুন',selectedCount:'নির্বাচিত',deleteSelected:'নির্বাচিত মুছুন',deleteAll:'সব কর্মী মুছুন',noSelected:'প্রথমে অন্তত একজন কর্মী নির্বাচন করুন।',bulkDeleteTitle:'নির্বাচিত কর্মী মুছবেন?',bulkDeleteMsg:'আপনি কি নিশ্চিত যে নির্বাচিত কর্মীদের স্থায়ীভাবে মুছে ফেলতে চান?',bulkDeleteAllTitle:'সব কর্মী মুছবেন?',bulkDeleteAllMsg:'আপনি কি নিশ্চিত যে সব কর্মীর রেকর্ড স্থায়ীভাবে মুছে ফেলতে চান? এটি আর ফিরিয়ে আনা যাবে না।',bulkDeleted:'মুছে ফেলা হয়েছে',
+  prev:'পূর্ববর্তী',next:'পরবর্তী',searchPh:'নাম, কোড, মোবাইল, এনআইডি দিয়ে খুঁজুন…',
   fsBasic:'মৌলিক তথ্য',fsDates:'ব্যক্তিগত তথ্য ও তারিখ',fsFamily:'পারিবারিক তথ্য ও ঠিকানা',fsPhoto:'কর্মীর ছবি',
-  fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি',fDesigBn:'পদবি (বাংলা)',
-  fDeptEn:'বিভাগ',fDeptBn:'বিভাগ (বাংলা)',fSecEn:'শাখা',fSecBn:'শাখা (বাংলা)',
-  fLocEn:'অফিসের অবস্থান',fLocBn:'অফিসের অবস্থান (বাংলা)',fDob:'জন্ম তারিখ',fJoin:'যোগদানের তারিখ',fGender:'লিঙ্গ',
-  fBlood:'রক্তের গ্রুপ',fMobile:'মোবাইল নম্বর',fNid:'এনআইডি নম্বর',fFatherEn:'পিতার নাম',fFatherBn:'পিতার নাম (বাংলা)',
-  fMotherEn:'মাতার নাম',fMotherBn:'মাতার নাম (বাংলা)',fAddress:'বর্তমান ঠিকানা',
+  fCode:'কর্মী কোড',fStatusF:'অবস্থা',fNameEn:'নাম (ইংরেজি)',fNameBn:'নাম (বাংলা)',fDesigEn:'পদবি (ইংরেজি)',fDesigBn:'পদবি (বাংলা)',
+  fDeptEn:'বিভাগ (ইংরেজি)',fDeptBn:'বিভাগ (বাংলা)',fSecEn:'শাখা (ইংরেজি)',fSecBn:'শাখা (বাংলা)',
+  fLocEn:'কর্মস্থল (ইংরেজি)',fLocBn:'কর্মস্থল (বাংলা)',fDob:'জন্ম তারিখ',fJoin:'যোগদানের তারিখ',fGender:'লিঙ্গ',
+  fBlood:'রক্তের গ্রুপ',fMobile:'মোবাইল নম্বর',fNid:'এনআইডি নম্বর',fFatherEn:'পিতার নাম (ইংরেজি)',fFatherBn:'পিতার নাম (বাংলা)',
+  fMotherEn:'মাতার নাম (ইংরেজি)',fMotherBn:'মাতার নাম (বাংলা)',fAddress:'বর্তমান ঠিকানা',
   photoHint:'ছবি<br>যোগ করুন',photoPick:'ছবি নির্বাচন করুন',photoRemove:'মুছুন',photoNote:'ছবি এনক্রিপ্ট করে কর্মী কোড দিয়ে গিটহাবে সংরক্ষিত হয় (যেমন photos/C-10006.enc)।',
   cancel:'বাতিল',saveEmp:'কর্মী সংরক্ষণ করুন',male:'পুরুষ',female:'মহিলা',other:'অন্যান্য',
-  fRecType:'নিয়োগের ধরন',fRecNew:'নতুন অনুমোদিত কর্মী',fReplCode:'প্রতিস্থাপন (কর্মী কোড)',recNew:'নতুন অনুমোদিত',recRepl:'প্রতিস্থাপন',fEmail:'ইমেইল',fBankAc:'রকেট অ্যাকাউন্ট নম্বর',
+  fRecType:'নিয়োগের ধরন',fRecNew:'নতুন অনুমোদিত কর্মী',fReplCode:'প্রতিস্থাপন (কর্মী কোড)',recNew:'নতুন অনুমোদিত',recRepl:'প্রতিস্থাপন',fEmail:'ইমেইল',fBankAc:'ব্যাংক অ্যাকাউন্ট নম্বর',
   repTitle:'মাসিক রিপোর্ট — নতুন যোগদান ও পদত্যাগ',repMonth:'মাস',repYear:'বছর',repJoinBtn:'নতুন যোগদানকারীর তালিকা',repResignBtn:'পদত্যাগকারীর তালিকা',repJoinTitle:'নতুন যোগদানকারীর তালিকা',repResignTitle:'পদত্যাগকারীর তালিকা',repDJoin:'যোগদানের তারিখ',repDResign:'পদত্যাগের তারিখ',repTotal:'মোট',repEmpty:'এই মাসে কোনো রেকর্ড পাওয়া যায়নি।',
   setGit:'গিটহাব সংযোগ ও নিরাপত্তা',setOwner:'গিটহাব ইউজারনেম',setRepo:'রিপোজিটরির নাম',setBranch:'ব্রাঞ্চ',
   setOwnerH:'আপনার গিটহাব ইউজারনেম (যেমন abidenterprise)',setRepoH:'abidenterprise.github.io হলে ঠিক এই নামটিই দিন',
@@ -992,22 +893,21 @@ bn:{
   empSaved:'কর্মী সংরক্ষিত হয়েছে',empResigned:'ইস্তেফা হিসেবে চিহ্নিত হয়েছেন',empReinstated:'পুনরায় কর্মরত করা হয়েছে',empDeleted:'মুছে ফেলা হয়েছে',
   cfDelTitle:'কর্মী মুছে ফেলবেন?',cfDelMsg:'সিংকের পর রেকর্ড স্থায়ীভাবে মুছে যাবে। সাধারণত ইস্তেফা দেখানোই ভালো। মুছবেন — ',
   cfReinTitle:'পুনরায় কর্মরত করবেন?',cfReinMsg:'কর্মী আবার সক্রিয় হবে। নিশ্চিত — ',
-  dupCode:'এই কর্মী কোডটি ইতিমধ্যে আছে!',reqFields:'সব আবশ্যক ঘর (*) পূরণ করুন',badMobile:'মোবাইল নম্বরটি সঠিক নয় (01XXXXXXXXX)',badRocket:'রকেট অ্যাকাউন্ট নম্বরে অবশ্যই ১২টি সংখ্যা থাকতে হবে',badDates:'জন্ম তারিখ অবশ্যই যোগদানের তারিখের আগে হতে হবে',futureJoin:'যোগদানের তারিখ ভবিষ্যতের হতে পারবে না',dupMobile:'এই মোবাইল নম্বরটি অন্য একজন কর্মীর আছে',dupNid:'এই এনআইডি নম্বরটি অন্য একজন কর্মীর আছে',
+  dupCode:'এই কর্মী কোডটি ইতিমধ্যে আছে!',reqFields:'সব আবশ্যক ঘর (*) পূরণ করুন',badMobile:'মোবাইল নম্বরটি সঠিক নয় (01XXXXXXXXX)',
   importDone:'ইমপোর্ট সম্পন্ন:',imported:'যোগ হয়েছে',updated:'আপডেট হয়েছে',skipped:'বাদ গেছে',
   testOk:'✅ রিপোজিটরি সংযুক্ত',testFail:'❌ ',testNoToken:'⚠️ দেখার জন্য সংযুক্ত। সম্পাদনার জন্য টোকেন সেভ করুন।',
   howToken:'টোকেন পাওয়ার নিয়ম: ১) github.com → আপনার ছবি → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token। ২) নাম: hr-erp, মেয়াদ: ১ বছর। ৩) Resource owner: আপনার ইউজারনেম। Repository access: Only select repositories → abidenterprise.github.io। ৪) Permissions → Repository permissions → Contents: Read and write। ৫) Generate → কপি করুন (github_pat_…)। ৬) উপরে পেস্ট করে Save Token চাপুন। ব্যস!',
   tenure:'চাকরির মেয়াদ',age:'বয়স',y:'বছর',m:'মাস',lastWork:'শেষ কর্মদিবস',
   printTitle:'কর্মী রেকর্ড — আবিদ এন্টারপ্রাইজ',printGen:'তৈরি',
-  thPrint:'প্রিন্ট',editBt:'সম্পাদনা',resignBt:'ইস্তেফা',reinstateBt:'পুনরায় কর্মরত',fsJob:'চাকরির তথ্য',fsPersonal:'ব্যক্তিগত তথ্য',fsFamilyL:'পরিবার',
+  thPrint:'প্রিন্ট',editBt:'সম্পাদনা',resignBt:'ইস্তেফা',reinstateBt:'পুনরায় কর্মরত',updateBt:'তথ্য আপডেট',photoUpBt:'ছবি আপডেট',bulkDelSel:'নির্বাচিত মুছুন',bulkDelAll:'সব মুছুন',bulkDelMsg:'জন কর্মী (ছবিসহ) স্থায়ীভাবে মুছে যাবে। নিশ্চিত?',fsJob:'চাকরির তথ্য',fsPersonal:'ব্যক্তিগত তথ্য',fsFamilyL:'পরিবার',
   bdayNone:'এই সপ্তাহে কোনো জন্মদিন নেই।',bdayDay:'তারিখ',bdayToday:'আজ',bdayTmrw:'আগামীকাল',
   setGitNote:'সব ডেটা আপনার রিপোজিটরিতে এনক্রিপ্টেড (AES-GCM) অবস্থায় থাকে। বাইরের কেউ শুধু লগইন স্ক্রিন দেখতে পায়। শুধু আপনার তৈরি ইউজাররাই রেকর্ড খুলতে পারবে। সংরক্ষণের জন্য এখানে এনক্রিপ্টেড গিটহাব টোকেন ব্যবহৃত হয়।',
-  staticSecurityNote:'স্ট্যাটিক ব্রাউজার সীমাবদ্ধতা: অ্যাডমিন ও সম্পাদক সেশনে রিপোজিটরির লেখার টোকেন ব্যবহৃত হয়, আর পর্যবেক্ষক শুধু দেখতে পারে। বাস্তব এইচআর ডেটার জন্য ব্যাকএন্ড বা সার্ভারলেস API ব্যবহার করুন, যাতে টোকেন ও অনুমতি ব্রাউজারে না আসে.',
   setBackupNote:'এক্সেল: File → Save As → "CSV UTF-8" অথবা সরাসরি .xlsx ফাইল আপলোড করুন। কলাম নিজে থেকেই মিলে যায় (Emp Code, Name, Designation, Department, Section, Job Location, Date Of Joining, Date Of Birth, Mobile number, Father\'s Name, Mother\'s Name…)। একই Emp Code হলে আপডেট হবে, নতুন হলে যোগ হবে। অন্তত মাসে একবার JSON ব্যাকআপ নিন — অ্যাডমিন পাসওয়ার্ড হারালে ব্যাকআপই একমাত্র উপায়!',
   resetDone:'এই ডিভাইসের ডেটা মুছে ফেলা হয়েছে।',localStat:'রেকর্ড এই ডিভাইসে ক্যাশে আছে',
   noTokenEdit:'কোনো টোকেন সেভ নেই — অ্যাডমিকে সেটিংসে টোকেন যোগ করতে বলুন।',
   loginTitle:'কর্মী রেকর্ডস',loginSub:'চালিয়ে যেতে সাইন ইন করুন',lgUser:'ইউজারনেম',lgPass:'পাসওয়ার্ড',lgRemember:'এই ডিভাইসে সাইন ইন থাকুন',
-  lgBtn:'সাইন ইন',lgErr:'ইউজারনেম বা পাসওয়ার্ড ভুল',showPassword:'পাসওয়ার্ড দেখুন',hidePassword:'পাসওয়ার্ড লুকান',showUsername:'ইউজারনেম দেখুন',hideUsername:'ইউজারনেম লুকান',
-  lgForgot:'পাসওয়ার্ড ভুলে গেছেন?',
+  lgBtn:'সাইন ইন',lgErr:'ইউজারনেম বা পাসওয়ার্ড ভুল',lgGhNote:'🔒 গিটহাবের সাথে নিরাপদ সংযোগ — ডেটা এনক্রিপ্টেড।',lgLocalNote:'📴 গিটহাব পাওয়া যাচ্ছে না — এই ডিভাইস ব্যবহৃত হচ্ছে (লোকাল মোড)।',
+  lgUseLocal:'শুধু এই ডিভাইস ব্যবহার করুন',lgForgot:'পাসওয়ার্ড ভুলে গেছেন?',
   forgotTitle:'পাসওয়ার্ড ভুলে গেছেন?',forgotMsg:'১) অন্য কোনো অ্যাডমিন "ইউজার একাউন্ট" থেকে পাসওয়ার্ড রিসেট করে দিতে পারবেন। ২) একমাত্র অ্যাডমিন পাসওয়ার্ড হারালে: এনক্রিপ্টেড ডেটা আর খোলা যাবে না — github.com-এ data/security.json ও data/employees.json মুছে দিয়ে নতুন করে শুরু করুন, তারপর JSON ব্যাকআপ পুনরুদ্ধার করুন (সেটিংস → Restore JSON backup)। নিয়মিত ব্যাকআপ রাখুন!',
   setupTitle:'প্রাথমিক সেটআপ',setupSub:'অ্যাডমিন একাউন্ট তৈরি করুন (একবারই)',
   suUser:'অ্যাডমিন ইউজারনেম',suPass:'পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)',suPass2:'পাসওয়ার্ড আবার দিন',suToken:'গিটহাব টোকেন (প্রথম সেভের জন্য আবশ্যক)',
@@ -1035,7 +935,7 @@ bn:{
   fsNominee:'নমিনির তথ্য',nomName:'নমিনির নাম',nomPhone:'নমিনির ফোন নম্বর',nomAddr:'নমিনির ঠিকানা',nomRelation:'নমিনির সাথে সম্পর্ক',
   recTitle:'কর্মী রেকর্ড',
   brandT:'কোম্পানি ব্র্যান্ড',brandNote:'কোম্পানির নাম ও লোগো লগইন স্ক্রিনে এবং হেডারে দেখা যাবে। লোগো একটি পাবলিক ফাইল হিসেবে থাকে (সংবেদনশীল নয়)।',
-  brandNameL:'কোম্পানির নাম',brandNameB:'কোম্পানির নাম (বাংলা)',logoPick:'লোগো বাছুন',logoRemove:'মুছুন',logoNote:'বর্গাকার ছবি ভালো। স্বয়ংক্রিয়ভাবে ছোট করা হয়।',brandSave:'ব্র্যান্ড সংরক্ষণ',brandSaved:'✅ ব্র্যান্ড সংরক্ষিত'
+  brandNameL:'কোম্পানির নাম (ইংরেজি)',brandNameB:'কোম্পানির নাম (বাংলা)',logoPick:'লোগো বাছুন',logoRemove:'মুছুন',logoNote:'বর্গাকার ছবি ভালো। স্বয়ংক্রিয়ভাবে ছোট করা হয়।',brandSave:'ব্র্যান্ড সংরক্ষণ',brandSaved:'✅ ব্র্যান্ড সংরক্ষিত'
 }};
 
 /* auto Bangla for known values */
@@ -1051,7 +951,7 @@ const SEED=[
 {code:'C 00002',nameEn:'Demo Person Two',nameBn:'ডেমো নমুনা দুই',desigEn:'Driver',deptEn:'Manufacturing',secEn:'Engineering',locEn:'Mawna Plant',join:'2021-02-02',dob:'1993-03-05',mobile:'01700000002',gender:'Male'},
 {code:'C 00003',nameEn:'Demo Person Three',nameBn:'ডেমো নমুনা তিন',desigEn:'Support Sales',deptEn:'Sales & Marketing',secEn:'Sales',locEn:'Head Office',join:'2022-03-03',dob:'1997-07-20',mobile:'01700000003',gender:'Female'},
 {code:'C 00004',nameEn:'Demo Person Four',nameBn:'ডেমো নমুনা চার',desigEn:'Material Handler',deptEn:'Supply Chain & IT',secEn:'Warehouse',locEn:'Chittagong',join:'2023-04-04',dob:'1999-11-30',mobile:'01700000004',gender:'Male'}
-].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',photoDeletePaths:[],status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:'',email:'',rocketAc:'',recType:'',replCode:''},x));
+].map(x=>Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:'',email:'',bankAc:'',recType:'',replCode:''},x));
 
 /* ================= STATE ================= */
 let LANG=store.getItem('hr_lang')||'en';
@@ -1063,10 +963,8 @@ let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',br
   JSON.parse(store.getItem('hr_cfg')||'{}'));
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
-let selectedCodes=new Set();
 let syncing=false,syncAgain=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
-let pendingPhotoDeletes=[];
-let formPhoto='',formHadPhoto=false;let profileCode=null;let distKey='deptEn';let LISTS=null;
+let formPhoto='',formHadPhoto=false,formPhotoRemoved=false;let profileCode=null;let distKey='deptEn';let LISTS=null;let profPhotoTarget=null;
 const photoCache={};
 function saveCfg(){store.setItem('hr_cfg',JSON.stringify(CFG));}
 const sstore=(()=>{try{sessionStorage.setItem('__t','1');sessionStorage.removeItem('__t');return sessionStorage;}catch(e){return store;}})();
@@ -1078,12 +976,6 @@ function t(k,fb){return (I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||fb||k;}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function pad(n){return String(n).padStart(2,'0');}
 function normCode(c){return String(c||'').trim().replace(/\s+/g,' ').toLowerCase();}
-function normalizeMobile(v){
-  let d=String(v||'').replace(/\D/g,'');
-  if(/^008801\d{9}$/.test(d))d='0'+d.slice(5);
-  else if(/^8801\d{9}$/.test(d))d='0'+d.slice(3);
-  return d;
-}
 function slug(s){return String(s).trim().replace(/[^\w\u0980-\u09FF-]+/g,'-').replace(/-+/g,'-');}
 function todayISO(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
 function fmtDate(iso){if(!iso)return '—';const m=String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/);if(!m)return String(iso);
@@ -1100,19 +992,8 @@ function initials(name){const p=String(name||'?').trim().split(/\s+/).filter(w=>
 function avColor(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))>>>0;const hues=[210,168,262,20,340,190,130,280];return 'hsl('+hues[h%hues.length]+',55%,45%)';}
 function isAdmin(){return SESSION&&SESSION.role==='admin';}
 function canEd(){return SESSION&&(SESSION.role==='admin'||SESSION.role==='editor');}
-function fixEmp(e){
-  const out=Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
-    address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',photoDeletePaths:[],status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:'',email:'',rocketAc:'',recType:'',replCode:''},e||{});
-  /* Keep existing records created with the old Bank Account field readable. */
-  if(!out.rocketAc&&e&&e.bankAc)out.rocketAc=e.bankAc;
-  /* Fill known Bangla labels for older records that only stored English values. */
-  if(!out.deptBn&&out.deptEn)out.deptBn=DEPT_BN[out.deptEn]||'';
-  if(!out.secBn&&out.secEn)out.secBn=SEC_BN[out.secEn]||'';
-  if(!out.locBn&&out.locEn)out.locBn=LOC_BN[out.locEn]||'';
-  if(!out.desigBn&&out.desigEn)out.desigBn=DESIG_BN[out.desigEn]||'';
-  delete out.bankAc;
-  return out;
-}
+function fixEmp(e){return Object.assign({nameBn:'',desigBn:'',deptBn:'',secBn:'',locBn:'',nid:'',blood:'',fatherEn:'',fatherBn:'',motherEn:'',motherBn:'',
+  address:'',photo:'',photoData:'',photoDirty:false,photoDel:false,photoDelPath:'',status:'active',resignDate:'',resignReason:'',created:'',updated:'',addrPv:'',addrPp:'',addrPs:'',addrPd:'',addrPvBn:'',addrPpBn:'',addrPsBn:'',addrPdBn:'',addrVv:'',addrVp:'',addrVs:'',addrVd:'',addrVvBn:'',addrVpBn:'',addrVsBn:'',addrVdBn:'',nomName:'',nomPhone:'',nomRel:'',nomAv:'',nomAp:'',nomAs:'',nomAd:'',nomAvBn:'',nomApBn:'',nomAsBn:'',nomAdBn:'',nomAddr:'',contact:'',email:'',bankAc:'',recType:'',replCode:''},e);}
 
 /* ================= BASE64 / CRYPTO ================= */
 function b64FromU8(u8){let s='';for(let i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s);}
@@ -1198,20 +1079,27 @@ async function parseXlsx(u8){
 function ghHeaders(){const h={'Accept':'application/vnd.github+json'};if(SESSION&&SESSION.tok)h.Authorization='Bearer '+SESSION.tok;return h;}
 function ghURL(path,file){return 'https://api.github.com/repos/'+encodeURIComponent(CFG.owner)+'/'+encodeURIComponent(CFG.repo)+'/contents/'+path.split('/').map(encodeURIComponent).join('/')+(file?'?ref='+encodeURIComponent(CFG.branch):'');}
 async function ghGet(path){const r=await fetch(ghURL(path,true),{headers:ghHeaders()});if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e;}return r.json();}
-async function ghPut(path,b64,sha,message){const body={message:message,content:b64,branch:CFG.branch};if(sha)body.sha=sha;
-  const r=await fetch(ghURL(path,false),{method:'PUT',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify(body)});
+async function ghPut(path,b64,sha,message){
+  const doPut=sh=>{const body={message:message,content:b64,branch:CFG.branch};if(sh)body.sha=sh;
+    return fetch(ghURL(path,false),{method:'PUT',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify(body)});};
+  let r=await doPut(sha);
+  if(r.status===409){ // conflict: file changed elsewhere — refresh sha and retry automatically
+    let fresh=null;try{const j=await ghGet(path);fresh=j.sha;}catch(e){if(e.status!==404)throw e;fresh=null;}
+    r=await doPut(fresh);
+  }
   if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;e.detail=await r.text().catch(()=>'' );throw e;}return r.json();}
-async function ghDel(path,sha,message){const r=await fetch(ghURL(path,false),{method:'DELETE',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify({sha:sha,branch:CFG.branch,message:message})});
+async function ghDel(path,sha,message){
+  const doDel=sh=>fetch(ghURL(path,false),{method:'DELETE',headers:Object.assign(ghHeaders(),{'Content-Type':'application/json'}),body:JSON.stringify({sha:sh,branch:CFG.branch,message:message})});
+  let r=await doDel(sha);
+  if(r.status===409){ // conflict — refresh sha and retry automatically
+    let fresh=null;try{const j=await ghGet(path);fresh=j.sha;}catch(e){if(e.status!==404)throw e;fresh=null;}
+    if(fresh)r=await doDel(fresh);else return{ok:true};
+  }
   if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e;}return r.json();}
 function rawURL(path){return 'https://raw.githubusercontent.com/'+CFG.owner+'/'+CFG.repo+'/'+CFG.branch+'/'+path.split('/').map(encodeURIComponent).join('/');}
 function hasRepoCfg(){return !!(CFG.owner&&CFG.repo);}
 function canEdit(){return MODE==='gh'&&SESSION&&!!SESSION.tok;}
 function canEditAnywhere(){return SESSION&&(MODE==='local'||!!SESSION.tok);}
-function requireWriteAccess(){
-  if(canEditAnywhere())return true;
-  toast(t('noTokenEdit'),'err');
-  return false;
-}
 
 function setBadge(state,txt){const b=$('#syncBadge');b.className=state;$('#syncTxt').textContent=txt;}
 function badgeState(){
@@ -1223,44 +1111,39 @@ function badgeState(){
 
 /* ================= AUTH SCREENS ================= */
 function logoSVG(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.4" r="3.6" fill="#fff"/><path d="M4.8 19.6c1-3.9 3.9-5.7 7.2-5.7s6.2 1.8 7.2 5.7z" fill="#fff"/></svg>';}
-function authLogoHTML(){return BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG();}
-function authHeader(title,sub){
-  return '<div class="authlogo'+(BRAND.logo?' has-image':'')+'">'+authLogoHTML()+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div>';
-}
-function refreshAuthLogo(){
-  const el=$('#authCard .authlogo');if(!el)return;
-  el.className='authlogo'+(BRAND.logo?' has-image':'');el.innerHTML=authLogoHTML();
-}
+function authHeader(title,sub){return '<div class="authlogo" style="'+(BRAND.logo?'background-color:transparent;width:auto;min-width:64px;max-width:200px;padding:0':'')+'">'+(BRAND.logo?'<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:68px;max-width:200px;height:auto;width:auto;object-fit:contain;display:block">':logoSVG())+'</div><div class="acht" id="achtTitle">'+esc(title)+'</div><div class="achs">'+esc(sub)+'</div><div class="authbrand">🔒 abidenterprise.github.io · AES-256 encrypted</div>';}
 function renderLogin(note){
   const c=$('#authCard');
   c.innerHTML=authHeader(brandName(),t('loginSub'))+
+  (note?'<div class="authnote">'+esc(note)+'</div>':
+    (MODE==='gh'?'<div class="authnote">'+t('lgGhNote')+'</div>':'<div class="authnote">'+t('lgLocalNote')+'</div>'))+
   '<div class="autherr" id="lg_err"></div>'+
-  '<form id="loginForm"><div class="field"><label>'+t('lgUser')+'</label><div class="password-wrap"><input id="lg_u" type="text" autocomplete="username" required><button type="button" class="pass-toggle" id="lg_user_eye" aria-label="'+t('showUsername')+'" title="'+t('showUsername')+'">👁</button></div></div>'+  '<div class="field"><label>'+t('lgPass')+'</label><div class="password-wrap"><input id="lg_p" type="password" autocomplete="current-password" required><button type="button" class="pass-toggle" id="lg_eye" aria-label="'+t('showPassword')+'" title="'+t('showPassword')+'">👁</button></div></div>'+  '<button class="btn wide" type="submit">🔐 '+t('lgBtn')+'</button></form>'+  '<div class="authfoot"><a id="lg_forgot">'+t('lgForgot')+'</a></div>';
+  '<form id="loginForm"><div class="field"><label>'+t('lgUser')+'</label><input id="lg_u" autocomplete="username" required></div>'+
+  '<div class="field"><label>'+t('lgPass')+'</label><div class="pwwrap"><input id="lg_p" type="password" autocomplete="current-password" required><button type="button" class="pweye" data-eye="lg_p" tabindex="-1">👁</button></div></div>'+
+
+  '<button class="btn wide" type="submit">🔐 '+t('lgBtn')+'</button></form>'+
+  '<div class="authfoot"><a id="lg_forgot">'+t('lgForgot')+'</a><a id="lg_local">'+t('lgUseLocal')+'</a></div>';
   $('#loginForm').addEventListener('submit',async ev=>{ev.preventDefault();
     const err=$('#lg_err');err.style.display='none';
     try{await doLogin($('#lg_u').value,$('#lg_p').value);}
     catch(e){err.textContent=t('lgErr');err.style.display='block';}
   });
-  $('#lg_eye').addEventListener('click',ev=>{
-    const input=$('#lg_p'),shown=input.type==='text';input.type=shown?'password':'text';
-    const label=t(shown?'showPassword':'hidePassword');ev.currentTarget.textContent=shown?'👁':'🙈';ev.currentTarget.setAttribute('aria-label',label);ev.currentTarget.title=label;
-  });
-  $('#lg_user_eye').addEventListener('click',ev=>{
-    const input=$('#lg_u'),shown=input.type==='text';input.type=shown?'password':'text';
-    const label=t(shown?'showUsername':'hideUsername');ev.currentTarget.textContent=shown?'👁':'🙈';ev.currentTarget.setAttribute('aria-label',label);ev.currentTarget.title=label;
-  });
   $('#lg_forgot').addEventListener('click',()=>confirmDlg(t('forgotTitle'),t('forgotMsg'),()=>{}));
   $('#btnCfNo').textContent=t('cancel');
+  $('#lg_local').addEventListener('click',async()=>{
+    MODE='local';const ls=store.getItem('hr_local_sec');
+    if(ls){renderLogin(t('lgLocalNote'));}else renderSetup(t('lgLocalNote'));
+  });
 }
 function renderSetup(note){
   const c=$('#authCard');
   c.innerHTML=authHeader(t('setupTitle'),t('setupSub'))+
-  (note?'<div class="authnote">'+esc(note)+'</div>':'')+
+  (note?'<div class="authnote">'+esc(note)+'</div>':'<div class="authnote">'+(MODE==='gh'?t('lgGhNote'):t('lgLocalNote'))+'</div>')+
   '<div class="autherr" id="su_err"></div>'+
   '<form id="setupForm">'+
   '<div class="field"><label>'+t('suUser')+'</label><input id="su_u" autocomplete="username" required></div>'+
-  '<div class="field"><label>'+t('suPass')+'</label><input id="su_p" type="password" autocomplete="new-password" required></div>'+
-  '<div class="field"><label>'+t('suPass2')+'</label><input id="su_p2" type="password" autocomplete="new-password" required></div>'+
+  '<div class="field"><label>'+t('suPass')+'</label><div class="pwwrap"><input id="su_p" type="password" autocomplete="new-password" required><button type="button" class="pweye" data-eye="su_p" tabindex="-1">👁</button></div></div>'+
+  '<div class="field"><label>'+t('suPass2')+'</label><div class="pwwrap"><input id="su_p2" type="password" autocomplete="new-password" required><button type="button" class="pweye" data-eye="su_p2" tabindex="-1">👁</button></div></div>'+
   (MODE==='gh'?'<div class="field"><label>'+t('suToken')+'</label><input id="su_tok" type="password" placeholder="github_pat_…"><div class="hint">'+t('suTokenH')+'</div></div>':'')+
   '<label class="remrow"><input type="checkbox" id="su_samples">'+t('suSamples')+'</label>'+
   '<button class="btn wide" type="submit">🛡 '+t(MODE==='gh'?'suBtn':'suLocalBtn')+'</button></form>';
@@ -1298,13 +1181,13 @@ async function doSetup(u,p,tok,samples){
     let adopted=null;
     try{const j=await ghGet(CFG.dataPath);const obj=JSON.parse(b64d(j.content));
       if(obj&&Array.isArray(obj.employees))adopted=obj.employees.map(fixEmp);}catch(e){}
-    EMP=(adopted||(samples?SEED.map(x=>Object.assign({},x)):[])).map(fixEmp);
+    EMP=adopted||(samples?SEED.map(x=>Object.assign({},x)):[]);
     secSha=null;
     await ghPut(CFG.secPath,b64e(JSON.stringify(GHSEC,null,2)),null,'Initial security setup');
     await pushEmployees('Initial encrypted data');
     saveCfg();saveSess();
   }else{
-    EMP=(samples?SEED.map(x=>Object.assign({},x)):[]).map(fixEmp);
+    EMP=samples?SEED.map(x=>Object.assign({},x)):[];
     store.setItem('hr_local_sec',JSON.stringify(GHSEC));
     saveLocal();
   }
@@ -1323,18 +1206,18 @@ async function doLogin(u,p){
   catch(e){throw new Error('bad password');}
   const keyObj=await impBits(rawBits);
   SESSION={user:usr.u,role:usr.role||'viewer',keyObj:keyObj,tok:''};
-  if(MODE==='gh'&&sec.token&&usr.role!=='viewer'){try{const tp=await decPkg(keyObj,sec.token);SESSION.tok=tp.t||'';}catch(e){}}
+  if(MODE==='gh'&&sec.token){try{const tp=await decPkg(keyObj,sec.token);SESSION.tok=tp.t||'';}catch(e){}}
   saveSess();
   await enterApp();
 }
 function saveSess(){
   (async()=>{try{
     const raw=new Uint8Array(await crypto.subtle.exportKey('raw',SESSION.keyObj));
-    sstore.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.role!=='viewer'?SESSION.tok:'',mode:MODE}));
+    sstore.setItem('hr_sess',JSON.stringify({u:SESSION.user,role:SESSION.role,key:b64FromU8(raw),tok:SESSION.tok,mode:MODE}));
   }catch(e){}})();
 }
-async function logout(){clearSess();SESSION=null;EMP=[];pendingPhotoDeletes=[];Object.keys(photoCache).forEach(k=>delete photoCache[k]);
-  $('#appShell').style.display='none';$('#authView').style.display='flex';document.body.classList.remove('write-locked');
+async function logout(){clearSess();SESSION=null;EMP=[];Object.keys(photoCache).forEach(k=>delete photoCache[k]);
+  $('#appShell').style.display='none';$('#authView').style.display='flex';
   const ls=store.getItem('hr_local_sec');
   if(MODE==='gh'&&GHSEC)renderLogin();else renderLogin();
   $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
@@ -1343,47 +1226,23 @@ async function enterApp(){
   $('#authView').style.display='none';
   $('#appShell').style.display='block';
   loadBrand();
-  document.body.classList.remove('r-admin','r-editor','r-viewer','write-locked');
+  document.body.classList.remove('r-admin','r-editor','r-viewer');
   document.body.classList.add('r-'+(SESSION?SESSION.role:'viewer'));
-  if(MODE==='gh'&&!SESSION.tok)document.body.classList.add('write-locked');
   $('#ucName').textContent=SESSION.user;
   $('#ucRole').textContent=t('role'+SESSION.role.charAt(0).toUpperCase()+SESSION.role.slice(1))||SESSION.role;
   applyLang();
   if(MODE==='gh'){await loadLocalCache();await pullData(true);}
-  else{
-    const loaded=await loadLocalCache();
-    if(!loaded){
-      /* Migrate the old plaintext cache once, then remove it. */
-      const raw=store.getItem('hr_emp');
-      EMP=raw?JSON.parse(raw).map(fixEmp):[];
-      if(EMP.length){await saveLocal();store.removeItem('hr_emp');}
-      else{EMP=SEED.map(x=>Object.assign({},x));await saveLocal();}
-    }
-  }
+  else{const raw=store.getItem('hr_emp');EMP=raw?JSON.parse(raw).map(fixEmp):[];if(!EMP.length){EMP=SEED.map(x=>Object.assign({},x));saveLocal();}}
   await loadLists();fillDatalists();nav('dash');badgeState();
 }
 async function loadLocalCache(){
   const enc=store.getItem('hr_emp_enc');
-  if(enc&&SESSION){
-    try{
-      const pkg=JSON.parse(enc);const o=await decPkg(SESSION.keyObj,pkg);
-      if(Array.isArray(o.employees)){EMP=o.employees.map(fixEmp);return true;}
-    }catch(e){}
-  }
-  return false;
+  if(enc&&SESSION){try{const pkg=JSON.parse(enc);const o=await decPkg(SESSION.keyObj,pkg);if(Array.isArray(o.employees))EMP=o.employees.map(fixEmp);}catch(e){}}
 }
 async function saveLocal(){
-  if(SESSION){
-    try{
-      /* Keep HR data encrypted at rest in both GitHub and local mode. */
-      const pkg=await encPkg(SESSION.keyObj,{employees:EMP});
-      store.setItem('hr_emp_enc',JSON.stringify(pkg));
-      store.removeItem('hr_emp');
-      return;
-    }catch(e){}
-  }
-  /* Legacy fallback only applies when no authenticated session exists. */
-  store.setItem('hr_emp',JSON.stringify(EMP));
+  if(MODE==='gh'&&SESSION){
+    try{const pkg=await encPkg(SESSION.keyObj,{employees:EMP});store.setItem('hr_emp_enc',JSON.stringify(pkg));}catch(e){}
+  }else store.setItem('hr_emp',JSON.stringify(EMP));
 }
 
 /* ================= DATA SYNC ================= */
@@ -1400,8 +1259,7 @@ async function pullData(silent){
     await saveLocal();renderAll();
     LAST_SYNC=new Date();badgeState();
   }catch(e){
-    if(e.status===404)setBadge('ok',t('willCreate'));
-    else setBadge('err',t('syncFail')+(e.message||''));
+    if(e.status===404)setBadge('ok',t('willCreate'));else badgeState();
   }
 }
 async function pushEmployees(msg){
@@ -1420,27 +1278,11 @@ async function syncAll(silent){
   if(!SESSION.tok){if(!silent)toast(t('noTokenEdit'),'err');badgeState();return false;}
   if(syncing){syncAgain=true;return true;}syncing=true;setBadge('syncing',t('syncing'));
   try{
-    if(pendingPhotoDeletes.length){
-      const remaining=[];
-      for(const oldPath of Array.from(new Set(pendingPhotoDeletes.filter(Boolean)))){
-        try{const pj=await ghGet(oldPath);await ghDel(oldPath,pj.sha,'Delete employee photo');}
-        catch(err){if(err.status!==404)remaining.push(oldPath);}
-      }
-      pendingPhotoDeletes=remaining;
-    }
     for(const em of EMP){
-      const queued=Array.isArray(em.photoDeletePaths)?em.photoDeletePaths.slice():[];
-      if(em.photoDel&&em.photoDelPath)queued.push(em.photoDelPath);
-      const remaining=[];
-      for(const oldPath of Array.from(new Set(queued.filter(Boolean)))){
-        try{
-          const pj=await ghGet(oldPath);await ghDel(oldPath,pj.sha,'Delete employee photo');
-        }catch(err){
-          /* A missing file is already clean; other failures remain queued. */
-          if(err.status!==404){remaining.push(oldPath);console.warn('Photo cleanup queued ('+em.code+')',err);}
-        }
+      if(em.photoDel&&em.photoDelPath){
+        try{const pj=await ghGet(em.photoDelPath);await ghDel(em.photoDelPath,pj.sha,'Delete photo '+em.code);}catch(err){console.warn('Photo cleanup skipped ('+em.code+')',err);}
+        em.photoDel=false;em.photoDelPath='';
       }
-      em.photoDeletePaths=remaining;em.photoDel=remaining.length>0;em.photoDelPath=remaining[0]||'';
       if(em.photoData&&em.photoDirty){
         const p=(CFG.photosDir||'photos')+'/'+slug(em.code)+'.enc';
         const enc=await encBytesPk(SESSION.keyObj,u8FromDataURL(em.photoData));
@@ -1458,7 +1300,7 @@ async function syncAll(silent){
     if(syncAgain){syncAgain=false;return await syncAll(silent);}
     return true;
   }catch(e){
-    syncing=false;setBadge('err',t('syncFail')+(e.message||''));
+    syncing=false;badgeState();
     if(!silent)toast(t('syncFail')+(e.message||'')+(e.status===401?' — token invalid':'')+(e.status===422?' — data changed elsewhere, reload page':''),'err');
     return false;
   }
@@ -1466,8 +1308,7 @@ async function syncAll(silent){
 
 /* ================= NAV ================= */
 function nav(v){
-  if((v==='users'||v==='settings')&&!canEd()){toast(t('lgErr'),'err');return;}
-  if(v==='form'&&(!canEd()||!requireWriteAccess()))return;
+  if((v==='form'||v==='users'||v==='settings')&&!canEd()){toast(t('lgErr'),'err');return;}
   if(v==='users'&&!isAdmin())return;
   VIEW=v;$$('.view').forEach(x=>x.classList.remove('on'));
   const el=$('#v-'+v);if(el)el.classList.add('on');
@@ -1480,14 +1321,6 @@ function renderAll(){fillDatalists();if(VIEW==='dash')renderDash();if(VIEW==='li
 
 /* ================= PHOTOS (encrypted, async) ================= */
 function photoPath(e){return e.photo||((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');}
-function queuePhotoDelete(e,path){
-  if(!e||!path)return;
-  const paths=Array.isArray(e.photoDeletePaths)?e.photoDeletePaths.slice():[];
-  if(e.photoDelPath)paths.push(e.photoDelPath);
-  if(!paths.includes(path))paths.push(path);
-  e.photoDeletePaths=Array.from(new Set(paths.filter(Boolean)));
-  e.photoDel=false;e.photoDelPath='';
-}
 function sniffImgMime(u8){
   if(u8&&u8.length>12){
     if(u8[0]===0xFF&&u8[1]===0xD8)return 'image/jpeg';
@@ -1571,7 +1404,7 @@ function genReport(kind){
   const isJoin=kind==='join',dk=isJoin?'join':'resignDate';
   $('#repOut').innerHTML='<div style="font-weight:800;margin-bottom:8px">'+(isJoin?'🟢 '+t('repJoinTitle'):'📤 '+t('repResignTitle'))+' — '+esc(mName+' '+y)+' ('+t('repTotal')+': '+list.length+')</div>'+
    (list.length?'<div class="tscroll"><table class="tbl" style="min-width:640px"><thead><tr><th>'+t('thCode')+'</th><th>'+t('thEmp')+'</th><th>'+t('thDesig')+'</th><th>'+t('fDeptEn')+'</th><th>'+t('fLocEn')+'</th><th>'+(isJoin?t('repDJoin'):t('repDResign'))+'</th><th>'+(isJoin?t('fRecType'):t('resignReason'))+'</th><th>'+t('thStatus')+'</th></tr></thead><tbody>'+
-   list.map(e=>'<tr><td>'+esc(e.code)+'</td><td>'+biText(e.nameEn,e.nameBn)+'</td><td>'+biText(e.desigEn,e.desigBn)+'</td><td>'+biText(e.deptEn,e.deptBn||bnOf(e.deptEn))+'</td><td>'+biText(e.locEn,e.locBn||bnOf(e.locEn))+'</td><td>'+fmtDate(e[dk])+'</td><td>'+(isJoin?recLabel(e):esc(e.resignReason||'—'))+'</td><td>'+esc(e.status==='resigned'?t('stResigned'):t('stActive'))+'</td></tr>').join('')+'</tbody></table></div>'+
+   list.map(e=>'<tr><td>'+esc(e.code)+'</td><td>'+esc(displayName(e))+'</td><td>'+esc(displayDesig(e))+'</td><td>'+esc(e.deptEn||'')+'</td><td>'+esc(e.locEn||'')+'</td><td>'+fmtDate(e[dk])+'</td><td>'+(isJoin?recLabel(e):esc(e.resignReason||'—'))+'</td><td>'+esc(e.status==='resigned'?t('stResigned'):t('stActive'))+'</td></tr>').join('')+'</tbody></table></div>'+
    '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" id="btnRepPrint">🖨 '+t('thPrint')+'</button><button class="btn sm o" id="btnRepCsv">⬇ CSV</button><button class="btn sm g" id="btnRepXls">⬇ Excel (.xlsx)</button></div>'
    :'<div class="empty">'+t('repEmpty')+'</div>');
   if(list.length){
@@ -1597,7 +1430,7 @@ function printReport(isJoin,list,period){
   const H=['#',t('thCode'),t('thEmp'),t('thDesig'),t('fDeptEn'),t('fLocEn'),isJoin?t('repDJoin'):t('repDResign'),isJoin?t('fRecType'):t('resignReason'),t('thStatus')];
   const cell=v=>'<td style="padding:6px 8px;border:1px solid #cbd5e1">'+v+'</td>';
   const th=h=>'<th style="padding:6px 8px;border:1px solid #cbd5e1;background:#eff6ff">'+h+'</th>';
-  const rows=list.map((e,i)=>'<tr>'+cell(i+1)+cell(esc(e.code))+cell(biText(e.nameEn,e.nameBn))+cell(biText(e.desigEn,e.desigBn))+cell(biText(e.deptEn,e.deptBn||bnOf(e.deptEn)))+cell(biText(e.locEn,e.locBn||bnOf(e.locEn)))+cell(fmtDate(isJoin?e.join:e.resignDate))+cell(isJoin?esc(recLabel(e)):esc(e.resignReason||'—'))+cell(esc(e.status==='resigned'?t('stResigned'):t('stActive')))+'</tr>').join('');
+  const rows=list.map((e,i)=>'<tr>'+cell(i+1)+cell(esc(e.code))+cell(esc(displayName(e))+(e.nameBn?'<div style="font-size:11px;color:#475569">'+esc(e.nameBn)+'</div>':''))+cell(esc(displayDesig(e)))+cell(esc(e.deptEn||''))+cell(esc(e.locEn||''))+cell(fmtDate(isJoin?e.join:e.resignDate))+cell(isJoin?esc(recLabel(e)):esc(e.resignReason||'—'))+cell(esc(e.status==='resigned'?t('stResigned'):t('stActive')))+'</tr>').join('');
   $('#printArea').innerHTML='<div style="font-family:Inter,Noto Sans Bengali,sans-serif;padding:8px">'+
    '<h2 style="border-bottom:3px solid #1e5aa8;padding-bottom:8px">'+esc(brandName())+' — '+(isJoin?t('repJoinTitle'):t('repResignTitle'))+'</h2>'+
    '<div style="font-weight:700;margin:8px 0">'+esc(period)+' · '+t('repTotal')+': '+list.length+'</div>'+
@@ -1609,7 +1442,7 @@ function renderManageLists(){
   if(!LISTS)LISTS=defaultLists();
   [['dept'],['sec'],['loc'],['desig']].forEach(a=>{const k=a[0];
     const el=$('#ml_'+k);if(!el)return;
-    el.innerHTML=(LISTS[k]||[]).map((v,i)=>'<span class="chip">'+esc(v)+(LISTS.bn[k]&&LISTS.bn[k][v]?' <span lang="bn" style="color:var(--mut);font-weight:700">· '+esc(LISTS.bn[k][v])+'</span>':'')+'<button type="button" class="chip-edit" data-mledit="'+k+'" data-mli="'+i+'" title="'+esc(t('editBt'))+'">✎</button><button type="button" data-mlk="'+k+'" data-mli="'+i+'" title="Remove">✕</button></span>').join('')||'<span class="sub" style="font-size:12px;color:var(--mut)">—</span>';
+    el.innerHTML=(LISTS[k]||[]).map((v,i)=>'<span class="chip">'+esc(v)+(LISTS.bn[k]&&LISTS.bn[k][v]?' <span lang="bn" style="color:var(--mut);font-weight:700">· '+esc(LISTS.bn[k][v])+'</span>':'')+'<button type="button" data-mlk="'+k+'" data-mli="'+i+'" title="Remove">✕</button></span>').join('')||'<span class="sub" style="font-size:12px;color:var(--mut)">—</span>';
   });
 }
 async function addListVal(k){
@@ -1623,19 +1456,11 @@ async function addListVal(k){
   toast(t('savedGH'),'ok');
 }
 function promptAdd(k,onDone,onCancel){
-  window.__prk=k;window.__prmode='add';window.__pri=-1;window.__pron=onDone;window.__prc=onCancel;
+  window.__prk=k;window.__pron=onDone;window.__prc=onCancel;
   $('#pr_title').textContent='➕ '+t('ml'+k.charAt(0).toUpperCase()+k.slice(1));
   $('#pr_en').value='';$('#pr_bn').value='';
   $('#ovPrompt').classList.add('on');
   setTimeout(()=>$('#pr_en').focus(),60);
-}
-function promptEdit(k,i){
-  const value=(LISTS[k]||[])[i];if(value===undefined)return;
-  window.__prk=k;window.__prmode='edit';window.__pri=i;window.__pron=null;window.__prc=null;
-  $('#pr_title').textContent='✎ '+t('editBt')+' — '+t('ml'+k.charAt(0).toUpperCase()+k.slice(1));
-  $('#pr_en').value=value;$('#pr_bn').value=(LISTS.bn[k]&&LISTS.bn[k][value])||'';
-  $('#ovPrompt').classList.add('on');
-  setTimeout(()=>{$('#pr_en').focus();$('#pr_en').select();},60);
 }
 function applyTheme(){
   document.body.classList.remove('theme-dark','theme-offwhite');
@@ -1659,8 +1484,8 @@ function renderDash(){
   const cnt=key=>{const m={};EMP.forEach(e=>{const v=(e[key]||'').trim()||'—';m[v]=(m[v]||0)+1;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
   const bars=data=>{const mx=Math.max(1,...data.map(d=>d[1]));
     if(!data.length)return '<div class="empty">—</div>';
-    return data.map(d=>{const lab=LANG==='bn'?bnOf(d[0]):d[0];
-      return '<div class="brow"><span class="blabel" title="'+esc(LANG==='bn'?lab:d[0])+'">'+esc(lab)+'</span><div class="btrack"><div class="bfill" style="width:'+Math.round(d[1]/mx*100)+'%"></div></div><span class="bval">'+d[1]+'</span></div>';}).join('');};
+    return data.map(d=>{const lab=(LANG==='bn')?bnOf(d[0]):d[0];
+      return '<div class="brow"><span class="blabel" title="'+esc(d[0])+'">'+esc(lab)+'</span><div class="btrack"><div class="bfill" style="width:'+Math.round(d[1]/mx*100)+'%"></div></div><span class="bval">'+d[1]+'</span></div>';}).join('');};
   $('#chartDept').innerHTML=bars(cnt(distKey));
   $('#chartLoc').innerHTML=bars(cnt('locEn'));
   const yrs={};EMP.forEach(e=>{const y=String(e.join||'').slice(0,4);if(/^\d{4}$/.test(y))yrs[y]=(yrs[y]||0)+1;});
@@ -1697,20 +1522,6 @@ function fillFilterOptions(){
   const fill=(id,arr,cur)=>{const s=$(id);const first=s.options[0];s.innerHTML='';s.appendChild(first);arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});s.value=cur;};
   fill('#fDept',uniq('deptEn'),filters.dept);fill('#fLoc',uniq('locEn'),filters.loc);
 }
-function updateSelectionUI(){
-  const valid=new Set(EMP.map(e=>e.code));
-  selectedCodes=new Set(Array.from(selectedCodes).filter(code=>valid.has(code)));
-  const list=filtered();
-  const selectedInList=list.filter(e=>selectedCodes.has(e.code)).length;
-  const allBox=$('#selectAllEmp');
-  if(allBox){
-    allBox.checked=list.length>0&&selectedInList===list.length;
-    allBox.indeterminate=selectedInList>0&&selectedInList<list.length;
-  }
-  $$('#tblBody input[data-select-code],#mobCards input[data-select-code]').forEach(cb=>{cb.checked=selectedCodes.has(cb.dataset.selectCode);});
-  const out=$('#selectedCount');
-  if(out)out.textContent=selectedCodes.size+' '+t('selectedCount');
-}
 function renderList(){
   fillFilterOptions();
   const a=filtered();
@@ -1722,26 +1533,19 @@ function renderList(){
   $('#mobCards').innerHTML=slice.length?slice.map(mobileCardHTML).join(''):'<div class="empty">'+(EMP.length?t('noMatch'):t('noData'))+'</div>';
   $('#pageInfo').textContent=a.length?((page-1)*PAGE_SIZE+1)+'–'+Math.min(page*PAGE_SIZE,a.length)+' / '+a.length:'';
   $('#pgPrev').disabled=page<=1;$('#pgNext').disabled=page>=pages;
-  updateSelectionUI();
-  hydratePhotos();
+  const bb=$('#bulkBar');if(bb)bb.style.display=isAdmin()?'flex':'none';
+  hydratePhotos();updateSelCount();
 }
 function statusBadge(e){return e.status==='resigned'?'<span class="bg r">'+t('stResigned')+'</span>':'<span class="bg a">'+t('stActive')+'</span>';}
-function biText(en,bn){
-  const a=en||'—',b=bn||'';
-  return '<div class="bi-value"><div class="bi-en">'+esc(a)+'</div>'+(b?'<div class="bi-bn" lang="bn">'+esc(b)+'</div>':'')+'</div>';
-}
-function biTag(en,bn){
-  return '<span class="tag bi-tag"><span>'+esc(en||'—')+'</span>'+(bn?'<span class="bi-bn" lang="bn">'+esc(bn)+'</span>':'')+'</span>';
-}
 function rowHTML(e){
   const res=e.status==='resigned';
   return '<tr data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.62"':'')+'>'+
-    '<td class="ad-only selcell"><input class="empCheck" type="checkbox" data-select-code="'+esc(e.code)+'" aria-label="Select '+esc(e.code)+'"></td>'+
+    '<td class="ad-only" style="width:34px"><input type="checkbox" class="rowchk" data-chk="'+esc(e.code)+'" style="width:15px;height:15px;accent-color:var(--p)"></td>'+
     '<td style="font-weight:700;white-space:nowrap">'+esc(e.code)+'</td>'+
-    '<td><div class="cellname">'+photoHTML(e,'s')+biText(e.nameEn,e.nameBn)+'</div></td>'+
-    '<td>'+biText(e.desigEn,e.desigBn)+'</td>'+
-    '<td class="sub">'+biText(e.deptEn,e.deptBn||bnOf(e.deptEn))+'</td>'+
-    '<td class="sub">'+biText(e.locEn,e.locBn||bnOf(e.locEn))+'</td>'+
+    '<td><div class="cellname">'+photoHTML(e,'s')+'<div><div class="cn1">'+esc(displayName(e))+'</div><div class="cn2">'+esc(LANG==='bn'&&e.nameBn?e.nameEn:'')+'</div></div></div></td>'+
+    '<td>'+esc(displayDesig(e))+'</td>'+
+    '<td class="sub">'+esc(LANG==='bn'?bnOf(e.deptEn)||e.deptEn:e.deptEn||'—')+'</td>'+
+    '<td class="sub">'+esc(LANG==='bn'?bnOf(e.locEn)||e.locEn:e.locEn||'—')+'</td>'+
     '<td class="sub">'+esc(e.mobile||'—')+'</td>'+
     '<td class="sub">'+fmtDate(e.join)+'</td>'+
     '<td>'+statusBadge(e)+'</td>'+
@@ -1753,9 +1557,9 @@ function rowHTML(e){
 }
 function mobileCardHTML(e){
   const res=e.status==='resigned';
-  return '<div class="mcard" data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.65"':'')+'><label class="mselect ad-only"><input class="empCheck" type="checkbox" data-select-code="'+esc(e.code)+'" aria-label="Select '+esc(e.code)+'"></label>'+photoHTML(e,'m')+
-  '<div class="minfo"><div class="mn">'+esc(e.code)+'</div>'+biText(e.nameEn,e.nameBn)+'<div class="mb">'+biText(e.desigEn,e.desigBn)+'</div>'+
-  '<div class="mrow">'+biTag(e.deptEn,e.deptBn||bnOf(e.deptEn))+biTag(e.locEn,e.locBn||bnOf(e.locEn))+'<span class="tag">📞 '+esc(e.mobile||'—')+'</span>'+statusBadge(e)+'</div></div>'+
+  return '<div class="mcard" data-act="profile" data-code="'+esc(e.code)+'"'+(res?' style="opacity:.65"':'')+'>'+photoHTML(e,'m')+
+  '<div class="minfo"><div class="mn">'+esc(e.code)+' — '+esc(displayName(e))+'</div><div class="mb">'+esc(displayDesig(e))+'</div>'+
+  '<div class="mrow"><span class="tag">'+esc(LANG==='bn'?bnOf(e.deptEn)||e.deptEn:e.deptEn||'—')+'</span><span class="tag">'+esc(LANG==='bn'?bnOf(e.locEn)||e.locEn:e.locEn||'—')+'</span><span class="tag">📞 '+esc(e.mobile||'—')+'</span>'+statusBadge(e)+'</div></div>'+
   '<div style="display:flex;flex-direction:column;gap:6px"><button class="mini ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏</button>'+(res?'':'<button class="mini ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤</button>')+'</div></div>';
 }
 
@@ -1779,7 +1583,8 @@ function renderProfile(code){
       '<div class="pacts">'+
         '<button class="btn o sm" data-nav="list">← '+t('navList')+'</button>'+
         '<button class="btn o sm" data-act="print" data-code="'+esc(e.code)+'">🖨 '+t('thPrint')+'</button>'+
-        '<button class="btn sm ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏ '+t('editBt')+'</button>'+
+        '<button class="btn sm ed-only" data-act="edit" data-code="'+esc(e.code)+'">✏ '+t('updateBt')+'</button>'+
+        '<button class="btn o sm ed-only" data-act="pphoto" data-code="'+esc(e.code)+'">📷 '+t('photoUpBt')+'</button>'+
         (e.status==='resigned'
           ?'<button class="btn g sm ed-only" data-act="reinstate" data-code="'+esc(e.code)+'">↩ '+t('reinstateBt')+'</button>'
           :'<button class="btn r sm ed-only" data-act="resign" data-code="'+esc(e.code)+'">📤 '+t('resignBt')+'</button>')+
@@ -1791,15 +1596,21 @@ function renderProfile(code){
       bnRow(t('fJoin'),fmtDate(e.join),'')+bnRow(t('fRecType'),recLabel(e),'')+'</div>'+
     '<div class="sec-title">'+t('fsPersonal')+'</div><div class="pgrid">'+
       bnRow(t('fDob'),fmtDate(e.dob),'')+bnRow(t('fGender'),e.gender?(LANG==='bn'?({Male:t('male'),Female:t('female'),Other:t('other')}[e.gender]||e.gender):e.gender):'','')+
-      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fContact'),e.contact,'')+bnRow(t('fEmail'),e.email,'')+bnRow(t('fBankAc'),e.rocketAc,'')+
+      bnRow(t('fBlood'),e.blood,'')+bnRow(t('fNid'),e.nid,'')+bnRow(t('fMobile'),e.mobile,'')+bnRow(t('fContact'),e.contact,'')+bnRow(t('fEmail'),e.email,'')+bnRow(t('fBankAc'),e.bankAc,'')+
       (e.address?bnRow(t('fAddress'),e.address,''):'')+'</div>'+
     '<div class="sec-title">'+t('fAddrP')+'</div><div class="pgrid">'+
-      bnRow(t('aVill'),e.addrPv,e.addrPvBn)+bnRow(t('aPost'),e.addrPp,e.addrPpBn)+bnRow(t('aPs'),e.addrPs,e.addrPsBn)+bnRow(t('aDist'),e.addrPd,e.addrPdBn)+'</div>'+
+      bnRow(t('aVill'),e.addrPv,'')+bnRow(t('aPost'),e.addrPp,'')+bnRow(t('aPs'),e.addrPs,'')+bnRow(t('aDist'),e.addrPd,'')+
+      '<div class="sec-title" lang="bn" style="margin-top:8px">'+t('fAddrP')+' (বাংলা)</div>'+
+      bnRow(t('aVillBn'),e.addrPvBn,'')+bnRow(t('aPostBn'),e.addrPpBn,'')+bnRow(t('aPsBn'),e.addrPsBn,'')+bnRow(t('aDistBn'),e.addrPdBn,'')+'</div>'+
     '<div class="sec-title">'+t('fAddrV')+'</div><div class="pgrid">'+
-      bnRow(t('aVill'),e.addrVv,e.addrVvBn)+bnRow(t('aPost'),e.addrVp,e.addrVpBn)+bnRow(t('aPs'),e.addrVs,e.addrVsBn)+bnRow(t('aDist'),e.addrVd,e.addrVdBn)+'</div>'+
+      bnRow(t('aVill'),e.addrVv,'')+bnRow(t('aPost'),e.addrVp,'')+bnRow(t('aPs'),e.addrVs,'')+bnRow(t('aDist'),e.addrVd,'')+
+      '<div class="sec-title" lang="bn" style="margin-top:8px">'+t('fAddrV')+' (বাংলা)</div>'+
+      bnRow(t('aVillBn'),e.addrVvBn,'')+bnRow(t('aPostBn'),e.addrVpBn,'')+bnRow(t('aPsBn'),e.addrVsBn,'')+bnRow(t('aDistBn'),e.addrVdBn,'')+'</div>'+
     '<div class="sec-title">'+t('fsNominee')+'</div><div class="pgrid">'+
       bnRow(t('nomName'),e.nomName,'')+bnRow(t('nomPhone'),e.nomPhone,'')+bnRow(t('nomRelation'),e.nomRel,'')+
-      bnRow(t('aVill'),e.nomAv,e.nomAvBn)+bnRow(t('aPost'),e.nomAp,e.nomApBn)+bnRow(t('aPs'),e.nomAs,e.nomAsBn)+bnRow(t('aDist'),e.nomAd,e.nomAdBn)+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
+      bnRow(t('aVill'),e.nomAv,'')+bnRow(t('aPost'),e.nomAp,'')+bnRow(t('aPs'),e.nomAs,'')+bnRow(t('aDist'),e.nomAd,'')+
+      '<div class="sec-title" lang="bn" style="margin-top:8px">'+t('nomAddr')+' (বাংলা)</div>'+
+      bnRow(t('aVillBn'),e.nomAvBn,'')+bnRow(t('aPostBn'),e.nomApBn,'')+bnRow(t('aPsBn'),e.nomAsBn,'')+bnRow(t('aDistBn'),e.nomAdBn,'')+(e.nomAddr?bnRow(t('nomAddr'),e.nomAddr,''):'')+'</div>'+
     '<div class="sec-title">'+t('fsFamilyL')+'</div><div class="pgrid">'+
       bnRow(t('fFatherEn'),e.fatherEn,e.fatherBn)+bnRow(t('fMotherEn'),e.motherEn,e.motherBn)+'</div>'+
   '</div>';
@@ -1814,12 +1625,11 @@ function nextCode(){
   return prefix.trim()+' '+(mx+1);
 }
 function openForm(code){
-  if(!canEd()||!requireWriteAccess())return;
+  if(!canEd())return;
   editingCode=code||null;
   const e=code?EMP.find(x=>x.code===code):null;
   $('#formTitle').textContent=e?t('formEdit'):t('formAdd');
   const set=(id,v)=>{$(id).value=v||'';};
-  ['#f_nameBn','#f_desigBn','#f_deptBn','#f_secBn','#f_locBn','#f_fatherBn','#f_motherBn'].forEach(id=>$(id).dataset.auto='');
   set('#f_code',e?e.code:(nextCode()));
   $('#f_statusF').value=e&&e.status==='resigned'?'resigned':'active';
   set('#f_nameEn',e&&e.nameEn);set('#f_nameBn',e&&e.nameBn);
@@ -1828,11 +1638,11 @@ function openForm(code){
   set('#f_secEn',e&&e.secEn);set('#f_secBn',e&&e.secBn);
   set('#f_locEn',e&&e.locEn);set('#f_locBn',e&&e.locBn);
   set('#f_dob',e&&e.dob);set('#f_join',e&&e.join);
-  set('#f_gender',e&&e.gender);set('#f_blood',e&&e.blood);set('#f_mobile',normalizeMobile(e&&e.mobile));set('#f_nid',e&&e.nid);
+  set('#f_gender',e&&e.gender);set('#f_blood',e&&e.blood);set('#f_mobile',e&&e.mobile);set('#f_nid',e&&e.nid);
   set('#f_fatherEn',e&&e.fatherEn);set('#f_fatherBn',e&&e.fatherBn);
   set('#f_motherEn',e&&e.motherEn);set('#f_motherBn',e&&e.motherBn);
   set('#f_contact',e&&e.contact);
-  set('#f_email',e&&e.email);set('#f_rocketAc',e&&e.rocketAc);
+  set('#f_email',e&&e.email);set('#f_bankAc',e&&e.bankAc);
   $('#f_recNew').checked=e?e.recType==='new':true;
   set('#f_replCode',e&&e.replCode);
   $('#replRow').style.display=$('#f_recNew').checked?'none':'';
@@ -1845,6 +1655,7 @@ function openForm(code){
   set('#f_nomAvBn',e&&e.nomAvBn);set('#f_nomApBn',e&&e.nomApBn);set('#f_nomAsBn',e&&e.nomAsBn);set('#f_nomAdBn',e&&e.nomAdBn);
   formPhoto=e&&e.photoData?e.photoData:'';
   formHadPhoto=!!(e&&(e.photoData||e.photo));
+  formPhotoRemoved=false;
   renderPhotoPrev();
   nav('form');
 }
@@ -1872,30 +1683,20 @@ function compressImage(file,M){
     r.onerror=rej;r.readAsDataURL(file);
   });
 }
-function autoFillBn(force){
-  const g=(a,b,map)=>{const en=$(a).value.trim(),bn=$(b);if(force){bn.value=en&&map[en]?map[en]:'';bn.dataset.auto='1';}else if(en&&map[en]&&(!bn.value.trim()||bn.dataset.auto==='1')){bn.value=map[en];bn.dataset.auto='1';}};
+function autoFillBn(){
+  const g=(a,b,map)=>{const en=$(a).value.trim();const bn=$(b);if(en&&!bn.value.trim()&&map[en])bn.value=map[en];};
   const lb=(LISTS&&LISTS.bn)||{};
   g('#f_deptEn','#f_deptBn',Object.assign({},DEPT_BN,lb.dept||{}));g('#f_secEn','#f_secBn',Object.assign({},SEC_BN,lb.sec||{}));
   g('#f_locEn','#f_locBn',Object.assign({},LOC_BN,lb.loc||{}));g('#f_desigEn','#f_desigBn',Object.assign({},DESIG_BN,lb.desig||{}));
 }
 async function submitForm(ev){
   ev.preventDefault();
-  if(!canEd()||!requireWriteAccess())return;
+  if(!canEd())return;
   const code=$('#f_code').value.trim();
   if(!code||!$('#f_nameEn').value.trim()||!$('#f_desigEn').value.trim()||!$('#f_deptEn').value.trim()||!$('#f_locEn').value.trim()||!$('#f_join').value){toast(t('reqFields'),'err');return;}
   if(EMP.some(e=>normCode(e.code)===normCode(code)&&e.code!==editingCode)){toast(t('dupCode'),'err');return;}
   const mob=$('#f_mobile').value.trim();
-  const cleanMob=normalizeMobile(mob);
-  if(mob&&!/^01\d{9}$/.test(cleanMob)){toast(t('badMobile'),'err');return;}
-  const rocket=$('#f_rocketAc').value.trim().replace(/\D/g,'');
-  if(rocket&&!/^\d{12}$/.test(rocket)){toast(t('badRocket'),'err');return;}
-  const dob=$('#f_dob').value,join=$('#f_join').value;
-  if(join>todayISO()){toast(t('futureJoin'),'err');return;}
-  if(dob&&join&&dob>=join){toast(t('badDates'),'err');return;}
-  const same=(a,b)=>String(a||'').replace(/\D/g,'')===String(b||'').replace(/\D/g,'');
-  if(mob&&EMP.some(x=>x.code!==editingCode&&same(normalizeMobile(x.mobile),cleanMob))){toast(t('dupMobile'),'err');return;}
-  const nid=$('#f_nid').value.trim();
-  if(nid&&EMP.some(x=>x.code!==editingCode&&String(x.nid||'').trim()===nid)){toast(t('dupNid'),'err');return;}
+  if(mob&&!/^(?:\+?88)?0?\d{10,11}$/.test(mob.replace(/[\s-]/g,''))){toast(t('badMobile'),'err');return;}
   autoFillBn();
   const old=editingCode?EMP.find(x=>x.code===editingCode):null;
   const e=old||fixEmp({});
@@ -1906,11 +1707,11 @@ async function submitForm(ev){
   e.secEn=$('#f_secEn').value.trim();e.secBn=$('#f_secBn').value.trim();
   e.locEn=$('#f_locEn').value.trim();e.locBn=$('#f_locBn').value.trim();
   e.dob=$('#f_dob').value;e.join=$('#f_join').value;
-  e.gender=$('#f_gender').value;e.blood=$('#f_blood').value;e.mobile=cleanMob;e.nid=$('#f_nid').value.trim();
+  e.gender=$('#f_gender').value;e.blood=$('#f_blood').value;e.mobile=mob;e.nid=$('#f_nid').value.trim();
   e.fatherEn=$('#f_fatherEn').value.trim();e.fatherBn=$('#f_fatherBn').value.trim();
   e.motherEn=$('#f_motherEn').value.trim();e.motherBn=$('#f_motherBn').value.trim();
   e.contact=$('#f_contact').value.trim();
-  e.email=$('#f_email').value.trim();e.rocketAc=rocket;
+  e.email=$('#f_email').value.trim();e.bankAc=$('#f_bankAc').value.trim();
   e.recType=$('#f_recNew').checked?'new':($('#f_replCode').value.trim()?'replacement':'');
   e.replCode=$('#f_recNew').checked?'':$('#f_replCode').value.trim();
   e.addrPv=$('#f_addrPv').value.trim();e.addrPp=$('#f_addrPp').value.trim();e.addrPs=$('#f_addrPs').value.trim();e.addrPd=$('#f_addrPd').value.trim();
@@ -1920,13 +1721,10 @@ async function submitForm(ev){
   e.nomName=$('#f_nomName').value.trim();e.nomPhone=$('#f_nomPhone').value.trim();e.nomRel=$('#f_nomRel').value.trim();
   e.nomAv=$('#f_nomAv').value.trim();e.nomAp=$('#f_nomAp').value.trim();e.nomAs=$('#f_nomAs').value.trim();e.nomAd=$('#f_nomAd').value.trim();
   e.nomAvBn=$('#f_nomAvBn').value.trim();e.nomApBn=$('#f_nomApBn').value.trim();e.nomAsBn=$('#f_nomAsBn').value.trim();e.nomAdBn=$('#f_nomAdBn').value.trim();
-  if(formPhoto){
-    const newPhotoPath=(CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc';
-    if(old&&old.photo&&old.photo!==newPhotoPath)queuePhotoDelete(e,old.photo);
-    e.photoData=formPhoto;e.photoDirty=true;
-  }
+  if(formPhoto){e.photoData=formPhoto;e.photoDirty=true;}
   else{
-    if(old&&formHadPhoto)queuePhotoDelete(e,e.photo||((CFG.photosDir||'photos')+'/'+slug(old.code)+'.enc'));
+    if(old&&formHadPhoto&&formPhotoRemoved&&!e.photoDel){e.photoDel=true;e.photoDelPath=e.photo||((CFG.photosDir||'photos')+'/'+slug(old.code)+'.enc');}
+    if(old&&String(old.code)!==String(e.code)&&old.photo&&!e.photoDel){e.photoDel=true;e.photoDelPath=old.photo;}
     e.photoData='';e.photoDirty=false;e.photo='';
   }
   e.updated=new Date().toISOString();if(!e.created)e.created=e.updated;
@@ -1939,14 +1737,13 @@ async function submitForm(ev){
 
 /* ================= RESIGN / DELETE / REINSTATE ================= */
 function openResign(code){
-  if(!canEd()||!requireWriteAccess())return;
+  if(!canEd())return;
   resignTarget=EMP.find(x=>x.code===code);if(!resignTarget)return;
   $('#resignWho').textContent=displayName(resignTarget)+' ('+resignTarget.code+')';
   $('#r_date').value=todayISO();$('#r_note').value='';
   $('#ovResign').classList.add('on');
 }
 async function doResign(){
-  if(!requireWriteAccess())return;
   const e=resignTarget;if(!e)return;
   e.status='resigned';e.resignDate=$('#r_date').value||todayISO();
   e.resignReason=($('#r_reason').value+($('#r_note').value.trim()?' — '+$('#r_note').value.trim():''));
@@ -1957,7 +1754,7 @@ async function doResign(){
   if(canEditAnywhere())syncAll();
 }
 function reinstate(code){
-  if(!canEd()||!requireWriteAccess())return;
+  if(!canEd())return;
   const e=EMP.find(x=>x.code===code);if(!e)return;
   confirmDlg(t('cfReinTitle'),t('cfReinMsg')+displayName(e)+'?',async()=>{
     e.status='active';e.resignDate='';e.resignReason='';e.updated=new Date().toISOString();
@@ -1966,60 +1763,46 @@ function reinstate(code){
     if(canEditAnywhere())syncAll();
   });
 }
+function updateSelCount(){
+  const cks=$$('.rowchk');const n=cks.filter(c=>c.checked).length;
+  const b=$('#btnDelSel');if(b)b.disabled=!n;
+  const el=$('#delSelN');if(el)el.textContent=n;
+  const all=$('#chkAll');if(all)all.checked=cks.length>0&&n===cks.length;
+}
+function bulkDelete(codes){
+  if(!isAdmin()||!codes||!codes.length)return;
+  confirmDlg(t('cfDelTitle'),codes.length+' '+t('bulkDelMsg'),async()=>{
+    try{
+      const targets=codes.map(c=>EMP.find(x=>x.code===c)).filter(Boolean);
+      EMP=EMP.filter(x=>codes.indexOf(x.code)<0);
+      targets.forEach(e=>delete photoCache[e.code]);
+      await saveLocal();toast(codes.length+' '+t('empDeleted'));nav('list');
+      if(MODE==='gh'&&SESSION&&SESSION.tok){
+        for(const e of targets){const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
+          try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){console.warn('Photo cleanup skipped ('+e.code+')',err);}}
+        const ok=await syncAll(true);if(!ok)toast(t('syncFail')+' — delete will retry on next sync','err');
+      }
+    }catch(err){console.warn(err);toast(t('syncFail')+' — delete will retry on next sync','err');}
+  });
+}
 function delEmp(code){
-  if(!isAdmin()||!requireWriteAccess())return;
+  if(!isAdmin())return;
   const e=EMP.find(x=>x.code===code);if(!e)return;
   confirmDlg(t('cfDelTitle'),t('cfDelMsg')+' — '+displayName(e)+'?',async()=>{
     const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
     EMP=EMP.filter(x=>x.code!==code);
-    selectedCodes.delete(code);
     delete photoCache[code];
     try{
       await saveLocal();
       toast(displayName(e)+' '+t('empDeleted'));
       nav('list');
       if(MODE==='gh'&&SESSION&&SESSION.tok){
-        pendingPhotoDeletes.push(pPath);
+        try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){console.warn('Photo cleanup skipped ('+e.code+')',err);}
         const ok=await syncAll(true);
         if(!ok)toast(t('syncFail')+' — delete will retry on next sync','err');
       }
     }catch(err){console.warn(err);toast(t('syncFail')+' — delete will retry on next sync','err');}
   });
-}
-
-
-async function performBulkDelete(codes){
-  if(!isAdmin()||!requireWriteAccess())return;
-  const wanted=new Set(codes);
-  const victims=EMP.filter(e=>wanted.has(e.code));
-  if(!victims.length){toast(t('noSelected'),'err');return;}
-  victims.forEach(e=>{
-    if(MODE==='gh')pendingPhotoDeletes.push(e.photo||((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc'));
-    delete photoCache[e.code];
-  });
-  EMP=EMP.filter(e=>!wanted.has(e.code));
-  selectedCodes.clear();
-  try{
-    await saveLocal();
-    renderAll();nav('list');
-    toast(t('bulkDeleted')+' '+victims.length,'ok');
-    if(MODE==='gh'&&SESSION&&SESSION.tok){
-      const ok=await syncAll(true);
-      if(!ok)toast(t('syncFail')+' — deletion will retry on next sync','err');
-    }
-  }catch(err){console.warn(err);toast(t('syncFail')+' — deletion will retry on next sync','err');}
-}
-function deleteSelectedEmployees(){
-  if(!isAdmin()||!requireWriteAccess())return;
-  const codes=Array.from(selectedCodes).filter(code=>EMP.some(e=>e.code===code));
-  if(!codes.length){toast(t('noSelected'),'err');return;}
-  confirmDlg(t('bulkDeleteTitle'),t('bulkDeleteMsg')+' ('+codes.length+')',()=>performBulkDelete(codes));
-}
-function deleteAllEmployees(){
-  if(!isAdmin()||!requireWriteAccess())return;
-  const codes=EMP.map(e=>e.code);
-  if(!codes.length){toast(t('noData'),'err');return;}
-  confirmDlg(t('bulkDeleteAllTitle'),t('bulkDeleteAllMsg'),()=>performBulkDelete(codes));
 }
 
 /* ================= USER MANAGEMENT (admin) ================= */
@@ -2040,7 +1823,7 @@ async function getSec(){
   return GHSEC;
 }
 async function addUser(){
-  if(!isAdmin()||!requireWriteAccess())return;
+  if(!isAdmin())return;
   const out=$('#nu_out');out.textContent='';out.style.color='';
   const u=$('#nu_name').value.trim(),p=$('#nu_pass').value,role=$('#nu_role').value;
   if(!u||!p)return;
@@ -2059,7 +1842,6 @@ async function addUser(){
   }catch(e){out.textContent=t('syncFail')+(e.message||e);out.style.color='#b91c1c';}
 }
 async function resetUserPass(u,newP){
-  if(!isAdmin()||!requireWriteAccess())return;
   const sec=await getSec();if(!sec)return;
   const usr=sec.users.find(x=>x.u===u);if(!usr)return;
   if(String(newP).length<6){toast(t('pwShort'),'err');return;}
@@ -2069,7 +1851,6 @@ async function resetUserPass(u,newP){
   toast(t('pwReset')+u,'ok');renderUsers();
 }
 async function removeUser(u){
-  if(!isAdmin()||!requireWriteAccess())return;
   const sec=await getSec();if(!sec)return;
   if(SESSION&&u===SESSION.user){toast(t('cannotSelf'),'err');return;}
   const usr=sec.users.find(x=>x.u===u);
@@ -2081,7 +1862,7 @@ async function removeUser(u){
   });
 }
 async function changeMyPw(){
-  if(!SESSION||!requireWriteAccess())return;
+  if(!SESSION)return;
   const out=$('#cp_out');out.textContent='';out.style.color='';
   const oldP=$('#cp_old').value,newP=$('#cp_new').value;
   if(newP.length<6){out.textContent=t('pwShort');out.style.color='#b91c1c';return;}
@@ -2125,20 +1906,13 @@ async function saveToken(){
   if(!isAdmin())return;
   const tok=$('#s_token').value.trim();
   if(!tok)return;
+  SESSION.tok=tok;
   const sec=await getSec();if(!sec)return;
-  const previousToken=SESSION.tok,previousPkg=sec.token;
-  try{
-    sec.token=await encPkg(SESSION.keyObj,{t:tok});
-    await pushSec();
-    SESSION.tok=tok;clearSess();saveSess();
-    document.body.classList.remove('write-locked');
-    toast(t('tokSaved'),'ok');
-    fillSettings();
-    if(canEdit())syncAll(true);
-  }catch(e){
-    SESSION.tok=previousToken;sec.token=previousPkg;
-    toast(t('syncFail')+(e.message||e),'err');
-  }
+  sec.token=await encPkg(SESSION.keyObj,{t:tok});
+  clearSess();saveSess();
+  try{await pushSec();toast(t('tokSaved'),'ok');}catch(e){toast(t('syncFail')+(e.message||e),'err');}
+  fillSettings();
+  if(canEdit())syncAll(true);
 }
 async function testConnection(){
   const out=$('#cfgTestOut');out.textContent='…';
@@ -2154,32 +1928,6 @@ async function testConnection(){
 /* ================= BRAND (company name & logo) ================= */
 let BRAND={name:'',nameBn:'',logo:''};let pendingLogo=null;
 function brandName(){return (LANG==='bn'&&(BRAND.nameBn||'').trim())?BRAND.nameBn:(BRAND.name||'Abid Enterprise');}
-async function cleanLogoBackground(data){
-  if(!data||!/^data:image\//i.test(String(data)))return data;
-  return new Promise(resolve=>{
-    try{
-      const img=new Image();img.onload=()=>{
-        try{
-          const c=document.createElement('canvas');c.width=img.naturalWidth||img.width;c.height=img.naturalHeight||img.height;
-          const ctx=c.getContext('2d');ctx.drawImage(img,0,0,c.width,c.height);
-          const im=ctx.getImageData(0,0,c.width,c.height),d=im.data,w=c.width,h=c.height;
-          const sample=[];
-          for(const [x,y] of [[0,0],[w-1,0],[0,h-1],[w-1,h-1]]){const i=(y*w+x)*4;sample.push([d[i],d[i+1],d[i+2],d[i+3]]);}
-          const dark=sample.filter(v=>v[3]>0&&v[0]<75&&v[1]<75&&v[2]<75).length;
-          const light=sample.filter(v=>v[3]>0&&v[0]>235&&v[1]>235&&v[2]>235).length;
-          const removeDark=dark>=2,removeLight=!removeDark&&light>=2;
-          if(!removeDark&&!removeLight){resolve(data);return;}
-          const isBg=(i)=>{const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];return a<20||(removeDark?r<85&&g<85&&b<85:r>230&&g>230&&b>230);};
-          const seen=new Uint8Array(w*h),stack=[];
-          for(let x=0;x<w;x++){stack.push(x,w*(h-1)+x);}
-          for(let y=0;y<h;y++){stack.push(y*w,w*(y+1)-1);}
-          while(stack.length){const pos=stack.pop();if(pos<0||pos>=w*h||seen[pos]||!isBg(pos*4))continue;seen[pos]=1;d[pos*4+3]=0;const x=pos%w,y=Math.floor(pos/w);if(x)stack.push(pos-1);if(x<w-1)stack.push(pos+1);if(y)stack.push(pos-w);if(y<h-1)stack.push(pos+w);}
-          ctx.putImageData(im,0,0);resolve(c.toDataURL('image/png'));
-        }catch(e){resolve(data);}
-      };img.onerror=()=>resolve(data);img.src=data;
-    }catch(e){resolve(data);}
-  });
-}
 function applyBrand(){
   const bn=$('#brandName');if(bn)bn.textContent=brandName();
   const at=$('#achtTitle');if(at&&$('#loginForm'))at.textContent=brandName();
@@ -2187,7 +1935,7 @@ function applyBrand(){
   if(!lg)return;
   if(BRAND.logo){
     lg.innerHTML='<img src="'+BRAND.logo+'" alt="logo" onerror="this.parentElement.innerHTML=window.logoSVG?logoSVG():\'🏢\'" style="max-height:44px;max-width:160px;height:auto;width:auto;object-fit:contain;display:block;border-radius:8px">';
-    lg.style.width='auto';lg.style.minWidth='38px';lg.style.height='44px';lg.style.background='';lg.style.borderRadius='8px';lg.style.padding='0';
+    lg.style.width='auto';lg.style.minWidth='38px';lg.style.height='44px';lg.style.background='transparent';lg.style.borderRadius='8px';lg.style.padding='0';
   }else{
     lg.innerHTML=logoSVG();
     lg.style.width='';lg.style.minWidth='';lg.style.height='';lg.style.background='';lg.style.borderRadius='';lg.style.padding='';
@@ -2198,8 +1946,7 @@ async function loadBrand(){
     if(MODE==='gh'){const r=await fetch(rawURL('data/brand.json'));if(r.ok)BRAND=Object.assign(BRAND,await r.json());}
     else{const st=store.getItem('hr_brand');if(st)BRAND=Object.assign(BRAND,JSON.parse(st));}
   }catch(e){}
-  if(BRAND.logo)BRAND.logo=await cleanLogoBackground(BRAND.logo);
-  applyBrand();refreshAuthLogo();
+  applyBrand();
 }
 function renderLogoPrev(){
   const el=$('#logoPrev');if(!el)return;
@@ -2227,10 +1974,10 @@ function download(name,content,type){
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
 }
 function exportJson(){download('hr-backup-'+todayISO()+'.json',JSON.stringify({employees:EMP},null,2),'application/json');}
-function defaultLists(){return {dept:Object.keys(DEPT_BN),sec:Object.keys(SEC_BN),loc:Object.keys(LOC_BN),desig:Object.keys(DESIG_BN),bn:{dept:Object.assign({},DEPT_BN),sec:Object.assign({},SEC_BN),loc:Object.assign({},LOC_BN),desig:Object.assign({},DESIG_BN)}};}
+function defaultLists(){return {dept:Object.keys(DEPT_BN),sec:Object.keys(SEC_BN),loc:Object.keys(LOC_BN),desig:Object.keys(DESIG_BN),bn:{dept:{},sec:{},loc:{},desig:{}}};}
 async function loadLists(){
   try{
-    const merge=o=>{const base=defaultLists();LISTS=Object.assign(base,o||{});LISTS.bn={dept:Object.assign({},base.bn.dept,(o&&o.bn&&o.bn.dept)||{}),sec:Object.assign({},base.bn.sec,(o&&o.bn&&o.bn.sec)||{}),loc:Object.assign({},base.bn.loc,(o&&o.bn&&o.bn.loc)||{}),desig:Object.assign({},base.bn.desig,(o&&o.bn&&o.bn.desig)||{})};};
+    const merge=o=>{LISTS=Object.assign(defaultLists(),o||{});LISTS.bn=Object.assign({dept:{},sec:{},loc:{},desig:{}},(o&&o.bn)||{});};
     if(MODE==='gh'&&SESSION){
       try{const j=await ghGet('data/lists.json');merge(await decPkg(SESSION.keyObj,JSON.parse(b64d(j.content))));}
       catch(e){LISTS=LISTS||defaultLists();}
@@ -2267,16 +2014,11 @@ function zipStore(files){
   chunks.concat(central,[eocd]).forEach(c=>{out.set(c,p);p+=c.length;});
   return out;
 }
-function excelColumn(index){
-  let out='';index=Number(index)+1;
-  while(index>0){const rem=(index-1)%26;out=String.fromCharCode(65+rem)+out;index=Math.floor((index-1)/26);}
-  return out;
-}
 function xlsxFromRows(rows){
   const escX=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   const strings=[];const sidx={};
   const ss=v=>{const k=String(v==null?'':v);if(!(k in sidx)){sidx[k]=strings.length;strings.push(k);}return sidx[k];};
-  const body=rows.map((r,ri)=>'<row r="'+(ri+1)+'">'+r.map((c,ci)=>'<c r="'+excelColumn(ci)+(ri+1)+'" t="s"><v>'+ss(c)+'</v></c>').join('')+'</row>').join('');
+  const body=rows.map((r,ri)=>'<row r="'+(ri+1)+'">'+r.map((c,ci)=>'<c r="'+(ci<26?String.fromCharCode(65+ci):'A'+String.fromCharCode(65+ci-26))+(ri+1)+'" t="s"><v>'+ss(c)+'</v></c>').join('')+'</row>').join('');
   const sst='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="'+strings.length+'" uniqueCount="'+strings.length+'">'+strings.map(x=>'<si><t xml:space="preserve">'+escX(x)+'</t></si>').join('')+'</sst>';
   const ncol=Math.max.apply(null,rows.map(r=>r.length));
   const cols='<cols>'+Array.from({length:ncol},(_,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="24" customWidth="1"/>').join('')+'</cols>';
@@ -2293,7 +2035,7 @@ function expCols(){return [['Emp Code','code'],['Name','nameEn'],['Name (Bangla)
     ['Department','deptEn'],['Department (Bangla)','deptBn'],['Section','secEn'],['Section (Bangla)','secBn'],['Job Location','locEn'],['Job Location (Bangla)','locBn'],
     ['Date Of Joining','join'],['Date Of Birth','dob'],['Mobile number','mobile'],['NID','nid'],['Blood Group','blood'],['Gender','gender'],
     ["Father's Name",'fatherEn'],["Father's Name (Bangla)",'fatherBn'],["Mother's Name",'motherEn'],["Mother's Name (Bangla)",'motherBn'],
-    ['Contact Number (Emergency)','contact'],['Email','email'],['Rocket Account Number','rocketAc'],
+    ['Contact Number (Emergency)','contact'],['Email','email'],['Bank Account Number','bankAc'],
     ['Recruitment Type','recType'],['Replacement For (Emp Code)','replCode'],
     ['Village / House','addrPv'],['Post Office','addrPp'],['Police Station','addrPs'],['District','addrPd'],
     ['Village / House (Bangla)','addrPvBn'],['Post Office (Bangla)','addrPpBn'],['Police Station (Bangla)','addrPsBn'],['District (Bangla)','addrPdBn'],
@@ -2305,13 +2047,11 @@ function expCols(){return [['Emp Code','code'],['Name','nameEn'],['Name (Bangla)
     ['Address','address'],['Status','status'],['Resignation Date','resignDate'],['Resignation Reason','resignReason']];}
 function exportXlsx(){
   const cols=expCols();
-  /* Backups use canonical values so they can be imported in either language. */
-  const rows=[cols.map(c=>c[0])].concat(EMP.map(e=>cols.map(c=>{
-    const key=c[1];
-    if(key==='recType')return e.recType||'';
-    if(key==='status')return e.status||'active';
-    return e[key]==null?'':String(e[key]);
-  })));
+  const rows=[cols.map(c=>c[0])].concat(EMP.map(e=>cols.map(c=>{let v=e[c[1]];
+    if(c[1]==='join'||c[1]==='dob'||c[1]==='resignDate')v=fmtDate(v);
+    else if(c[1]==='recType')v=recLabel(e);
+    else if(c[1]==='status')v=(e.status==='resigned'?t('stResigned'):t('stActive'));
+    return v==null?'':String(v);})));
   download('employees-'+todayISO()+'.xlsx',xlsxFromRows(rows),'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 }
 function exportCsv(){
@@ -2335,9 +2075,9 @@ const HDR_MAP={empcode:'code',code:'code',id:'code',name:'nameEn',nameenglish:'n
   departmentbangla:'deptBn',section:'secEn',sectionbangla:'secBn',joblocation:'locEn',location:'locEn',locationbangla:'locBn',
   dateofjoining:'join',joiningdate:'join',join:'join',doj:'join',dateofbirth:'dob',dob:'dob',birthdate:'dob',
   mobilenumber:'mobile',mobile:'mobile',phone:'mobile',contact:'mobile',nid:'nid',nidno:'nid',bloodgroup:'blood',blood:'blood',
-  email:'email',emailaddress:'email',bankaccount:'rocketAc',bankaccountnumber:'rocketAc',bankac:'rocketAc',rocketaccount:'rocketAc',rocketaccountnumber:'rocketAc',rocketac:'rocketAc',rectype:'recType',recruitmenttype:'recType',replacementcode:'replCode',replacementfor:'replCode',replacementforempcode:'replCode',
+  email:'email',emailaddress:'email',bankaccount:'bankAc',bankaccountnumber:'bankAc',bankac:'bankAc',rectype:'recType',recruitmenttype:'recType',replacementcode:'replCode',replacementfor:'replCode',replacementforempcode:'replCode',
   gender:'gender',sex:'gender',fathersname:'fatherEn',father:'fatherEn',fathersnamebangla:'fatherBn',mothersname:'motherEn',mother:'motherEn',mothersnamebangla:'motherBn',
-  address:'address',presentaddress:'address',status:'status',resignationdate:'resignDate',lastworkingdate:'resignDate',resignationreason:'resignReason',
+  address:'address',presentaddress:'address',status:'status',
   village:'addrPv',house:'addrPv',villagehouse:'addrPv',postoffice:'addrPp',policestation:'addrPs',district:'addrPd',
   permanentvillage:'addrVv',permanenthouse:'addrVv',permanentvillagehouse:'addrVv',permanentpostoffice:'addrVp',permanentpolicestation:'addrVs',permanentdistrict:'addrVd',
   nomineename:'nomName',nominee:'nomName',nomineephone:'nomPhone',nomineemobile:'nomPhone',nomineerelation:'nomRel',nomineeaddress:'nomAddr',nomineevillage:'nomAv',nomineehouse:'nomAv',nomineepostoffice:'nomAp',nomineepolicestation:'nomAs',nomineedistrict:'nomAd',
@@ -2350,7 +2090,7 @@ function parseDateAny(s){
   let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+pad(m[2])+'-'+pad(m[3]);
   if(/^\d{5}(\.\d+)?$/.test(s)){const n=parseFloat(s);
     if(n>20000&&n<80000){const d=new Date(Date.UTC(1899,11,30)+n*86400000);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());}}
-  m=s.match(/^(\d{1,2})[\s\/.\-]+([A-Za-z]{3,})[\s\/.\-]+(\d{2,4})$/);
+  m=s.match(/^(\d{1,2})[-.]([A-Za-z]{3,})[-.](\d{2,4})$/);
   if(m){const mi={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12}[m[2].slice(0,3).toLowerCase()];
     if(mi){let y=m[3];if(y.length===2)y=(+y>70?'19':'20')+y;return y+'-'+pad(mi)+'-'+pad(m[1]);}}
   m=s.match(/^(\d{1,2})[\/](\d{1,2})[\/](\d{2,4})$/);
@@ -2358,7 +2098,7 @@ function parseDateAny(s){
   return s;
 }
 async function handleImportFile(file){
-  if(!canEd()||!requireWriteAccess())return;
+  if(!canEd())return;
   try{
     let table;
     if(/\.xlsx$/i.test(file.name)){
@@ -2379,21 +2119,18 @@ function importTable(rows){
   const head=rows[0].map(normHeader);const idx={};
   head.forEach((h,i)=>{if(HDR_MAP[h]&&idx[HDR_MAP[h]]===undefined)idx[HDR_MAP[h]]=i;});
   if(idx.nameEn===undefined||idx.code===undefined){toast('Import: Name / Emp Code column not found','err');return;}
-  let added=0,updated=0,skipped=0;
+  let added=0,updated=0;
   for(let r=1;r<rows.length;r++){
     const c=rows[r];const get=k=>idx[k]!==undefined?String(c[idx[k]]==null?'':c[idx[k]]).trim():'';
     const code=get('code');if(!code&&!get('nameEn'))continue;
     const ex=code?EMP.find(e=>normCode(e.code)===normCode(code)):null;
     const rec={code:code||('AUTO-'+(EMP.length+1+r))};
-    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','rocketAc','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrPvBn','addrPpBn','addrPsBn','addrPdBn','addrVv','addrVp','addrVs','addrVd','addrVvBn','addrVpBn','addrVsBn','addrVdBn','nomName','nomPhone','nomRel','nomAddr','resignDate','resignReason','nomAv','nomAp','nomAs','nomAd','nomAvBn','nomApBn','nomAsBn','nomAdBn'].forEach(k=>{rec[k]=get(k);});
-    rec.mobile=normalizeMobile(rec.mobile);rec.rocketAc=rec.rocketAc.replace(/\D/g,'');
-    if((rec.mobile&&!/^01\d{9}$/.test(rec.mobile))||(rec.rocketAc&&!/^\d{12}$/.test(rec.rocketAc))){skipped++;continue;}
+    ['nameEn','nameBn','desigEn','desigBn','deptEn','deptBn','secEn','secBn','locEn','locBn','fatherEn','fatherBn','motherEn','motherBn','mobile','nid','blood','gender','address','contact','addrPv','addrPp','addrPs','addrPd','addrPvBn','addrPpBn','addrPsBn','addrPdBn','addrVv','addrVp','addrVs','addrVd','addrVvBn','addrVpBn','addrVsBn','addrVdBn','nomName','nomPhone','nomRel','nomAddr','nomAv','nomAp','nomAs','nomAd','nomAvBn','nomApBn','nomAsBn','nomAdBn'].forEach(k=>{rec[k]=get(k);});
     rec.join=parseDateAny(get('join'));rec.dob=parseDateAny(get('dob'));
-    rec.resignDate=parseDateAny(get('resignDate'));rec.resignReason=get('resignReason');
     const rtRaw=get('recType').toLowerCase(),rcRaw=get('replCode').trim();
-    rec.recType=/new|approve|নতুন/.test(rtRaw)?'new':(/repl|প্রতিস্থাপন/.test(rtRaw)||rcRaw?'replacement':'');
+    rec.recType=/new|approve/.test(rtRaw)?'new':(/repl/.test(rtRaw)||rcRaw?'replacement':'');
     rec.replCode=rec.recType==='replacement'?rcRaw:'';
-    const st=get('status').toLowerCase();rec.status=st==='resigned'||st==='resign'||st.includes('resign')||st.includes('left')||st.includes('ইস্তেফ')?'resigned':'active';
+    const st=get('status').toLowerCase();rec.status=st.includes('resign')||st.includes('left')?'resigned':'active';
     if(!rec.nameEn&&ex)rec.nameEn=ex.nameEn;
     if(ex){
       let ch=false;
@@ -2404,7 +2141,7 @@ function importTable(rows){
     }
   }
   (async()=>{await saveLocal();renderAll();
-    toast(t('importDone')+' '+added+' '+t('imported')+', '+updated+' '+t('updated')+(skipped?', '+skipped+' '+t('skipped'):''),'ok');
+    toast(t('importDone')+' '+added+' '+t('imported')+', '+updated+' '+t('updated'),'ok');
     if(canEditAnywhere())syncAll();})();
 }
 function codeFromFile(name){
@@ -2414,7 +2151,7 @@ function codeFromFile(name){
   return m?('C '+m[1]):null;
 }
 async function handleBulkPhotos(files){
-  if(!canEd()||!canEditAnywhere()||!files||!files.length){if(files&&files.length)requireWriteAccess();return;}
+  if(!canEd()||!files||!files.length)return;
   let ok=0;const miss=[];
   for(const f of files){
     const code=codeFromFile(f.name);
@@ -2432,7 +2169,6 @@ async function handleBulkPhotos(files){
   toast(t('bulkDone')+ok+(miss.length?t('bulkMiss')+miss.slice(0,3).join(', ')+(miss.length>3?' +'+(miss.length-3):''):''),ok?'ok':'err');
 }
 function importJsonText(text){
-  if(!canEd()||!requireWriteAccess())return;
   try{const d=JSON.parse(text);
     if(d&&Array.isArray(d.employees)){EMP=d.employees.map(fixEmp);saveLocal().then(()=>{renderAll();toast(EMP.length+' ✓','ok');if(canEditAnywhere())syncAll();});}
     else toast('Invalid backup file','err');
@@ -2462,7 +2198,7 @@ async function printProfile(code){
   sec(t('fsPersonal'))+
   gc(t('fDob'),fmtDate(e.dob),'')+gc(t('fGender'),e.gender,'')+gc(t('fBlood'),e.blood,'')+
   gc(t('fMobile'),e.mobile,'')+gc(t('fEmail'),e.email,'')+gc(t('fNid'),e.nid,'')+
-  gc(t('fBankAc'),e.rocketAc,'')+gc(t('fFatherEn'),e.fatherEn,e.fatherBn)+gc(t('fMotherEn'),e.motherEn,e.motherBn)+
+  gc(t('fBankAc'),e.bankAc,'')+gc(t('fFatherEn'),e.fatherEn,e.fatherBn)+gc(t('fMotherEn'),e.motherEn,e.motherBn)+
   sec(t('fAddrP')+' / '+t('fAddrV'))+
   '<div style="grid-column:span 2">'+gc(t('fAddrP'),addr([e.addrPv,e.addrPp,e.addrPs,e.addrPd].filter(Boolean).join(', '),[e.addrPvBn,e.addrPpBn,e.addrPsBn,e.addrPdBn].filter(Boolean).join(', ')),'')+'</div>'+
   gc(t('fAddrV'),addr([e.addrVv,e.addrVp,e.addrVs,e.addrVd].filter(Boolean).join(', '),[e.addrVvBn,e.addrVpBn,e.addrVsBn,e.addrVdBn].filter(Boolean).join(', ')),'')+
@@ -2476,11 +2212,11 @@ async function printProfile(code){
 
 /* ================= EVENTS ================= */
 document.addEventListener('click',ev=>{
-  if(ev.target.closest('input[data-select-code]')||ev.target.closest('.mselect'))return;
   const nb=ev.target.closest('[data-nav]');
   if(nb){ev.preventDefault();if(nb.dataset.nav==='form')openForm(null);else nav(nb.dataset.nav);return;}
   const ac=ev.target.closest('[data-act]');
   if(ac){
+    if(ev.target.closest('input.rowchk'))return;
     const code=ac.getAttribute('data-code'),user=ac.getAttribute('data-user');
     switch(ac.dataset.act){
       case 'profile':nav('profile');renderProfile(code);break;
@@ -2488,6 +2224,7 @@ document.addEventListener('click',ev=>{
       case 'resign':openResign(code);break;
       case 'reinstate':reinstate(code);break;
       case 'del':delEmp(code);break;
+      case 'pphoto':profPhotoTarget=code;$('#profPhotoIn').click();break;
       case 'print':printProfile(code);break;
       case 'ureset':{passTarget=user;$('#rp_who').textContent=user;$('#rp_pass').value='';$('#ovPass').classList.add('on');break;}
       case 'udel':removeUser(user);break;
@@ -2498,7 +2235,6 @@ document.addEventListener('click',ev=>{
 function applyLang(){
   $$('[data-i]').forEach(el=>{el.textContent=t(el.getAttribute('data-i'));});
   document.documentElement.lang=LANG==='bn'?'bn':'en';
-  document.body.classList.toggle('lang-en',LANG==='en');document.body.classList.toggle('lang-bn',LANG==='bn');
   $('#btnLang').textContent=LANG==='en'?'বাংলা':'English';
   applyBrand();
   $('#brandSub').textContent=LANG==='bn'?'সুরক্ষিত এইচআর ইআরপি · কর্মী রেকর্ড':'Secure HR ERP · Employee Records';
@@ -2522,25 +2258,11 @@ function bindEvents(){
   $('#fLoc').addEventListener('change',()=>{filters.loc=$('#fLoc').value;page=1;renderList();});
   $('#fStatus').addEventListener('change',()=>{filters.status=$('#fStatus').value;page=1;renderList();});
   $('#fSort').addEventListener('change',()=>{filters.sort=$('#fSort').value;renderList();});
-  $('#selectAllEmp').addEventListener('change',ev=>{
-    filtered().forEach(e=>{if(ev.target.checked)selectedCodes.add(e.code);else selectedCodes.delete(e.code);});
-    updateSelectionUI();
-  });
-  document.addEventListener('change',ev=>{
-    const cb=ev.target.closest('input[data-select-code]');if(!cb)return;
-    if(cb.checked)selectedCodes.add(cb.dataset.selectCode);else selectedCodes.delete(cb.dataset.selectCode);
-    updateSelectionUI();
-  });
-  $('#btnDeleteSelected').addEventListener('click',deleteSelectedEmployees);
-  $('#btnDeleteAll').addEventListener('click',deleteAllEmployees);
   $('#pgPrev').addEventListener('click',()=>{if(page>1){page--;renderList();}});
   $('#pgNext').addEventListener('click',()=>{page++;renderList();});
   $('#empForm').addEventListener('submit',submitForm);
   $('#btnFormCancel').addEventListener('click',()=>nav('list'));
   $('#codeAuto').addEventListener('click',()=>{$('#f_code').value=nextCode();});
-  $('#f_mobile').addEventListener('input',ev=>{ev.target.value=ev.target.value.replace(/\D/g,'').slice(0,11);});
-  $('#f_rocketAc').addEventListener('input',ev=>{ev.target.value=ev.target.value.replace(/\D/g,'').slice(0,12);});
-  ['#f_nameBn','#f_desigBn','#f_deptBn','#f_secBn','#f_locBn','#f_fatherBn','#f_motherBn'].forEach(id=>$(id).addEventListener('input',()=>$(id).dataset.auto=''));
   $('#btnPhotoPick').addEventListener('click',()=>$('#photoIn').click());
   $('#photoPrev').addEventListener('click',()=>$('#photoIn').click());
   $('#photoIn').addEventListener('change',async ev=>{
@@ -2548,7 +2270,7 @@ function bindEvents(){
     try{formPhoto=await compressImage(f);renderPhotoPrev();}catch(e){toast(e&&e.message&&e.message.indexOf('6 MB')>-1?e.message:'Photo error: unsupported file','err');}
     ev.target.value='';
   });
-  $('#btnPhotoRemove').addEventListener('click',()=>{formPhoto='';renderPhotoPrev();});
+  $('#btnPhotoRemove').addEventListener('click',()=>{formPhoto='';formPhotoRemoved=true;renderPhotoPrev();});
   $('#btnResignCancel').addEventListener('click',()=>{$('#ovResign').classList.remove('on');});
   $('#btnResignOk').addEventListener('click',doResign);
   $('#btnRepJoin').addEventListener('click',()=>genReport('join'));
@@ -2566,36 +2288,51 @@ function bindEvents(){
     sel.addEventListener('change',()=>{
       if(sel.value==='__add__'){
         const prev=sel.dataset.prev||'';
-        promptAdd(k,v=>{fillDatalists();sel.value=v;sel.dataset.prev=v;autoFillBn(true);},()=>{sel.value=prev;});
-      }else{sel.dataset.prev=sel.value;autoFillBn(true);}
+        promptAdd(k,v=>{fillDatalists();sel.value=v;sel.dataset.prev=v;},()=>{sel.value=prev;});
+      }else sel.dataset.prev=sel.value;
     });
   });
   $('#prOk').addEventListener('click',async()=>{
-    const k=window.__prk||'dept',mode=window.__prmode||'add',index=Number(window.__pri);const en=$('#pr_en').value.trim(),bn=$('#pr_bn').value.trim();
+    const k=window.__prk||'dept';const en=$('#pr_en').value.trim(),bn=$('#pr_bn').value.trim();
     if(!en){$('#pr_en').focus();return;}
-    const duplicate=(LISTS[k]||[]).some((x,i)=>x.toLowerCase()===en.toLowerCase()&&(mode!=='edit'||i!==index));
-    if(duplicate){$('#pr_en').focus();return;}
-    if(mode==='edit'&&index>=0&&index<(LISTS[k]||[]).length){
-      const old=(LISTS[k]||[])[index];LISTS[k][index]=en;
-      if(old!==en)delete LISTS.bn[k][old];
-      if(bn)LISTS.bn[k][en]=bn;else delete LISTS.bn[k][en];
-    }else{
-      (LISTS[k]=LISTS[k]||[]).push(en);if(bn)LISTS.bn[k][en]=bn;
-    }
+    if((LISTS[k]||[]).some(x=>x.toLowerCase()===en.toLowerCase())){$('#pr_en').focus();return;}
+    (LISTS[k]=LISTS[k]||[]).push(en);if(bn)LISTS.bn[k][en]=bn;
     $('#ovPrompt').classList.remove('on');$('#pr_en').value='';$('#pr_bn').value='';
-    const done=window.__pron;window.__pron=null;window.__prc=null;window.__prk=null;window.__prmode=null;window.__pri=-1;
+    const done=window.__pron;window.__pron=null;window.__prk=null;
     if(done)done(en);
     await saveLists();fillDatalists();if(VIEW==='settings')renderManageLists();
     toast(t('savedGH'),'ok');
   });
   $('#prCancel').addEventListener('click',()=>{
     $('#ovPrompt').classList.remove('on');$('#pr_en').value='';$('#pr_bn').value='';
-    const cancel=window.__prc;window.__prc=null;window.__prk=null;window.__pron=null;window.__prmode=null;window.__pri=-1;
+    const cancel=window.__prc;window.__prc=null;window.__prk=null;window.__pron=null;
     if(cancel)cancel();
   });
   document.addEventListener('click',ev=>{
-    const edit=ev.target.closest('[data-mledit]');
-    if(edit){promptEdit(edit.dataset.mledit,+edit.dataset.mli);return;}
+    const ey=ev.target.closest('.pweye');if(!ey)return;
+    const inp=document.getElementById(ey.dataset.eye);if(!inp)return;
+    inp.type=inp.type==='password'?'text':'password';
+    ey.textContent=inp.type==='password'?'👁':'🙈';
+  });
+  document.addEventListener('change',ev=>{
+    if(ev.target.classList&&ev.target.classList.contains('rowchk'))updateSelCount();
+    if(ev.target.id==='chkAll'){$$('.rowchk').forEach(c=>c.checked=ev.target.checked);updateSelCount();}
+  });
+  $('#btnDelSel').addEventListener('click',()=>bulkDelete($$('.rowchk:checked').map(c=>c.getAttribute('data-chk'))));
+  $('#btnDelAll').addEventListener('click',()=>bulkDelete(EMP.map(e=>e.code)));
+  $('#profPhotoIn').addEventListener('change',async ev=>{
+    const f=ev.target.files&&ev.target.files[0];ev.target.value='';
+    if(!f||!profPhotoTarget)return;
+    const e=EMP.find(x=>x.code===profPhotoTarget);if(!e)return;
+    try{
+      e.photoData=await compressImage(f);e.photoDirty=true;
+      if(!e.photo)e.photo=(CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc';
+      e.updated=new Date().toISOString();
+      await saveLocal();renderProfile(profPhotoTarget);toast(t('savedGH'),'ok');
+      if(canEditAnywhere())syncAll();
+    }catch(err){toast('Photo error','err');}
+  });
+  document.addEventListener('click',ev=>{
     const mb=ev.target.closest('[data-mlk]');if(!mb)return;
     const k=mb.dataset.mlk,i=+mb.dataset.mli,v=(LISTS[k]||[])[i];
     if(v===undefined)return;
@@ -2626,7 +2363,7 @@ function bindEvents(){
   $('#impFile').addEventListener('change',ev=>{const f=ev.target.files[0];if(f)handleImportFile(f);ev.target.value='';});
   $('#btnLogoPick').addEventListener('click',()=>$('#logoIn').click());
   $('#logoIn').addEventListener('change',async ev=>{const f=ev.target.files[0];if(!f)return;
-    try{pendingLogo=await cleanLogoBackground(await compressImage(f,170));renderLogoPrev();}catch(e){}
+    try{pendingLogo=await compressImage(f,170);renderLogoPrev();}catch(e){}
     ev.target.value='';});
   $('#btnLogoRemove').addEventListener('click',()=>{pendingLogo='';renderLogoPrev();});
   $('#btnBrandSave').addEventListener('click',saveBrand);
@@ -2658,13 +2395,8 @@ async function boot(){
       const s=JSON.parse(sess);
       MODE=s.mode||'local';
       const keyObj=await impBits(u8FromB64(s.key));
-      SESSION={user:s.u,role:s.role,keyObj:keyObj,tok:s.role!=='viewer'?(s.tok||''):'',mode:MODE};
-      if(MODE==='gh'){
-        try{
-          const j=await ghGet(CFG.secPath);GHSEC=JSON.parse(b64d(j.content));
-          if(!SESSION.tok&&s.role!=='viewer'&&GHSEC.token){try{const tp=await decPkg(keyObj,GHSEC.token);SESSION.tok=tp.t||'';saveSess();}catch(e){}}
-        }catch(e){}
-      }
+      SESSION={user:s.u,role:s.role,keyObj:keyObj,tok:s.tok||''};
+      if(MODE==='gh'){try{const j=await ghGet(CFG.secPath);GHSEC=JSON.parse(b64d(j.content));}catch(e){}}
       await enterApp();return;
     }catch(e){clearSess();}
   }
@@ -2690,7 +2422,7 @@ function fillDatalists(){
     if(sel&&sel.tagName==='SELECT'){
       const cur=sel.value;
       const vals=Array.from(new Set((LISTS[k]||[]).concat(uniq(a[2])))).sort((x,y)=>x.localeCompare(y));
-      sel.innerHTML='<option value="">—</option>'+vals.map(v=>{const b=(LISTS.bn[k]&&LISTS.bn[k][v])||'';const label=LANG==='bn'&&b?b+' / '+v:(b?v+' / '+b:v);return '<option value="'+esc(v)+'">'+esc(label)+'</option>';}).join('')+(isAdmin()?'<option value="__add__">➕ '+(LANG==='bn'?'নতুন যোগ করুন…':'Add new…')+'</option>':'');
+      sel.innerHTML='<option value="">—</option>'+vals.map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('')+(isAdmin()?'<option value="__add__">➕ '+(LANG==='bn'?'নতুন যোগ করুন…':'Add new…')+'</option>':'');
       if(cur)sel.value=cur;
     }
   });
@@ -2698,5 +2430,5 @@ function fillDatalists(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39f6b589ec35d31',t:'MTc4OTIyMTQyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a0d6399ea5812c',t:'MTc4OTIzNjI4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a46d8b48288d38',t:'MTc4OTI3Mzk0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
