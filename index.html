@@ -964,7 +964,7 @@ let CFG=Object.assign({owner:'abidenterprise',repo:'abidenterprise.github.io',br
 let VIEW='dash',editingCode=null,page=1;const PAGE_SIZE=10;
 let filters={q:'',dept:'',loc:'',status:'',sort:'code'};
 let syncing=false,syncAgain=false,cfCallback=null,resignTarget=null,passTarget=null,secSha=null,LAST_SYNC=null;
-let formPhoto='',formHadPhoto=false,formPhotoRemoved=false;let profileCode=null;let distKey='deptEn';let LISTS=null;let profPhotoTarget=null;
+let formPhoto='',formHadPhoto=false,formPhotoRemoved=false;let profileCode=null;let distKey='deptEn';let LISTS=null;let profPhotoTarget=null;let DEL_LOG=[];
 const photoCache={};
 function saveCfg(){store.setItem('hr_cfg',JSON.stringify(CFG));}
 const sstore=(()=>{try{sessionStorage.setItem('__t','1');sessionStorage.removeItem('__t');return sessionStorage;}catch(e){return store;}})();
@@ -1231,6 +1231,8 @@ async function enterApp(){
   $('#ucName').textContent=SESSION.user;
   $('#ucRole').textContent=t('role'+SESSION.role.charAt(0).toUpperCase()+SESSION.role.slice(1))||SESSION.role;
   applyLang();
+  try{DEL_LOG=JSON.parse(store.getItem('hr_dellog')||'[]');}catch(e){DEL_LOG=[];}
+  if(!Array.isArray(DEL_LOG))DEL_LOG=[];
   if(MODE==='gh'){await loadLocalCache();await pullData(true);}
   else{const raw=store.getItem('hr_emp');EMP=raw?JSON.parse(raw).map(fixEmp):[];if(!EMP.length){EMP=SEED.map(x=>Object.assign({},x));saveLocal();}}
   await loadLists();fillDatalists();nav('dash');badgeState();
@@ -1246,16 +1248,50 @@ async function saveLocal(){
 }
 
 /* ================= DATA SYNC ================= */
+function saveDelLogLocal(){try{store.setItem('hr_dellog',JSON.stringify(DEL_LOG));}catch(e){}}
+function tombstones(){const m=new Map();DEL_LOG.forEach(d=>{if(d&&d.code)m.set(normCode(d.code),d.ts||0);});return m;}
+function purgeTombstone(code){const n=normCode(code);const before=DEL_LOG.length;DEL_LOG=DEL_LOG.filter(d=>normCode(d.code)!==n);if(DEL_LOG.length!==before)saveDelLogLocal();}
+async function fetchDelLog(){
+  let list=[];
+  if(MODE==='gh'&&SESSION&&SESSION.keyObj){
+    try{const j=await ghGet('data/dellog.json');
+      const o=await decPkg(SESSION.keyObj,JSON.parse(b64d(j.content)));
+      if(Array.isArray(o.deleted))list=o.deleted;}
+    catch(e){}
+  }
+  const m=new Map();
+  DEL_LOG.forEach(d=>{if(d&&d.code)m.set(normCode(d.code),d.ts||0);});
+  list.forEach(d=>{if(d&&d.code){const k=normCode(d.code);const ts=d.ts||0;if(!m.has(k)||m.get(k)<ts)m.set(k,ts);}});
+  DEL_LOG=Array.from(m.entries()).map(([k,ts])=>({code:k,ts:ts}));
+  saveDelLogLocal();
+  return m;
+}
+async function pushDelLog(){
+  if(MODE!=='gh'||!SESSION||!SESSION.tok)return;
+  try{
+    let sha=null;try{const j=await ghGet('data/dellog.json');sha=j.sha;}catch(e){}
+    const pkg=await encPkg(SESSION.keyObj,{deleted:DEL_LOG});
+    await ghPut('data/dellog.json',b64e(JSON.stringify(pkg)),sha,'Deletion log update');
+  }catch(e){console.warn('Deletion log sync skipped',e);}
+}
+function applyTombstones(dmap){
+  const before=EMP.length;
+  EMP=EMP.filter(e=>{const ts=dmap.get(normCode(e.code));if(ts===undefined)return true;
+    const created=Date.parse(e.created||'')||0;return created>ts;});
+  return EMP.length!==before;
+}
 async function pullData(silent){
   if(MODE!=='gh')return;
   if(!hasRepoCfg())return;
   setBadge('syncing',t('syncing'));
   try{
+    const dmap=await fetchDelLog();
     const j=await ghGet(CFG.dataPath);
     const obj=JSON.parse(b64d(j.content));
     if(obj&&obj.enc&&obj.iv){const o=await decPkg(SESSION.keyObj,obj);EMP=(o.employees||[]).map(fixEmp);}
-    else if(obj&&Array.isArray(obj.employees)){EMP=obj.employees.map(fixEmp);syncAll(true);}
+    else if(obj&&Array.isArray(obj.employees)){EMP=obj.employees.map(fixEmp);}
     else EMP=[];
+    if(applyTombstones(dmap))await pushEmployees('Server cleanup — apply deletions');
     await saveLocal();renderAll();
     LAST_SYNC=new Date();badgeState();
   }catch(e){
@@ -1728,11 +1764,11 @@ async function submitForm(ev){
     e.photoData='';e.photoDirty=false;e.photo='';
   }
   e.updated=new Date().toISOString();if(!e.created)e.created=e.updated;
-  if(!old)EMP.push(e);
+  if(!old){EMP.push(e);purgeTombstone(e.code);}
   await saveLocal();
   toast(canEditAnywhere()?t('syncing'):t('savedLocal'));
   nav('list');
-  if(canEditAnywhere())syncAll();
+  if(canEditAnywhere()){pushDelLog();syncAll();}
 }
 
 /* ================= RESIGN / DELETE / REINSTATE ================= */
@@ -1775,13 +1811,18 @@ function bulkDelete(codes){
     try{
       const targets=codes.map(c=>EMP.find(x=>x.code===c)).filter(Boolean);
       EMP=EMP.filter(x=>codes.indexOf(x.code)<0);
-      targets.forEach(e=>delete photoCache[e.code]);
+      const ts=Date.now();
+      targets.forEach(e=>{DEL_LOG.push({code:e.code,ts:ts});delete photoCache[e.code];});
+      saveDelLogLocal();
       await saveLocal();toast(codes.length+' '+t('empDeleted'));nav('list');
       if(MODE==='gh'&&SESSION&&SESSION.tok){
+        let ok=await syncAll(true);
+        if(!ok)ok=await syncAll(true);
+        if(!ok)toast(t('syncFail')+' — delete will retry on next sync','err');
+        pushDelLog();
         for(const e of targets){const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
           try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){console.warn('Photo cleanup skipped ('+e.code+')',err);}}
-        const ok=await syncAll(true);if(!ok)toast(t('syncFail')+' — delete will retry on next sync','err');
-      }
+      }else pushDelLog();
     }catch(err){console.warn(err);toast(t('syncFail')+' — delete will retry on next sync','err');}
   });
 }
@@ -1791,16 +1832,19 @@ function delEmp(code){
   confirmDlg(t('cfDelTitle'),t('cfDelMsg')+' — '+displayName(e)+'?',async()=>{
     const pPath=e.photo?e.photo:((CFG.photosDir||'photos')+'/'+slug(e.code)+'.enc');
     EMP=EMP.filter(x=>x.code!==code);
+    DEL_LOG.push({code:e.code,ts:Date.now()});saveDelLogLocal();
     delete photoCache[code];
     try{
       await saveLocal();
       toast(displayName(e)+' '+t('empDeleted'));
       nav('list');
       if(MODE==='gh'&&SESSION&&SESSION.tok){
-        try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){console.warn('Photo cleanup skipped ('+e.code+')',err);}
-        const ok=await syncAll(true);
+        let ok=await syncAll(true);
+        if(!ok)ok=await syncAll(true);
         if(!ok)toast(t('syncFail')+' — delete will retry on next sync','err');
-      }
+        pushDelLog();
+        try{const pj=await ghGet(pPath);await ghDel(pPath,pj.sha,'Delete photo '+e.code);}catch(err){console.warn('Photo cleanup skipped ('+e.code+')',err);}
+      }else pushDelLog();
     }catch(err){console.warn(err);toast(t('syncFail')+' — delete will retry on next sync','err');}
   });
 }
@@ -2137,12 +2181,12 @@ function importTable(rows){
       Object.keys(rec).forEach(k=>{if(rec[k]!==''&&rec[k]!==undefined&&String(ex[k]||'')!==String(rec[k])){ex[k]=rec[k];ch=true;}});
       if(ch){ex.updated=new Date().toISOString();updated++;}
     }else{
-      const ne=fixEmp(rec);ne.created=ne.updated=new Date().toISOString();EMP.push(ne);added++;
+      const ne=fixEmp(rec);ne.created=ne.updated=new Date().toISOString();EMP.push(ne);purgeTombstone(ne.code);added++;
     }
   }
   (async()=>{await saveLocal();renderAll();
     toast(t('importDone')+' '+added+' '+t('imported')+', '+updated+' '+t('updated'),'ok');
-    if(canEditAnywhere())syncAll();})();
+    if(canEditAnywhere()){pushDelLog();syncAll();}})();
 }
 function codeFromFile(name){
   let base=String(name).replace(/\.[^.]+$/,'');
@@ -2430,5 +2474,5 @@ function fillDatalists(){
 }
 boot();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a46d8b48288d38',t:'MTc4OTI3Mzk0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3a4983bac97763e',t:'MTc4OTI3NTY5Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
